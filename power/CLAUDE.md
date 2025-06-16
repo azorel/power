@@ -215,9 +215,9 @@ Development Agent → Integration Worker → GitHub Automation
 ## DETAILED DOCUMENTATION
 
 For comprehensive implementation details, see:
-- **[AGENT_ARCHITECTURE.md](AGENT_ARCHITECTURE.md)**: Workspace management and agent lifecycle
-- **[TESTING_PROTOCOLS.md](TESTING_PROTOCOLS.md)**: 7-test cycle and validation procedures
-- **[INFINITE_LOOPS.md](INFINITE_LOOPS.md)**: Agentic loop capabilities and implementation
-- **[INTEGRATION_FLOW.md](INTEGRATION_FLOW.md)**: Worker submission and GitHub automation
+- **[AGENT_ARCHITECTURE.md](ai_docs/AGENT_ARCHITECTURE.md)**: Workspace management and agent lifecycle
+- **[TESTING_PROTOCOLS.md](ai_docs/TESTING_PROTOCOLS.md)**: 7-test cycle and validation procedures
+- **[INFINITE_LOOPS.md](ai_docs/INFINITE_LOOPS.md)**: Agentic loop capabilities and implementation
+- **[INTEGRATION_FLOW.md](ai_docs/INTEGRATION_FLOW.md)**: Worker submission and GitHub automation
 
 Each agent must follow all protocols while operating in isolated workspaces with infinite agentic loop capabilities for maximum problem-solving effectiveness.
