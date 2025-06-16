@@ -75,6 +75,12 @@ EOF
 - ❌ Direct force push to main → ✅ Use `git push --force-with-lease` on features only
 - ❌ Manual merge conflict resolution → ✅ Use PR-based conflict resolution
 
+#### Tool Availability Errors
+- ❌ `gh pr create` without verification → ✅ Check `which gh` first, use manual workflow fallback
+- ❌ `./gh_2.74.1_linux_amd64/bin/gh` (path doesn't exist) → ✅ Verify path before using
+- ❌ Assuming documented tools exist → ✅ Always verify tool availability before execution
+- ❌ No fallback for missing tools → ✅ Always have manual alternative workflow
+
 #### Environment Setup Errors
 - ❌ `pip install package` → ✅ Ensure virtual environment activated first
 - ❌ `python script.py` without venv → ✅ Activate venv, then run
@@ -111,14 +117,160 @@ The system automatically detects these error patterns from agent logs:
 4. **Database Update**: Add new pattern to this document
 5. **Validation**: Test pattern with similar scenarios
 
+## PRE-FLIGHT VALIDATION SYSTEM
+
+### Tool Availability Validation
+```bash
+# ✅ Always verify tools before using
+validate_tool() {
+    if command -v "$1" &> /dev/null; then
+        echo "✅ $1 available"
+        return 0
+    else
+        echo "❌ $1 not found, using fallback"
+        return 1
+    fi
+}
+
+# Example usage:
+if validate_tool "gh"; then
+    gh pr create --title "..." --body "..."
+else
+    # Manual workflow fallback
+    git checkout master && git merge feature/branch-name
+fi
+```
+
+### Path Validation Patterns
+```bash
+# ✅ Verify paths exist before operations
+validate_path() {
+    if [[ -e "$1" ]]; then
+        echo "✅ Path exists: $1"
+        return 0
+    else
+        echo "❌ Path not found: $1"
+        return 1
+    fi
+}
+
+# ✅ Auto-quote paths with spaces
+safe_path() {
+    if [[ "$1" =~ [[:space:]] ]]; then
+        echo "\"$1\""
+    else
+        echo "$1"
+    fi
+}
+```
+
+### Environment Validation
+```bash
+# ✅ Check virtual environment status
+check_venv() {
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        echo "✅ Virtual environment active: $VIRTUAL_ENV"
+        return 0
+    else
+        echo "❌ No virtual environment active"
+        return 1
+    fi
+}
+
+# ✅ Verify correct directory
+check_directory() {
+    if [[ -f "CLAUDE.md" ]]; then
+        echo "✅ In correct project directory"
+        return 0
+    else
+        echo "❌ Not in project root directory"
+        return 1
+    fi
+}
+```
+
+## AUTONOMOUS ERROR RESOLUTION SYSTEM
+
+### Perplexity Research Integration
+When tool calls fail and no pattern exists:
+
+#### Research Trigger Protocol
+```python
+def handle_tool_error(tool_name, command, error_message):
+    """Handle tool call errors with autonomous research."""
+    
+    # 1. Check existing patterns first
+    if pattern_exists(tool_name, error_message):
+        return apply_known_pattern(tool_name, error_message)
+    
+    # 2. Trigger Perplexity research automatically
+    research_query = f"""
+    TOOL CALL ERROR RESOLUTION REQUEST
+    
+    Error Context:
+    - Tool: {tool_name}
+    - Command: {command}
+    - Error: {error_message}
+    - Environment: {get_environment_info()}
+    - Working Directory: {os.getcwd()}
+    
+    Previous Attempts:
+    - Checked TOOL_PATTERNS.md: No matching pattern found
+    
+    Required: Provide specific command fix or alternative approach.
+    Include verification steps and fallback options.
+    """
+    
+    # 3. Apply research solution
+    solution = perplexity_research(research_query)
+    
+    # 4. Test and validate solution
+    if test_solution(solution):
+        # 5. Update patterns with successful solution
+        update_tool_patterns(tool_name, error_message, solution)
+        return solution
+    else:
+        # 6. Escalate to user only if research fails
+        return escalate_to_user(tool_name, error_message, solution)
+```
+
+#### Auto-Learning Protocol
+```python
+def update_tool_patterns(tool_name, error_signature, solution):
+    """Automatically update TOOL_PATTERNS.md with successful solutions."""
+    
+    new_pattern = {
+        'error': error_signature,
+        'solution': solution,
+        'source': 'perplexity_research',
+        'success_rate': 1.0,
+        'timestamp': datetime.now().isoformat()
+    }
+    
+    # Add to appropriate error category
+    add_pattern_to_category(tool_name, new_pattern)
+    
+    # Commit pattern update
+    commit_pattern_update(f"Add {tool_name} error pattern from research")
+```
+
+### Error Resolution Hierarchy
+1. **Pattern Match**: Check TOOL_PATTERNS.md for known solutions
+2. **Auto-Research**: Trigger Perplexity research for novel errors
+3. **Solution Testing**: Validate research suggestions automatically
+4. **Pattern Learning**: Update database with successful solutions
+5. **User Escalation**: Only when all automation fails
+
 ## INTEGRATION WITH AGENT WORKFLOW
 
-### Pre-Tool-Call Checklist
+### Enhanced Pre-Tool-Call Checklist
 Before executing any tool call, agents should:
 1. **Reference Patterns**: Check this document for similar operations
-2. **Apply Best Practices**: Use proven successful patterns
-3. **Avoid Known Failures**: Check failed patterns section
-4. **Plan Error Recovery**: Identify likely correction steps
+2. **Run Validation**: Execute pre-flight checks for tool/path/environment
+3. **Apply Best Practices**: Use proven successful patterns
+4. **Avoid Known Failures**: Check failed patterns section
+5. **Enable Auto-Research**: Allow Perplexity research for novel errors
+6. **Plan Error Recovery**: Identify likely correction steps
 
 ### Pattern Application Flow
 ```bash

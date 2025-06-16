@@ -323,6 +323,49 @@ git checkout main
 - **Usage**: When switching between unrelated tasks or after completion
 - **Effect**: Resets orchestrator state for clean task assignment
 
+## ORCHESTRATOR SELF-VALIDATION STANDARDS
+
+### Quality Requirements (Same as Agent Standards):
+- **Perfect 10/10 pylint score**: All Python code must achieve flawless quality
+- **100% test success rate**: All validation tests must pass
+- **Complete documentation**: All changes must be thoroughly documented
+- **Syntax validation**: All code examples must be syntactically correct
+
+### Pre-Commit Validation Protocol:
+```bash
+# Orchestrator must run before any commit:
+# 1. Python code validation
+if [[ -f *.py ]]; then
+    pylint --score=y *.py  # Must achieve 10/10
+    pytest -v             # Must pass 100%
+fi
+
+# 2. Documentation validation
+markdownlint *.md         # Documentation quality
+jsonlint *.json          # JSON format validation
+
+# 3. Code example testing
+shellcheck examples/*.sh  # Bash syntax validation
+
+# 4. Manual verification
+# - All examples work as documented
+# - All links and references are valid
+# - All workflows tested end-to-end
+```
+
+### Lead by Example Philosophy:
+- **Practice What We Preach**: Apply same standards to orchestrator work
+- **Quality Documentation**: All documentation meets professional standards
+- **Tested Workflows**: Every process defined must be validated
+- **Error-Free Examples**: All code snippets must execute correctly
+- **Continuous Improvement**: Learn from our own mistakes like agents do
+
+### Self-Validation Integration:
+- **Tool Pattern Learning**: Include our own validation commands in patterns
+- **Research Integration**: Use Perplexity for complex quality issues
+- **Auto-Correction**: Apply same error resolution we expect from agents
+- **Quality Metrics**: Track our own error rates and improvement
+
 ## DETAILED DOCUMENTATION
 
 For comprehensive implementation details, see:
