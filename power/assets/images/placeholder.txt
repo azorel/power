@@ -1,0 +1,14 @@
+This is a placeholder for your background image.
+
+To use your actual image:
+1. Save your image file as 'background.png' in this directory (/home/ikino/dev/power/assets/images/)
+2. The CSS is already configured to use it
+3. Supported formats: PNG, JPG, JPEG, WebP
+
+Your image path: C:\Users\midni\Downloads\ChatGPT Image Jun 16, 2025, 01_05_34 AM.png
+
+Instructions:
+- Upload your image via Claude Code interface (drag & drop)
+- Or ask me to help you with the upload process
+- The image will automatically scale to fit all screen sizes
+- Glassmorphism effects will work beautifully over your image
