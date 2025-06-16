@@ -58,7 +58,13 @@ agents/
 6. **Quality Validation**: Execute optimized 7-test protocol
 7. **Work Submission**: Submit completed package to orchestrator
 8. **Integration Flow**: Route to integration worker for validation
-9. **Cleanup**: Remove workspace after successful integration
+9. **Cleanup**: **MANDATORY** - Remove workspace after successful integration
+
+### Workspace Cleanup Protocol:
+- **Post-Integration**: Integration worker MUST remove agents/{agent-id}/ folder
+- **Fresh Environment**: Every new task gets completely clean workspace
+- **No Reuse**: Never reuse existing agent workspaces - always fresh clone
+- **Verification**: Ensure agents/ directory is clean before new assignments
 
 ### Agent Command Structure:
 Agents work in isolated environments with fresh GitHub code:
@@ -212,6 +218,27 @@ Development Agent → Integration Worker → GitHub Automation
 
 ---
 
+## TOOL PATTERN LEARNING SYSTEM
+
+### Pattern Consultation Protocol:
+- **Pre-Tool-Call**: All agents MUST reference [TOOL_PATTERNS.md](ai_docs/TOOL_PATTERNS.md) before tool execution
+- **Error Prevention**: Use proven successful patterns to avoid common mistakes
+- **Auto-Learning**: System automatically captures error/correction patterns from logs
+- **Continuous Improvement**: Pattern database evolves through real agent experience
+
+### Integration with Agent Workflow:
+1. **Before Tool Calls**: Check TOOL_PATTERNS.md for similar operations
+2. **Apply Best Practices**: Use documented successful patterns
+3. **Error Recovery**: Reference failed patterns → corrections database
+4. **Pattern Updates**: Contribute new patterns when novel solutions discovered
+
+## CONTEXT MANAGEMENT
+
+### Slash Commands:
+- **`/clear`**: Clear context window and start fresh for new tasks
+- **Usage**: When switching between unrelated tasks or after completion
+- **Effect**: Resets orchestrator state for clean task assignment
+
 ## DETAILED DOCUMENTATION
 
 For comprehensive implementation details, see:
@@ -219,5 +246,6 @@ For comprehensive implementation details, see:
 - **[TESTING_PROTOCOLS.md](ai_docs/TESTING_PROTOCOLS.md)**: 7-test cycle and validation procedures
 - **[INFINITE_LOOPS.md](ai_docs/INFINITE_LOOPS.md)**: Agentic loop capabilities and implementation
 - **[INTEGRATION_FLOW.md](ai_docs/INTEGRATION_FLOW.md)**: Worker submission and GitHub automation
+- **[TOOL_PATTERNS.md](ai_docs/TOOL_PATTERNS.md)**: Intelligent pattern learning and error prevention
 
 Each agent must follow all protocols while operating in isolated workspaces with infinite agentic loop capabilities for maximum problem-solving effectiveness.
