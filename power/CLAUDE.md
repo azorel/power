@@ -4,1414 +4,220 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## ORCHESTRATOR ROLE DEFINITION
 
-**CRITICAL: The primary Claude Code instance in this repository operates as the ORCHESTRATOR, not a worker.**
+**CRITICAL: The primary Claude Code instance operates as the ORCHESTRATOR, not a worker.**
 
 ### Orchestrator Responsibilities:
-- **Task Management**: Receive user requests and break them down into structured tasks
-- **Worker Delegation**: Assign tasks to fresh Claude Code worker instances via the Task tool
-- **Progress Monitoring**: Track worker progress and handle failure escalation
-- **Quality Assurance**: Ensure all work meets standards before reporting back to user
+- **Task Planning**: Create plan.md files for each worker task
+- **Worker Delegation**: Assign tasks to fresh Claude Code worker instances via Task tool
+- **Non-Blocking Operation**: IMMEDIATELY return control to user after delegation
+- **Progress Monitoring**: Track worker progress asynchronously
+- **Integration Management**: Coordinate worker submission → integration validation → GitHub
+- **Quality Assurance**: Ensure all work meets standards through integration workers
 - **LLM Fallback Coordination**: Manage alternative LLM integration when workers fail
-- **Cross-Validation**: Coordinate validation of non-Claude solutions
-- **Resource Management**: Oversee cleanup of worker environments and branches
 
-### Orchestrator Workflow:
-1. **Receive User Request**: Analyze and understand the full scope of work
-2. **Task Planning**: Break complex requests into manageable, structured tasks
-3. **Worker Assignment**: Use Task tool to delegate work to fresh Claude Code instances
-4. **Immediate Return**: Return control to user immediately after delegation (concurrent operation)
-5. **Background Monitoring**: Monitor worker progress asynchronously while remaining available for new tasks
-6. **Process Worker Reports**: Receive and validate completion signals from workers as they finish
-7. **User Notification**: Immediately notify user when workers complete tasks
-8. **Quality Validation**: Ensure all deliverables meet mandatory standards as workers complete
-9. **Failure Handling**: Escalate failed tasks to alternative LLMs when needed
-10. **Continuous Availability**: Always ready to accept new tasks while others execute in parallel
+### Enhanced Non-Blocking Workflow:
+1. **Receive User Request**: Analyze scope and break into tasks
+2. **Create plan.md**: Generate detailed execution plan for each worker
+3. **Agent Workspace Setup**: Prepare agents/{agent-id}/ directories
+4. **Worker Delegation**: Use Task tool to assign work with plan.md
+5. **IMMEDIATE RETURN**: Return control to user instantly - never wait
+6. **Background Monitoring**: Monitor completion signals asynchronously
+7. **Integration Coordination**: Route completed work to integration workers
+8. **User Notification**: Relay completion notifications immediately
 
 ### Critical Rules for Orchestrator:
 - **NEVER perform development work directly** - always delegate to workers
-- **ALWAYS use the Task tool** to assign work to isolated worker instances
+- **ALWAYS create plan.md** before delegating tasks
 - **NEVER edit code files directly** - workers handle all file operations
-- **ALWAYS maintain oversight** of worker progress and quality
-- **NEVER bypass the multi-agent workflow** - all work goes through workers
-- **IMMEDIATELY return to user** after delegating tasks - never block waiting for completion
-- **MONITOR for completion notifications** from workers asynchronously
-- **RELAY completion messages** to user as they arrive from workers
-- **NEVER block user** from assigning additional tasks while others are in progress
-- **MANAGE multiple concurrent workers** simultaneously with independent task tracking
+- **IMMEDIATELY return to user** after delegating - never block
+- **NEVER bypass multi-agent workflow** - all work goes through workers
+- **MANAGE multiple concurrent workers** with independent tracking
 
-### Concurrent Worker Completion Protocol:
+### Completion Signal Protocol:
+All workers must end reports with: **"Task complete and ready for next step"**
 
-**MANDATORY COMPLETION SIGNAL**: All workers must end their task reports with the exact phrase:
-**"Task complete and ready for next step"**
+## AGENT WORKSPACE ARCHITECTURE
 
-This protocol ensures concurrent operation:
-- **Clear Handoff**: Unambiguous signal that work is finished
-- **Asynchronous Notification**: Triggers orchestrator to immediately notify user of completion
-- **Non-Blocking Operation**: Other workers continue executing while completion is processed
-- **Concurrent Workflow**: Enables multiple tasks to complete independently
-- **Process Consistency**: Standardizes completion reporting across all concurrent workers
-
-#### Concurrent Worker Completion Requirements:
-1. **Complete ALL assigned requirements** before signaling completion
-2. **Pass ALL quality gates** (tests, linting, validation)
-3. **Provide comprehensive summary** of work completed
-4. **End with completion signal**: "Task complete and ready for next step"
-5. **Report completion independently** without waiting for other workers
-6. **Proceed with cleanup** after orchestrator acknowledgment
-
-#### Concurrent Completion Handling:
-- **Independent Reporting**: Each worker reports completion when finished, regardless of other workers' status
-- **Immediate User Notification**: Orchestrator relays completion to user as soon as any worker finishes
-- **Parallel Processing**: Other workers continue execution uninterrupted by individual completions
-- **Dynamic Task Management**: New tasks can be assigned while existing workers are still completing
-
-#### Orchestrator Response Protocol:
-1. **Receive completion signal** from worker asynchronously
-2. **Validate work completion** against original requirements
-3. **Acknowledge worker completion** and approve cleanup
-4. **Immediately notify user** of task completion while remaining available for new assignments
-5. **Continue monitoring** other active workers concurrently
-
-## CONCURRENT TASK MANAGEMENT
-
-### Parallel Task Execution Architecture
-The orchestrator operates as a true concurrent task manager, enabling multiple workers to execute tasks simultaneously:
-
-#### **Multi-Worker Coordination**
-- **Concurrent Worker Pool**: Orchestrator manages multiple active workers executing different tasks
-- **Independent Task Tracking**: Each worker operates with unique task_id and reports completion independently
-- **Asynchronous Completion Handling**: Workers report back when finished, orchestrator immediately relays to user
-- **Non-Blocking Operations**: User can assign new tasks while existing ones execute in parallel
-
-#### **Concurrent Task Benefits**
-- **Improved Efficiency**: Multiple tasks execute simultaneously, reducing overall completion time
-- **Enhanced Productivity**: Users can queue multiple tasks without waiting for previous ones to complete
-- **Better Resource Utilization**: Parallel processing maximizes system throughput
-- **Faster Project Completion**: Complex projects with multiple components finish significantly faster
-- **Seamless Workflow**: No interruption to user workflow while tasks execute in background
-
-#### **Task State Management**
-- **Active Task Registry**: Orchestrator maintains real-time status of all concurrent workers
-- **Completion Notifications**: Immediate user alerts when any worker completes their assigned task
-- **Independent Progress Tracking**: Each task progresses independently without blocking others
-- **Resource Allocation**: Dynamic worker allocation based on task complexity and system capacity
-
-### Automation Benefits:
-
-**This concurrent workflow automation maximizes productivity and system efficiency.** The parallel execution protocol ensures that:
-
-- Orchestrators can manage multiple workers simultaneously without blocking user interaction
-- Workers operate independently and report completion asynchronously
-- Users receive immediate notifications when any task completes
-- The delegation → parallel execution → completion notification cycle operates seamlessly
-- Users can continuously assign new work while existing tasks execute in background
-- System resources are optimally utilized through concurrent task processing
-
-## Project: Power Builder
-
-A Python development environment with integrated AI capabilities, multi-agent orchestration system, and GitHub workflow automation featuring LLM fallback mechanisms for robust task completion.
-
-## MULTI-AGENT ORCHESTRATOR ARCHITECTURE
-
-### Concurrent System Architecture Overview
-The Power Builder implements a sophisticated concurrent multi-agent system with LLM fallback capabilities:
-
-- **Concurrent Orchestrator Agent**: Central task queue manager handling multiple tasks simultaneously with priority levels
-- **Parallel Worker Agent Pool**: Multiple fresh Claude Code instances with isolated contexts executing concurrently
-- **Independent LLM Fallback System**: GPT-4, Gemini Pro, Claude Opus rotation on failures, operating per-task
-- **Concurrent Cross-Validation Engine**: Multiple Claude workers validate alternative LLM solutions in parallel
-- **Real-Time Health Monitoring**: Continuous worker performance tracking and dynamic load balancing across concurrent tasks
-
-### Enhanced Concurrent Task Flow with Intelligent Error Resolution
-1. **Concurrent Assignment**: Orchestrator assigns multiple tasks to fresh Claude Code workers simultaneously
-2. **Independent Worker Execution**: Each agent completes requirements with comprehensive logging, operating independently
-3. **Parallel Test Execution**: Workers run full test suites concurrently with detailed failure analysis
-4. **Individual Intelligent Error Resolution Pipeline** (per worker on test failure):
-   - **Log Analysis**: Each worker analyzes its own execution logs independently to identify root cause
-   - **Self-Healing Attempt**: Workers use log insights to implement targeted fixes without coordination
-   - **Independent Perplexity Research**: Each worker queries Perplexity with structured error context for solutions
-   - **Research-Driven Fix**: Workers apply research-based solutions with logging independently
-   - **Individual Re-test Cycle**: Each worker runs full test suite again with comprehensive validation
-5. **Per-Worker Escalation Logic**: After 3 self-correction attempts per worker, escalate individual tasks to LLM fallback
-6. **Independent LLM Fallback**: Alternative LLMs receive error context and research insights for specific failed tasks
-7. **Concurrent Cross-Validation**: Original Claude workers validate fallback LLM solutions in parallel
-8. **Individual Result Integration**: Each task completion is validated and integrated independently
-
-### Enhanced Worker Agent Specification with Intelligent Error Resolution
-Each worker agent operates with:
-- **Fresh Claude Code Instance**: Completely isolated context per task
-- **Structured Task Payload**: `{task_id, requirements, test_suite, max_attempts, priority, error_context}`
-- **Complete Requirements Fulfillment**: ALL specifications must be met before validation
-- **Comprehensive Test Execution**: 100% test pass rate required for completion
-- **Intelligent Error Resolution Engine**: Self-healing capabilities with log analysis
-- **Research Integration**: Perplexity API access for error resolution research
-- **Detailed Process Logging**: Full attempt history, failure analysis, and resolution tracking
-- **Resource Cleanup**: Automatic cleanup of worker environments on completion/failure
-
-#### **Error Resolution Capabilities**
-- **Log-Based Debugging**: Analyze execution logs to identify failure patterns
-- **Self-Correction Mechanisms**: Implement targeted fixes based on log insights
-- **Research-Enhanced Problem Solving**: Query external knowledge bases for solutions
-- **Structured Error Reporting**: Generate comprehensive error reports with context
-- **Learning from Failures**: Track successful resolution patterns for future use
-
-## INTELLIGENT ERROR RESOLUTION ARCHITECTURE
-
-### Log-Based Debugging Engine
-Each worker implements comprehensive log analysis for self-healing:
-
-#### **Error Pattern Recognition**
-```python
-def analyze_execution_logs(worker_id, task_id, attempt_num):
-    """Analyze worker execution logs to identify failure patterns."""
-    logger = logging.getLogger(f'modules.error_resolution.{worker_id}')
-    
-    # Load execution logs for analysis
-    log_file = f"logs/workers/worker-{worker_id}-{datetime.now().strftime('%Y%m%d')}.log"
-    
-    error_patterns = {
-        'import_errors': [],
-        'syntax_errors': [],
-        'test_failures': [],
-        'dependency_issues': [],
-        'logic_errors': [],
-        'environment_issues': []
-    }
-    
-    logger.info("Starting log analysis for error resolution", extra={
-        'worker_id': worker_id,
-        'task_id': task_id,
-        'attempt_num': attempt_num,
-        'log_file': log_file
-    })
-    
-    # Parse logs and categorize errors
-    with open(log_file, 'r') as f:
-        for line_num, line in enumerate(f, 1):
-            if '| ERROR |' in line or '| CRITICAL |' in line:
-                error_context = extract_error_context(line, line_num)
-                categorize_error(error_context, error_patterns)
-    
-    logger.info("Log analysis completed", extra={
-        'worker_id': worker_id,
-        'task_id': task_id,
-        'attempt_num': attempt_num,
-        'error_patterns_found': {k: len(v) for k, v in error_patterns.items()},
-        'primary_error_category': identify_primary_error_category(error_patterns)
-    })
-    
-    return error_patterns
+### Workspace Structure:
+```
+agents/
+├── {agent-id}/                    # Isolated workspace per agent
+│   ├── plan.md                   # Detailed execution plan from orchestrator
+│   ├── power/                    # Fresh GitHub clone of azorel/power
+│   ├── venv/                     # Isolated virtual environment
+│   ├── logs/                     # Agent-specific logging
+│   └── output/                   # Work submission area
 ```
 
-#### **Self-Healing Implementation**
-```python
-def attempt_self_healing(worker_id, task_id, attempt_num, error_patterns):
-    """Implement self-healing based on log analysis."""
-    logger = logging.getLogger(f'modules.error_resolution.{worker_id}')
-    
-    healing_strategies = {
-        'import_errors': fix_import_issues,
-        'syntax_errors': fix_syntax_issues,
-        'test_failures': analyze_and_fix_test_failures,
-        'dependency_issues': resolve_dependency_conflicts,
-        'logic_errors': implement_logic_corrections,
-        'environment_issues': fix_environment_setup
-    }
-    
-    healing_results = {}
-    
-    for error_type, errors in error_patterns.items():
-        if errors:
-            logger.info(f"Attempting self-healing for {error_type}", extra={
-                'worker_id': worker_id,
-                'task_id': task_id,
-                'attempt_num': attempt_num,
-                'error_type': error_type,
-                'error_count': len(errors)
-            })
-            
-            try:
-                healing_result = healing_strategies[error_type](errors)
-                healing_results[error_type] = healing_result
-                
-                logger.info(f"Self-healing completed for {error_type}", extra={
-                    'worker_id': worker_id,
-                    'task_id': task_id,
-                    'attempt_num': attempt_num,
-                    'error_type': error_type,
-                    'healing_success': healing_result['success'],
-                    'fixes_applied': healing_result['fixes_applied']
-                })
-            except Exception as e:
-                logger.error(f"Self-healing failed for {error_type}", extra={
-                    'worker_id': worker_id,
-                    'task_id': task_id,
-                    'attempt_num': attempt_num,
-                    'error_type': error_type,
-                    'healing_error': str(e),
-                    'stack_trace': traceback.format_exc()
-                })
-                healing_results[error_type] = {'success': False, 'error': str(e)}
-    
-    return healing_results
+### Agent Lifecycle:
+1. **Receive Assignment**: Agent gets plan.md from orchestrator
+2. **Workspace Setup**: Create agents/{agent-id}/ directory
+3. **Fresh Clone**: `git clone azorel/power` for clean starting point
+4. **Environment Creation**: Independent venv and dependency installation
+5. **Plan Execution**: Follow plan.md step-by-step with infinite agentic capabilities
+6. **Quality Validation**: Execute optimized 7-test protocol
+7. **Work Submission**: Submit completed package to orchestrator
+8. **Integration Flow**: Route to integration worker for validation
+9. **Cleanup**: Remove workspace after successful integration
+
+### Agent Command Structure:
+Agents work in isolated environments with fresh GitHub code:
+```bash
+# Agent initialization
+cd agents/{agent-id}/
+git clone https://github.com/azorel/power.git
+cd power/
+python -m venv ../venv
+source ../venv/bin/activate
+pip install -r requirements.txt
+
+# Execute plan.md with infinite agentic loop capabilities
+# Submit work package upon completion
 ```
 
-### Research-Enhanced Error Resolution
-When self-healing fails, workers query Perplexity for advanced solutions:
+## INFINITE AGENTIC LOOP CAPABILITIES
 
-#### **Structured Research Query Format**
-```python
-def generate_research_query(worker_id, task_id, error_patterns, healing_results):
-    """Generate structured research query for Perplexity."""
-    logger = logging.getLogger(f'modules.error_resolution.research.{worker_id}')
-    
-    # Build comprehensive error context
-    error_context = {
-        'task_details': get_task_details(task_id),
-        'environment_info': get_environment_info(),
-        'error_patterns': error_patterns,
-        'failed_healing_attempts': [k for k, v in healing_results.items() if not v.get('success', False)],
-        'code_context': extract_relevant_code_context(),
-        'test_failures': extract_test_failure_details()
-    }
-    
-    # Format research query
-    research_query = f"""
-    PYTHON ERROR RESOLUTION REQUEST
-    
-    Task Context:
-    - Task ID: {task_id}
-    - Worker ID: {worker_id}
-    - Environment: Python {error_context['environment_info']['python_version']}
-    - Dependencies: {', '.join(error_context['environment_info']['packages'])}
-    
-    Error Summary:
-    - Primary Error Categories: {list(error_patterns.keys())}
-    - Failed Self-Healing: {error_context['failed_healing_attempts']}
-    
-    Specific Error Details:
-    {format_error_details(error_patterns)}
-    
-    Code Context:
-    {error_context['code_context']}
-    
-    Test Failures:
-    {error_context['test_failures']}
-    
-    REQUIRED: Provide specific, actionable solutions with:
-    1. Root cause analysis
-    2. Step-by-step resolution instructions
-    3. Code examples where applicable
-    4. Verification steps to confirm fix
-    """
-    
-    logger.info("Research query generated", extra={
-        'worker_id': worker_id,
-        'task_id': task_id,
-        'query_length': len(research_query),
-        'error_categories': len(error_patterns),
-        'failed_healing_attempts': len(error_context['failed_healing_attempts'])
-    })
-    
-    return research_query
+### Enhanced Worker Intelligence:
+Workers leverage infinite agentic loop architecture for sophisticated problem-solving:
+
+#### 5-Phase Execution:
+1. **Specification Analysis**: Deep understanding of task requirements
+2. **Reconnaissance**: Analyze current codebase state and patterns
+3. **Iteration Strategy**: Plan approach with progressive sophistication
+4. **Parallel Coordination**: Deploy sub-agents for complex tasks
+5. **Infinite Orchestration**: Wave-based generation for iterative improvements
+
+#### Progressive Sophistication:
+- **Wave 1**: Basic functional implementation
+- **Wave 2**: Multi-dimensional enhancements
+- **Wave 3**: Complex paradigm optimization
+- **Wave N**: Revolutionary improvements
+
+#### Context Management:
+- Fresh agent instances prevent context accumulation
+- Strategic summarization for efficient processing
+- Graceful conclusion when approaching limits
+
+## OPTIMIZED TESTING PROTOCOL
+
+### Smart 7-Test Maximum Cycle:
+1. **Test 1**: Initial `pytest` + `pylint` after implementation
+2. **Test 2**: Re-run after first round of fixes
+3. **Test 3**: Failure trigger → **Automatic Perplexity Research**
+   - Intelligent error resolution with log analysis
+   - Research-driven solutions
+4. **Test 4**: `pylint` validation of research changes
+5. **Test 5**: `pytest` validation of research changes
+6. **Test 6**: Combined validation run
+7. **Test 7**: Final confirmation (if needed)
+
+### Quality Gates (ALL MUST PASS):
+- **100% pytest success rate** (achieved during development)
+- **Perfect 10/10 pylint score** (achieved during development)
+- **Manual verification** (required)
+- **Cross-validation compatibility** (required)
+
+### Pre-Commit Optimization:
+- **NO redundant testing before GitHub** (files already validated)
+- **Direct submission** after development cycle completion
+- **Integration worker handles** system-wide validation
+
+## INTEGRATION FLOW ARCHITECTURE
+
+### Three-Stage Process:
+```
+Development Agent → Integration Worker → GitHub Automation
 ```
 
-#### **Perplexity Research Integration**
-```python
-async def query_perplexity_for_solution(research_query, worker_id, task_id):
-    """Query Perplexity API for error resolution solutions."""
-    logger = logging.getLogger(f'modules.error_resolution.research.{worker_id}')
-    
-    logger.info("Initiating Perplexity research query", extra={
-        'worker_id': worker_id,
-        'task_id': task_id,
-        'query_timestamp': datetime.now().isoformat()
-    })
-    
-    try:
-        # Initialize Perplexity client
-        from perplexity import PerplexityClient
-        client = PerplexityClient(api_key=os.getenv('PERPLEXITY_API_KEY'))
-        
-        # Execute research query
-        response = await client.query(
-            query=research_query,
-            mode='research',  # Research mode for comprehensive analysis
-            sources=True      # Include source citations
-        )
-        
-        logger.info("Perplexity research completed", extra={
-            'worker_id': worker_id,
-            'task_id': task_id,
-            'response_length': len(response.content),
-            'sources_count': len(response.sources) if response.sources else 0,
-            'research_confidence': response.confidence_score
-        })
-        
-        return {
-            'success': True,
-            'solution': response.content,
-            'sources': response.sources,
-            'confidence': response.confidence_score,
-            'research_timestamp': datetime.now().isoformat()
-        }
-        
-    except Exception as e:
-        logger.error("Perplexity research failed", extra={
-            'worker_id': worker_id,
-            'task_id': task_id,
-            'error': str(e),
-            'stack_trace': traceback.format_exc()
-        })
-        
-        return {
-            'success': False,
-            'error': str(e),
-            'research_timestamp': datetime.now().isoformat()
-        }
+#### Development Agent:
+- Execute task in agents/{agent-id}/ workspace
+- Apply infinite agentic loop capabilities
+- Complete 7-test validation cycle
+- Submit work package to orchestrator
+
+#### Integration Worker:
+- Receive work package from orchestrator
+- Pull fresh main branch
+- Apply changes to current codebase state
+- Run full system test suite
+- Validate integration compatibility
+- Check for regression issues
+
+#### GitHub Automation:
+- Create staging branch with validated changes
+- Auto-merge to main after CI/CD passes
+- Clean commit history maintenance
+
+### Work Submission Protocol:
+```json
+{
+  "agent_id": "unique-identifier",
+  "task_id": "assigned-task",
+  "status": "success",
+  "changes": {
+    "files_modified": ["file1.py", "file2.py"],
+    "files_added": ["new_feature.py"],
+    "files_deleted": ["deprecated.py"]
+  },
+  "validation_results": {
+    "tests_passed": true,
+    "pylint_score": "10.00/10",
+    "manual_verification": true
+  },
+  "diff_package": "base64_encoded_git_diff"
+}
 ```
 
-#### **Research-Driven Fix Implementation**
-```python
-def apply_research_solutions(worker_id, task_id, research_result):
-    """Apply solutions derived from Perplexity research."""
-    logger = logging.getLogger(f'modules.error_resolution.research.{worker_id}')
-    
-    if not research_result['success']:
-        logger.error("Cannot apply research solutions - research failed", extra={
-            'worker_id': worker_id,
-            'task_id': task_id,
-            'research_error': research_result['error']
-        })
-        return {'success': False, 'reason': 'research_failed'}
-    
-    logger.info("Applying research-driven solutions", extra={
-        'worker_id': worker_id,
-        'task_id': task_id,
-        'research_confidence': research_result['confidence'],
-        'sources_count': len(research_result['sources'])
-    })
-    
-    try:
-        # Parse research solution for actionable steps
-        solution_steps = parse_research_solution(research_result['solution'])
-        
-        application_results = []
-        
-        for step_num, step in enumerate(solution_steps, 1):
-            logger.info(f"Applying research solution step {step_num}", extra={
-                'worker_id': worker_id,
-                'task_id': task_id,
-                'step_description': step['description'][:100],  # First 100 chars
-                'step_type': step['type']  # 'code_change', 'config_update', 'dependency_install', etc.
-            })
-            
-            step_result = execute_solution_step(step)
-            application_results.append({
-                'step_num': step_num,
-                'success': step_result['success'],
-                'details': step_result
-            })
-            
-            if not step_result['success']:
-                logger.warning(f"Research solution step {step_num} failed", extra={
-                    'worker_id': worker_id,
-                    'task_id': task_id,
-                    'step_error': step_result['error']
-                })
-                # Continue with remaining steps
-        
-        overall_success = all(result['success'] for result in application_results)
-        
-        logger.info("Research-driven solution application completed", extra={
-            'worker_id': worker_id,
-            'task_id': task_id,
-            'overall_success': overall_success,
-            'successful_steps': sum(1 for r in application_results if r['success']),
-            'total_steps': len(application_results)
-        })
-        
-        return {
-            'success': overall_success,
-            'steps_applied': len(application_results),
-            'successful_steps': sum(1 for r in application_results if r['success']),
-            'step_details': application_results
-        }
-        
-    except Exception as e:
-        logger.error("Failed to apply research solutions", extra={
-            'worker_id': worker_id,
-            'task_id': task_id,
-            'error': str(e),
-            'stack_trace': traceback.format_exc()
-        })
-        
-        return {
-            'success': False,
-            'error': str(e),
-            'research_confidence': research_result['confidence']
-        }
-```
+## PROJECT OVERVIEW
 
-## MANDATORY DEVELOPMENT STANDARDS - NO EXCEPTIONS
+**Power Builder**: Python development environment with AI capabilities, multi-agent orchestration, and GitHub workflow automation featuring LLM fallback mechanisms.
 
-### Multi-Agent Worker Isolation & Environment Management
-- **Each worker gets its own isolated branch**: `feature/worker-{id}-{task-name}`
-- **Each worker gets its own virtual environment**: Create separate venv for each task
-- **Dedicated logging per worker**: Each worker maintains isolated log files with detailed tracing
-- **Task queue integration**: Workers receive structured payloads from orchestrator
-- **All returned errors must be fixed immediately** - no exceptions
-- **Lint score enforcement**: If pylint score < 10/10, automatic fix is required
-- **Complete pytest coverage**: All tests must pass with 100% success rate
-- **LLM fallback preparation**: Failed tasks automatically queued for alternative LLM
-- **Cross-validation ready**: All solutions must pass original test suite regardless of LLM
-- **Feature categorization**: Each main feature area gets its own module structure
-- **Independent sub-modules**: All sub-features are self-contained modules
-- **Clean directory maintenance**: Delete old tests, temporary files, and artifacts after use
-- **Post-task cleanup**: Remove all temporary branches and environments after PR merge
-- **Comprehensive error logging**: All exceptions, state changes, and decisions logged with full context
+### Core Components:
+- **Concurrent Orchestrator**: Task queue manager with priority handling
+- **Agent Workspace System**: Isolated environments with infinite agentic capabilities
+- **Integration Validation**: System-wide compatibility checking
+- **LLM Fallback System**: GPT-4, Gemini Pro, Claude Opus rotation
+- **Cross-Validation Engine**: Quality assurance across LLM solutions
 
-### Anti-Lazy Implementation Rules
-- **NEVER** use placeholder code, TODO comments, or incomplete implementations
-- **ALWAYS** implement complete, production-ready solutions
-- **NEVER** commit code that doesn't work or has known issues
-- **ALWAYS** include comprehensive error handling and input validation
-- **NEVER** skip testing or documentation requirements
-- **ALWAYS** implement the full feature as requested, not partial solutions
+## DEVELOPMENT ENVIRONMENT
 
-### Quality Gates (ALL MUST PASS)
-1. **Code Quality**: All code must pass pylint with perfect 10/10 score
-2. **Test Coverage**: All tests must pass with pytest (100% success rate required)
-3. **Functionality**: Code must work as intended with no known bugs
-4. **Documentation**: All new functions/classes must have docstrings
-5. **Error Handling**: Robust error handling for all edge cases
-6. **Cleanup Verification**: No temporary files or artifacts remain
-7. **Multi-Agent Integration**: All workers must report to orchestrator with structured results
-8. **LLM Fallback Compatibility**: Solutions must be testable by alternative LLMs
-9. **Cross-Validation Ready**: Original test suite must validate any LLM's solution
-10. **Comprehensive Logging**: All components must implement detailed logging using Python's logging module
-11. **Debug Traceability**: All errors, attempts, and state changes must be logged with full context
-12. **Intelligent Error Resolution**: All workers must implement log analysis and self-healing capabilities
-13. **Research Integration**: Failed self-healing must trigger Perplexity research for advanced solutions
-14. **Resolution Learning**: Successful error resolution patterns must be tracked and reused
-
-## MANDATORY LOGGING ARCHITECTURE - PYTHON LOGGING MODULE
-
-### Logging Configuration Standards
-All components MUST implement comprehensive logging using Python's built-in logging module with the following specifications:
-
-#### **Logging Levels and Usage**
-- **DEBUG**: Detailed information for diagnosing problems, variable states, function entry/exit
-- **INFO**: General information about program execution, task progress, state transitions
-- **WARNING**: Something unexpected happened but program continues, potential issues
-- **ERROR**: Serious problem occurred, function/feature failed but program continues
-- **CRITICAL**: Very serious error occurred, program may be unable to continue
-
-#### **Required Loggers by Component**
-- **Concurrent Orchestrator Logger**: `modules.orchestrator.main` - Task queue, concurrent worker management, parallel task decisions
-- **Individual Worker Logger**: `modules.workers.{worker_id}` - Independent worker actions and state for each concurrent task
-- **Parallel LLM Fallback Logger**: `modules.llm_fallback.{llm_name}` - Alternative LLM interactions for individual failed tasks
-- **Concurrent Task Queue Logger**: `modules.task_queue.manager` - Queue operations, priority changes, and parallel task management
-- **Parallel Cross-Validation Logger**: `modules.validation.cross_check` - Concurrent validation results and comparisons
-
-#### **Mandatory Logging Points**
-1. **Function Entry/Exit**: Log all major function calls with parameters and return values across concurrent workers
-2. **Error Conditions**: Full exception details with stack traces and context for individual worker failures
-3. **State Changes**: All object state modifications with before/after values, including concurrent worker states
-4. **Decision Points**: Logic branches, retry attempts, fallback triggers for individual tasks while others continue
-5. **External API Calls**: All LLM API requests/responses with timing across parallel workers
-6. **Resource Operations**: File I/O, database operations, network calls for each concurrent worker
-7. **Concurrent Worker Lifecycle**: Creation, task assignment, independent completion, cleanup across parallel workers
-8. **Parallel Performance Metrics**: Execution times, memory usage, success rates for concurrent task processing
-
-#### **Concurrent Log File Organization**
-```
-logs/
-├── orchestrator/
-│   ├── main-{date}.log           # Main concurrent orchestrator operations
-│   ├── task-queue-{date}.log     # Parallel task queue management
-│   ├── worker-management-{date}.log # Concurrent worker pool operations
-│   └── completion-notifications-{date}.log # Asynchronous completion handling
-├── workers/
-│   ├── worker-{id}-{date}.log    # Individual concurrent worker detailed logs
-│   ├── worker-summary-{date}.log # All concurrent worker operations summary
-│   └── parallel-execution-{date}.log # Concurrent task execution tracking
-├── llm-fallback/
-│   ├── gpt4-{date}.log          # GPT-4 fallback operations for individual tasks
-│   ├── gemini-{date}.log        # Gemini fallback operations for individual tasks
-│   └── claude-opus-{date}.log   # Claude Opus fallback operations for individual tasks
-├── validation/
-│   ├── cross-validation-{date}.log # Concurrent cross-validation results
-│   ├── test-execution-{date}.log   # Parallel test suite execution details
-│   └── concurrent-validation-{date}.log # Multi-worker validation tracking
-└── system/
-    ├── performance-{date}.log    # Concurrent performance metrics and monitoring
-    ├── errors-{date}.log         # Consolidated error tracking across parallel workers
-    └── concurrency-metrics-{date}.log # Parallel execution efficiency tracking
-```
-
-#### **Logging Format Specification**
-```python
-LOGGING_FORMAT = (
-    "%(asctime)s | %(levelname)-8s | %(name)-30s | "
-    "Worker:%(worker_id)s | Task:%(task_id)s | "
-    "Attempt:%(attempt_num)s | %(funcName)-20s:%(lineno)-4d | "
-    "%(message)s"
-)
-
-LOGGING_DATE_FORMAT = "%Y-%m-%d %H:%M:%S.%f"
-```
-
-#### **Required Logging Context Fields**
-All log entries MUST include contextual information for concurrent operation tracking:
-- `worker_id`: Unique worker identifier for concurrent task tracking
-- `task_id`: Task identifier from orchestrator for parallel task correlation
-- `attempt_num`: Current attempt number (1-3 before fallback) per individual task
-- `llm_source`: Which LLM generated the solution (claude/gpt4/gemini/opus) for specific task
-- `execution_time`: Time taken for operation in concurrent environment
-- `memory_usage`: Memory consumption at log point across parallel workers
-- `thread_id`: Thread identifier for concurrent operations
-- `concurrent_tasks_count`: Number of active parallel tasks at log time
-- `worker_pool_status`: Status of other concurrent workers for context
-- `task_completion_order`: Order of completion among concurrent tasks
-- `concurrent_tasks_count`: Number of active parallel tasks at log time
-- `worker_pool_status`: Status of other concurrent workers for context
-- `task_completion_order`: Order of completion among concurrent tasks
-
-## MANDATORY WORKFLOW - MULTI-AGENT ORCHESTRATED DEVELOPMENT
-
-### Orchestrator Task Assignment Protocol:
-1. **Task Queue Reception**: Receive structured task payload from orchestrator
-2. **Worker ID Generation**: `WORKER_ID=$(date +%s)-$(uuidgen | cut -d'-' -f1)`
-3. **Isolated Context Setup**: Each attempt gets completely fresh environment
-4. **Structured Result Reporting**: Return standardized payload to orchestrator
-5. **Failure Escalation**: After 3 attempts, automatically escalate to LLM fallback
-
-### Before Starting ANY Task (Worker Initialization):
-1. **Receive Task Payload**: `{task_id, requirements, test_suite, max_attempts, priority}`
-2. **Create isolated worker branch**: `git checkout -b feature/worker-{id}-{task-name}`
-3. **Create dedicated virtual environment**: `python -m venv venv-worker-{id}`
-4. **Activate worker environment**: `source venv-worker-{id}/bin/activate`
-5. **Install dependencies**: `pip install -r requirements.txt`
-6. **Initialize comprehensive logging system**:
-   ```python
-   import logging
-   import os
-   from datetime import datetime
-   
-   # Create worker-specific log directory
-   log_dir = f"logs/workers"
-   os.makedirs(log_dir, exist_ok=True)
-   
-   # Configure worker logger with full context
-   logger = logging.getLogger(f'modules.workers.{worker_id}')
-   logger.setLevel(logging.DEBUG)
-   
-   # Create file handler with detailed formatting
-   log_file = f"{log_dir}/worker-{worker_id}-{datetime.now().strftime('%Y%m%d')}.log"
-   file_handler = logging.FileHandler(log_file)
-   file_handler.setLevel(logging.DEBUG)
-   
-   # Custom formatter with all required context fields
-   formatter = logging.Formatter(
-       "%(asctime)s | %(levelname)-8s | %(name)-30s | "
-       f"Worker:{worker_id} | Task:{task_id} | "
-       "Attempt:%(attempt_num)s | %(funcName)-20s:%(lineno)-4d | "
-       "%(message)s",
-       datefmt="%Y-%m-%d %H:%M:%S.%f"
-   )
-   file_handler.setFormatter(formatter)
-   logger.addHandler(file_handler)
-   
-   # Log worker initialization
-   logger.info("Worker initialized", extra={
-       'worker_id': worker_id,
-       'task_id': task_id,
-       'attempt_num': 1,
-       'execution_time': 0,
-       'memory_usage': psutil.Process().memory_info().rss
-   })
-   ```
-7. **Run existing tests**: `pytest` (ensure all pass before starting)
-8. **Check code quality**: `pylint .` (fix any existing issues to 10/10 score)
-9. **Log environment setup completion**:
-   ```python
-   logger.info("Environment setup completed successfully", extra={
-       'worker_id': worker_id,
-       'task_id': task_id,
-       'attempt_num': 1,
-       'pylint_score': '10/10',
-       'test_status': 'all_passed'
-   })
-   ```
-
-### During Development with Intelligent Error Resolution:
-1. **Write code with full implementation** (no placeholders)
-   ```python
-   # Log function entry with parameters
-   logger.debug(f"Starting implementation of {function_name}", extra={
-       'worker_id': worker_id,
-       'task_id': task_id,
-       'attempt_num': attempt_num,
-       'function_name': function_name,
-       'parameters': str(parameters)
-   })
-   ```
-
-2. **Add comprehensive tests** for new functionality
-   ```python
-   # Log test creation and execution
-   logger.info("Creating test suite for new functionality", extra={
-       'worker_id': worker_id,
-       'task_id': task_id,
-       'attempt_num': attempt_num,
-       'test_count': len(test_cases),
-       'coverage_target': '100%'
-   })
-   ```
-
-3. **Run tests with intelligent error resolution**: `pytest` with failure analysis
-   ```python
-   # Enhanced test execution with error resolution
-   test_result = subprocess.run(['pytest', '-v', '--tb=long'], capture_output=True, text=True)
-   
-   if test_result.returncode != 0:
-       logger.warning("Test failures detected, initiating intelligent error resolution", extra={
-           'worker_id': worker_id,
-           'task_id': task_id,
-           'attempt_num': attempt_num,
-           'test_output': test_result.stdout,
-           'test_errors': test_result.stderr
-       })
-       
-       # Trigger intelligent error resolution pipeline
-       error_patterns = analyze_execution_logs(worker_id, task_id, attempt_num)
-       healing_results = attempt_self_healing(worker_id, task_id, attempt_num, error_patterns)
-       
-       # If self-healing fails, trigger research-enhanced resolution
-       if not all(result.get('success', False) for result in healing_results.values()):
-           research_query = generate_research_query(worker_id, task_id, error_patterns, healing_results)
-           research_result = await query_perplexity_for_solution(research_query, worker_id, task_id)
-           
-           if research_result['success']:
-               solution_result = apply_research_solutions(worker_id, task_id, research_result)
-               logger.info("Research-driven solution applied", extra={
-                   'worker_id': worker_id,
-                   'task_id': task_id,
-                   'attempt_num': attempt_num,
-                   'solution_success': solution_result['success'],
-                   'research_confidence': research_result['confidence']
-               })
-               
-               # Re-run tests after applying research solutions
-               retest_result = subprocess.run(['pytest', '-v'], capture_output=True, text=True)
-               logger.info("Post-research retest completed", extra={
-                   'worker_id': worker_id,
-                   'task_id': task_id,
-                   'attempt_num': attempt_num,
-                   'retest_status': 'passed' if retest_result.returncode == 0 else 'failed'
-               })
-   else:
-       logger.info("Test execution completed successfully", extra={
-           'worker_id': worker_id,
-           'task_id': task_id,
-           'attempt_num': attempt_num,
-           'test_status': 'passed',
-           'execution_time': time.time() - start_time
-       })
-   ```
-
-4. **Lint code with error resolution**: `pylint` with intelligent fixing
-   ```python
-   # Enhanced pylint with automatic issue resolution
-   lint_result = subprocess.run(['pylint', file_path], capture_output=True, text=True)
-   score = extract_pylint_score(lint_result.stdout)
-   
-   if float(score) < 10.0:
-       logger.warning("Code quality issues detected, applying intelligent fixes", extra={
-           'worker_id': worker_id,
-           'task_id': task_id,
-           'attempt_num': attempt_num,
-           'pylint_score': score,
-           'issues_count': count_issues(lint_result.stdout)
-       })
-       
-       # Analyze pylint output and apply targeted fixes
-       lint_issues = parse_pylint_issues(lint_result.stdout)
-       fix_results = apply_pylint_fixes(lint_issues, worker_id, task_id)
-       
-       # Re-run pylint after fixes
-       recheck_result = subprocess.run(['pylint', file_path], capture_output=True, text=True)
-       new_score = extract_pylint_score(recheck_result.stdout)
-       
-       logger.info("Pylint fixes applied", extra={
-           'worker_id': worker_id,
-           'task_id': task_id,
-           'attempt_num': attempt_num,
-           'original_score': score,
-           'new_score': new_score,
-           'fixes_applied': len(fix_results['successful_fixes'])
-       })
-   ```
-
-5. **Intelligent error resolution pipeline** - comprehensive error handling
-   ```python
-   def handle_error_with_intelligence(error, worker_id, task_id, attempt_num):
-       """Comprehensive error handling with intelligence."""
-       logger.error("Error encountered, initiating intelligent resolution", extra={
-           'worker_id': worker_id,
-           'task_id': task_id,
-           'attempt_num': attempt_num,
-           'error_type': type(error).__name__,
-           'error_message': str(error),
-           'stack_trace': traceback.format_exc()
-       })
-       
-       # Step 1: Log analysis
-       error_patterns = analyze_execution_logs(worker_id, task_id, attempt_num)
-       
-       # Step 2: Self-healing attempt
-       healing_results = attempt_self_healing(worker_id, task_id, attempt_num, error_patterns)
-       
-       # Step 3: Research-enhanced resolution if needed
-       if not all(result.get('success', False) for result in healing_results.values()):
-           research_query = generate_research_query(worker_id, task_id, error_patterns, healing_results)
-           research_result = await query_perplexity_for_solution(research_query, worker_id, task_id)
-           
-           if research_result['success']:
-               solution_result = apply_research_solutions(worker_id, task_id, research_result)
-               return solution_result
-       
-       return healing_results
-   ```
-
-6. **Organize features into categorized modules** with independent sub-modules
-
-7. **Log all state changes and decisions with resolution tracking**:
-   ```python
-   # Enhanced decision logging with resolution context
-   logger.info(f"Decision point: {decision_context}", extra={
-       'worker_id': worker_id,
-       'task_id': task_id,
-       'attempt_num': attempt_num,
-       'decision_options': options,
-       'selected_option': chosen_option,
-       'reasoning': decision_reasoning,
-       'previous_errors': get_previous_error_count(),
-       'resolution_attempts': get_resolution_attempt_count()
-   })
-   ```
-
-8. **Prepare for cross-validation**: Ensure test suite can validate any LLM solution with error context
-
-### Before Committing (Validation Gate):
-1. **Final test run**: `pytest` (100% pass rate required)
-   ```python
-   logger.info("Starting final validation gate", extra={
-       'worker_id': worker_id,
-       'task_id': task_id,
-       'attempt_num': attempt_num,
-       'validation_stage': 'final_tests'
-   })
-   
-   final_test_result = subprocess.run(['pytest', '-v', '--tb=long'], capture_output=True, text=True)
-   logger.critical("Final test results", extra={
-       'worker_id': worker_id,
-       'task_id': task_id,
-       'attempt_num': attempt_num,
-       'test_status': 'passed' if final_test_result.returncode == 0 else 'failed',
-       'test_output': final_test_result.stdout,
-       'failure_details': final_test_result.stderr if final_test_result.returncode != 0 else None
-   })
-   ```
-
-2. **Final lint check**: `pylint .` (perfect 10/10 score required)
-   ```python
-   final_lint_result = subprocess.run(['pylint', '.'], capture_output=True, text=True)
-   final_score = extract_pylint_score(final_lint_result.stdout)
-   logger.critical("Final code quality validation", extra={
-       'worker_id': worker_id,
-       'task_id': task_id,
-       'attempt_num': attempt_num,
-       'final_pylint_score': final_score,
-       'quality_gate_passed': final_score == '10.00/10',
-       'remaining_issues': count_issues(final_lint_result.stdout)
-   })
-   ```
-
-3. **Manual testing**: Verify functionality works as expected
-   ```python
-   logger.info("Manual functionality verification", extra={
-       'worker_id': worker_id,
-       'task_id': task_id,
-       'attempt_num': attempt_num,
-       'verification_steps': manual_test_steps,
-       'verification_results': test_results
-   })
-   ```
-
-4. **Cross-validation preparation**: Ensure tests can validate alternative LLM solutions
-   ```python
-   logger.info("Cross-validation test suite preparation", extra={
-       'worker_id': worker_id,
-       'task_id': task_id,
-       'attempt_num': attempt_num,
-       'test_suite_portable': True,
-       'alternative_llms_supported': ['gpt4', 'gemini', 'claude-opus']
-   })
-   ```
-
-5. **Clean up temporary files**: Remove test artifacts, temp files, old tests
-   ```python
-   cleanup_start = time.time()
-   # Perform cleanup operations
-   logger.info("Cleanup operations completed", extra={
-       'worker_id': worker_id,
-       'task_id': task_id,
-       'attempt_num': attempt_num,
-       'files_removed': cleaned_files,
-       'cleanup_time': time.time() - cleanup_start
-   })
-   ```
-
-6. **Commit with descriptive message**
-   ```python
-   logger.info("Creating commit with validation results", extra={
-       'worker_id': worker_id,
-       'task_id': task_id,
-       'attempt_num': attempt_num,
-       'commit_message': commit_message,
-       'files_committed': committed_files
-   })
-   ```
-
-7. **Report to orchestrator**: Send structured success/failure payload
-   ```python
-   success_payload = {
-       'worker_id': worker_id,
-       'task_id': task_id,
-       'attempt_num': attempt_num,
-       'status': 'success',
-       'validation_results': {
-           'tests_passed': True,
-           'pylint_score': '10.00/10',
-           'manual_verification': True,
-           'cross_validation_ready': True
-       },
-       'performance_metrics': {
-           'total_execution_time': time.time() - task_start_time,
-           'peak_memory_usage': max_memory_usage,
-           'files_modified': len(modified_files)
-       }
-   }
-   
-   logger.critical("Task completion - SUCCESS", extra=success_payload)
-   # Send to orchestrator
-   orchestrator.report_success(success_payload)
-   ```
-
-### After Development Complete (Worker Success):
-1. **Final cleanup verification**: Ensure no artifacts remain
-2. **Push branch**: `git push -u origin feature/worker-{id}-{task-name}`
-3. **Create PR**: `./gh_2.74.1_linux_amd64/bin/gh pr create`
-4. **Report success to orchestrator**: Send completion payload with results
-5. **After PR merge**: Delete worker branch and worker virtual environment
-6. **Never merge directly to master** - always use PR review process
-
-### Worker Failure Protocol:
-1. **Log failure details**: Capture complete error context and attempt history
-   ```python
-   failure_payload = {
-       'worker_id': worker_id,
-       'task_id': task_id,
-       'attempt_num': attempt_num,
-       'status': 'failed',
-       'failure_details': {
-           'error_type': type(error).__name__,
-           'error_message': str(error),
-           'stack_trace': traceback.format_exc(),
-           'failure_stage': current_stage,  # 'setup', 'development', 'testing', 'validation'
-           'last_successful_action': last_action,
-           'environment_state': get_environment_state()
-       },
-       'diagnostic_information': {
-           'pylint_score_achieved': current_pylint_score,
-           'tests_passed': tests_passed_count,
-           'tests_failed': tests_failed_count,
-           'files_modified': modified_files,
-           'execution_time': time.time() - task_start_time,
-           'memory_usage_peak': max_memory_usage
-       }
-   }
-   
-   logger.critical("Task completion - FAILURE", extra=failure_payload)
-   ```
-
-2. **Report to orchestrator**: Send failure payload with diagnostic information
-   ```python
-   # Comprehensive failure reporting to orchestrator
-   orchestrator_failure_report = {
-       **failure_payload,
-       'retry_recommendation': analyze_retry_potential(),
-       'resource_cleanup_required': list_cleanup_actions(),
-       'lessons_learned': extract_failure_patterns(),
-       'environment_snapshot': capture_environment_state()
-   }
-   
-   logger.error("Sending failure report to orchestrator", extra={
-       'worker_id': worker_id,
-       'task_id': task_id,
-       'attempt_num': attempt_num,
-       'report_size': len(str(orchestrator_failure_report)),
-       'retry_viable': orchestrator_failure_report['retry_recommendation']['viable']
-   })
-   
-   orchestrator.report_failure(orchestrator_failure_report)
-   ```
-
-3. **Concurrent orchestrator decision**: Retry individual failed task with fresh worker OR escalate specific task to LLM fallback (other tasks continue unaffected)
-   ```python
-   # Orchestrator logs decision-making process for individual task
-   orchestrator_logger = logging.getLogger('modules.orchestrator.main')
-   orchestrator_logger.info("Processing individual worker failure report", extra={
-       'task_id': task_id,
-       'failed_worker_id': worker_id,
-       'attempt_num': attempt_num,
-       'active_concurrent_tasks': len(active_workers),
-       'other_workers_status': get_other_workers_status(),
-       'failure_analysis': failure_analysis_results,
-       'decision_factors': decision_criteria
-   })
-   
-   if attempt_num < 3:
-       orchestrator_logger.info("Decision: Retry individual task with fresh worker", extra={
-           'task_id': task_id,
-           'next_attempt': attempt_num + 1,
-           'new_worker_id': new_worker_id,
-           'retry_modifications': retry_adjustments,
-           'concurrent_tasks_unaffected': True
-       })
-   else:
-       orchestrator_logger.warning("Decision: Escalate individual task to LLM fallback", extra={
-           'task_id': task_id,
-           'total_attempts': attempt_num,
-           'selected_fallback_llm': selected_llm,
-           'escalation_reason': escalation_reasoning,
-           'other_tasks_continue': True
-       })
-   ```
-
-4. **LLM fallback handoff**: Original test suite transferred to alternative LLM
-   ```python
-   fallback_logger = logging.getLogger(f'modules.llm_fallback.{selected_llm}')
-   fallback_logger.info("LLM fallback initiated", extra={
-       'task_id': task_id,
-       'fallback_llm': selected_llm,
-       'original_worker_id': worker_id,
-       'claude_attempts': attempt_num,
-       'test_suite_size': len(test_suite),
-       'requirements_complexity': analyze_requirements_complexity()
-   })
-   
-   # Log test suite transfer
-   fallback_logger.debug("Test suite transfer details", extra={
-       'task_id': task_id,
-       'test_files': test_files,
-       'validation_criteria': validation_criteria,
-       'cross_validation_setup': cross_validation_config
-   })
-   ```
-
-5. **Cross-validation**: Claude worker validates alternative LLM solution
-   ```python
-   validation_logger = logging.getLogger('modules.validation.cross_check')
-   validation_logger.info("Cross-validation of fallback solution initiated", extra={
-       'task_id': task_id,
-       'solution_source': selected_llm,
-       'validator_worker_id': new_claude_worker_id,
-       'original_test_suite': original_test_suite,
-       'fallback_solution_files': solution_files
-   })
-   
-   # Log validation results
-   validation_result = run_cross_validation()
-   validation_logger.critical("Cross-validation results", extra={
-       'task_id': task_id,
-       'validation_status': 'passed' if validation_result.success else 'failed',
-       'test_results': validation_result.test_results,
-       'compatibility_score': validation_result.compatibility_score,
-       'solution_quality_score': validation_result.quality_score,
-       'recommendation': validation_result.recommendation
-   })
-   ```
-
-### Post-Task Cleanup (MANDATORY):
-1. **Delete worker branch**: `git branch -d feature/worker-{id}-{task-name}`
-2. **Remove worker environment**: `rm -rf venv-worker-{id}`
-3. **Clean working directory**: Remove any temporary files or test artifacts
-4. **Verify clean state**: `git status` should show clean working tree
-5. **Update orchestrator**: Confirm resource cleanup completion
-
-## Development Environment
-
-### Python Setup
-- **Python Version**: 3.12.3
-- **Virtual Environment**: `venv/` (activate with `source venv/bin/activate`)
-- **Package Management**: pip
-
-### Installed Tools
-- **pylint 3.3.7**: Code linting - MUST show zero warnings/errors
-- **pytest 8.4.0**: Testing framework - ALL tests MUST pass
-
-### Database
-- **SQLite**: Version 3.45.1 (available through Python's built-in sqlite3 module)
-- **Usage**: No separate installation required - use `import sqlite3` in Python
-- **Database Files**: Store `.db` files in project root or `data/` directory
-- **Connection Pattern**: Always use context managers or explicit close() for connections
-
-### SQLite Usage Examples
-```python
-import sqlite3
-
-# Basic connection and table creation
-def create_database():
-    conn = sqlite3.connect('project.db')
-    cursor = conn.cursor()
-    
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
-            email TEXT UNIQUE NOT NULL,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-    ''')
-    
-    conn.commit()
-    conn.close()
-
-# Using context manager (recommended)
-def safe_database_operation():
-    with sqlite3.connect('project.db') as conn:
-        cursor = conn.cursor()
-        cursor.execute('SELECT * FROM users')
-        return cursor.fetchall()
-```
-
-### GitHub Integration
-- **Repository**: azorel/power
-- **Authentication**: Configured via GITHUB_TOKEN in .env
+### Requirements:
+- **Python**: 3.12.3
+- **Tools**: pylint 3.3.7, pytest 8.4.0
+- **Database**: SQLite 3.45.1 (built-in)
 - **GitHub CLI**: Available at `./gh_2.74.1_linux_amd64/bin/gh`
 
-## Required Development Commands
+### Configuration:
+- **Environment Variables**: .env (GitHub token, LLM API keys, Perplexity API)
+- **Repository**: azorel/power
+- **Workspace**: agents/ directory for isolated agent operations
 
-```bash
-# 1. MULTI-AGENT ORCHESTRATOR SETUP (Initialize orchestrator system)
-# Set up orchestrator with task queue and worker pool management
-python -m modules.orchestrator.setup --workers=5 --queue-size=100
-export ORCHESTRATOR_ACTIVE=true
+## ANTI-LAZY IMPLEMENTATION RULES
 
-# 2. WORKER INITIALIZATION (Receive task from orchestrator)
-# Worker receives structured task payload: {task_id, requirements, test_suite, max_attempts, priority}
-WORKER_ID=$(date +%s)-$(uuidgen | cut -d'-' -f1)  # Unique worker ID
-TASK_ID=$1  # Received from orchestrator
-git checkout -b feature/worker-${WORKER_ID}-${TASK_ID}
-python -m venv venv-worker-${WORKER_ID}
-source venv-worker-${WORKER_ID}/bin/activate
-pip install -r requirements.txt
-pytest  # Ensure all existing tests pass
-pylint .  # Fix any existing issues to 10/10 score
+- **NEVER** use placeholder code or TODO comments
+- **ALWAYS** implement complete, production-ready solutions
+- **NEVER** commit code with known issues
+- **ALWAYS** include comprehensive error handling
+- **NEVER** skip testing requirements
+- **ALWAYS** implement full features, not partial solutions
 
-# Initialize comprehensive logging system for orchestrator reporting
-mkdir -p logs/{orchestrator,workers,llm-fallback,validation,system}
-python -c "
-import logging
-import os
-from datetime import datetime
+## SYSTEM ENFORCEMENT
 
-# Set up comprehensive logging configuration
-logging.basicConfig(
-    level=logging.DEBUG,
-    format='%(asctime)s | %(levelname)-8s | %(name)-30s | Worker:${WORKER_ID} | Task:${TASK_ID} | Attempt:1 | %(funcName)-20s:%(lineno)-4d | %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S.%f'
-)
+- **Concurrent orchestrator oversight** mandatory
+- **Agent workspace isolation** required
+- **Integration worker validation** enforced
+- **Perfect quality gates** non-negotiable
+- **Non-blocking operation** critical
+- **Immediate task delegation** essential
 
-# Create worker-specific logger
-logger = logging.getLogger(f'modules.workers.${WORKER_ID}')
-handler = logging.FileHandler(f'logs/workers/worker-${WORKER_ID}-{datetime.now().strftime(\"%Y%m%d\")}.log')
-handler.setFormatter(logging.Formatter(
-    '%(asctime)s | %(levelname)-8s | %(name)-30s | Worker:${WORKER_ID} | Task:${TASK_ID} | Attempt:1 | %(funcName)-20s:%(lineno)-4d | %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S.%f'
-))
-logger.addHandler(handler)
-logger.info('Worker logging system initialized', extra={'worker_id': '${WORKER_ID}', 'task_id': '${TASK_ID}', 'attempt_num': 1})
-"
+---
 
-# 3. DURING DEVELOPMENT (Worker execution with comprehensive logging)
-# Run tests with detailed logging
-python -c "
-import logging
-import subprocess
-import time
-logger = logging.getLogger(f'modules.workers.${WORKER_ID}')
-start_time = time.time()
-result = subprocess.run(['pytest', '-v'], capture_output=True, text=True)
-logger.info('Test execution completed', extra={
-    'worker_id': '${WORKER_ID}',
-    'task_id': '${TASK_ID}',
-    'attempt_num': 1,
-    'test_status': 'passed' if result.returncode == 0 else 'failed',
-    'execution_time': time.time() - start_time,
-    'test_output': result.stdout[:1000]  # First 1000 chars
-})
-"
+## DETAILED DOCUMENTATION
 
-# Run pylint with detailed logging
-python -c "
-import logging
-import subprocess
-import re
-logger = logging.getLogger(f'modules.workers.${WORKER_ID}')
-result = subprocess.run(['pylint', '.'], capture_output=True, text=True)
-score_match = re.search(r'Your code has been rated at ([\d\.]+)/10', result.stdout)
-score = score_match.group(1) if score_match else '0.00'
-logger.info('Code quality check completed', extra={
-    'worker_id': '${WORKER_ID}',
-    'task_id': '${TASK_ID}',
-    'attempt_num': 1,
-    'pylint_score': score,
-    'quality_gate_passed': float(score) == 10.0
-})
-"
+For comprehensive implementation details, see:
+- **[AGENT_ARCHITECTURE.md](AGENT_ARCHITECTURE.md)**: Workspace management and agent lifecycle
+- **[TESTING_PROTOCOLS.md](TESTING_PROTOCOLS.md)**: 7-test cycle and validation procedures
+- **[INFINITE_LOOPS.md](INFINITE_LOOPS.md)**: Agentic loop capabilities and implementation
+- **[INTEGRATION_FLOW.md](INTEGRATION_FLOW.md)**: Worker submission and GitHub automation
 
-# Fix ALL errors immediately - no exceptions (with logging)
-# Any error fixing must be logged with detailed context
-
-# 4. VALIDATION GATE (Before committing - ALL must pass)
-pytest  # Final test verification (100% success rate)
-pylint .  # Final quality check (perfect 10/10 score)
-# Prepare cross-validation test suite for potential LLM fallback
-python -m modules.llm_fallback.prepare_test_suite --task-id=${TASK_ID}
-# Clean up temporary files and test artifacts
-find . -name "*.pyc" -delete
-find . -name "__pycache__" -type d -exec rm -rf {} +
-# Only commit if both commands show perfect scores
-# Report success to orchestrator
-python -m modules.orchestrator.report_success --worker-id=${WORKER_ID} --task-id=${TASK_ID}
-
-# 5. WORKER SUCCESS COMPLETION
-git push -u origin feature/worker-${WORKER_ID}-${TASK_ID}
-./gh_2.74.1_linux_amd64/bin/gh pr create --title "Task ${TASK_ID}: Worker ${WORKER_ID} Success" --body "Complete implementation with tests and cross-validation ready"
-
-# 6. WORKER FAILURE PROTOCOL (If validation fails)
-# Report failure to orchestrator with detailed diagnostics
-python -m modules.orchestrator.report_failure --worker-id=${WORKER_ID} --task-id=${TASK_ID} --attempt=${ATTEMPT_NUM}
-# Orchestrator decides: retry with fresh worker OR escalate to LLM fallback
-# If LLM fallback triggered:
-python -m modules.llm_fallback.execute --task-id=${TASK_ID} --fallback-llm=gpt4
-# Cross-validation of fallback solution by original Claude worker
-python -m modules.workers.cross_validate --task-id=${TASK_ID} --solution-source=fallback
-
-# 7. POST-COMPLETION CLEANUP (MANDATORY)
-git checkout master
-git pull origin master
-git branch -d feature/worker-${WORKER_ID}-${TASK_ID}
-deactivate  # Exit worker environment
-rm -rf venv-worker-${WORKER_ID}  # Remove worker environment
-git clean -fd  # Remove any remaining artifacts
-# Update orchestrator with cleanup completion
-python -m modules.orchestrator.cleanup_complete --worker-id=${WORKER_ID}
-
-# 8. ORCHESTRATOR MANAGEMENT OPERATIONS WITH COMPREHENSIVE LOGGING
-# View orchestrator status and worker pool health (with logging)
-python -c "
-import logging
-logger = logging.getLogger('modules.orchestrator.main')
-logger.info('Orchestrator status check initiated', extra={'operation': 'status_check'})
-# Run actual status check
-import modules.orchestrator.status as status
-status_result = status.get_status()
-logger.info('Orchestrator status retrieved', extra={
-    'active_workers': status_result['active_workers'],
-    'queued_tasks': status_result['queued_tasks'],
-    'system_health': status_result['health_status']
-})
-"
-
-# Monitor task queue and completion rates (with detailed logging)
-python -c "
-import logging
-logger = logging.getLogger('modules.orchestrator.main')
-logger.info('Task queue monitoring initiated', extra={'operation': 'queue_monitor'})
-# Monitor implementation with logging
-import modules.orchestrator.monitor as monitor
-monitor_result = monitor.get_detailed_stats()
-logger.info('Task queue monitoring completed', extra={
-    'completion_rate': monitor_result['completion_rate'],
-    'average_task_time': monitor_result['avg_execution_time'],
-    'failure_rate': monitor_result['failure_rate'],
-    'fallback_usage': monitor_result['llm_fallback_percentage']
-})
-"
-
-# View LLM fallback usage statistics (with comprehensive logging)
-python -c "
-import logging
-logger = logging.getLogger('modules.llm_fallback.main')
-logger.info('LLM fallback statistics request', extra={'operation': 'fallback_stats'})
-import modules.llm_fallback.stats as fallback_stats
-stats = fallback_stats.get_comprehensive_stats()
-logger.info('LLM fallback statistics compiled', extra={
-    'gpt4_usage': stats['gpt4']['usage_count'],
-    'gemini_usage': stats['gemini']['usage_count'],
-    'claude_opus_usage': stats['claude_opus']['usage_count'],
-    'cross_validation_success_rate': stats['cross_validation_success_rate'],
-    'fallback_trigger_reasons': stats['trigger_reasons']
-})
-"
-
-# Performance analysis across all LLMs (with detailed logging)
-python -c "
-import logging
-logger = logging.getLogger('modules.orchestrator.performance')
-logger.info('Performance analysis initiated', extra={'operation': 'performance_analysis'})
-import modules.orchestrator.performance_report as perf
-report = perf.generate_comprehensive_report()
-logger.critical('Performance analysis completed', extra={
-    'claude_success_rate': report['claude']['success_rate'],
-    'gpt4_success_rate': report['gpt4']['success_rate'],
-    'gemini_success_rate': report['gemini']['success_rate'],
-    'average_task_completion_time': report['system']['avg_completion_time'],
-    'memory_efficiency': report['system']['memory_efficiency'],
-    'recommendation': report['optimization_recommendations']['primary']
-})
-"
-
-# Log analysis and debugging commands
-# View recent errors across all components
-python -c "
-import logging
-from glob import glob
-import os
-from datetime import datetime, timedelta
-
-logger = logging.getLogger('modules.system.analysis')
-logger.info('System-wide error analysis initiated')
-
-# Analyze error patterns from all log files
-error_patterns = {}
-log_files = glob('logs/*/*.log')
-for log_file in log_files:
-    # Parse log file for ERROR and CRITICAL entries
-    with open(log_file, 'r') as f:
-        for line in f:
-            if '| ERROR |' in line or '| CRITICAL |' in line:
-                # Extract error patterns and count occurrences
-                pass
-
-logger.info('Error analysis completed', extra={
-    'total_log_files_analyzed': len(log_files),
-    'error_patterns_found': len(error_patterns),
-    'critical_issues': sum(1 for pattern in error_patterns if 'CRITICAL' in pattern)
-})
-"
-
-# GitHub operations
-./gh_2.74.1_linux_amd64/bin/gh repo view azorel/power
-./gh_2.74.1_linux_amd64/bin/gh pr list
-./gh_2.74.1_linux_amd64/bin/gh pr review
-```
-
-## Configuration
-
-### Environment Variables (.env)
-- GitHub token and repository settings
-- **Multi-LLM API Keys**: OpenAI, Anthropic, Google Gemini, and Perplexity for fallback system
-- **Perplexity Research API**: API key for intelligent error resolution research queries
-- **Orchestrator Configuration**: Task queue settings, retry limits, timeout values
-- **Worker Pool Settings**: Max concurrent workers, resource allocation limits
-- **Error Resolution Settings**: Self-healing attempt limits, research query thresholds
-- Database paths for integrations
-
-### Repository Structure
-- `.env`: Environment configuration (not committed)
-- `venv/`: Main Python virtual environment
-- `venv-worker-*/`: Isolated worker virtual environments (temporary)
-- `CLAUDE.md`: This guidance file
-- `modules/`: Feature-categorized module structure
-  - `modules/orchestrator/`: Multi-agent orchestration system
-  - `modules/workers/`: Worker agent implementations
-  - `modules/llm_fallback/`: Alternative LLM integration and validation
-  - `modules/task_queue/`: Priority task management system
-  - `modules/error_resolution/`: Intelligent error resolution engine
-    - `modules/error_resolution/log_analyzer/`: Log-based debugging and pattern recognition
-    - `modules/error_resolution/self_healing/`: Automated fix implementation
-    - `modules/error_resolution/research/`: Perplexity integration for advanced solutions
-    - `modules/error_resolution/learning/`: Pattern learning and resolution optimization
-  - `modules/validation/`: Cross-validation and testing framework
-  - `modules/{main-feature}/`: Main feature areas
-  - `modules/{main-feature}/{sub-feature}/`: Independent sub-modules
-
-## Multi-Agent Module Organization Standards
-- **Feature Categorization**: Group related functionality into main feature areas
-- **Multi-Agent Core Modules**: Essential orchestration components:
-  - `modules/orchestrator/`: Task queue, worker management, failure handling
-  - `modules/workers/`: Claude Code worker implementations with isolation
-  - `modules/llm_fallback/`: GPT-4, Gemini, Claude Opus integration
-  - `modules/task_queue/`: Priority management and retry logic
-- **Independent Sub-modules**: Each sub-feature is self-contained with its own:
-  - `__init__.py`: Module initialization
-  - `{feature}.py`: Core implementation
-  - `test_{feature}.py`: Comprehensive tests (cross-validation compatible)
-  - `requirements.txt`: Module-specific dependencies (if needed)
-  - `worker_interface.py`: Orchestrator communication protocol
-- **Clean Interfaces**: Modules communicate through well-defined APIs
-- **Cross-Validation Ready**: All test suites can validate any LLM's solution
-- **No Cross-Dependencies**: Sub-modules must not depend on each other directly
-- **Orchestrator Integration**: All modules report status and results to central orchestrator
-
-## Concurrent Multi-Agent System Enforcement
-- Any code that violates these concurrent standards will be rejected
-- All PRs must pass quality gates before review across parallel workers
-- **Concurrent Orchestrator Oversight**: All tasks must be processed through orchestrator with parallel execution
-- **Parallel Worker Isolation Mandatory**: No exceptions to isolated worker workflow in concurrent environment
-- **Independent LLM Fallback Compliance**: Failed tasks automatically escalate to alternative LLMs without affecting other concurrent tasks
-- **Parallel Cross-Validation Required**: All solutions must pass original test suite independently
-- Complete implementations only - no partial solutions across all concurrent workers
-- Perfect pylint scores (10/10) mandatory for each parallel worker
-- 100% pytest success rate required per concurrent task
-- **Concurrent Structured Reporting**: All workers must send standardized payloads to orchestrator asynchronously
-- **Independent Resource Cleanup**: All temporary files and environments must be cleaned up per worker without affecting others
-- **Parallel Performance Tracking**: Individual worker success/failure rates monitored for optimization across concurrent tasks
-- Workers must maintain isolated branches and environments in parallel execution
-- **Concurrent Health Monitoring**: System tracks individual worker performance and automatically rebalances load across parallel tasks
-- **Non-Blocking Operations**: Orchestrator must never block user interaction while managing concurrent workers
-- **Immediate Task Delegation**: New tasks must be assigned immediately without waiting for existing tasks to complete
-
-### **MANDATORY CONCURRENT LOGGING ENFORCEMENT - NO EXCEPTIONS**
-- **Every Function Call**: All function entry/exit points must be logged with parameters across all concurrent workers
-- **Every Error**: All exceptions must be logged with full stack traces and context, including concurrent task correlation
-- **Every State Change**: All object modifications must be logged with before/after values for each parallel worker
-- **Every Decision**: All logic branches and retry attempts must be logged with reasoning, including impact on concurrent tasks
-- **Every API Call**: All external LLM interactions must be logged with timing and responses across parallel workers
-- **Every Test Execution**: All test runs must be logged with detailed results and timing for concurrent task execution
-- **Every Worker Action**: All worker lifecycle events must be logged with comprehensive context and concurrent task status
-- **Centralized Error Tracking**: All CRITICAL and ERROR logs must be aggregated for analysis across parallel operations
-- **Concurrent Performance Metrics**: Execution time, memory usage, and resource consumption must be logged for parallel task processing
-- **Cross-Component Traceability**: All log entries must include worker_id, task_id, attempt_num, and concurrent task context
-- **Parallel Log File Integrity**: All log files must be maintained with proper rotation and backup across concurrent workers
-- **Concurrent Debug Accessibility**: All logs must be easily searchable and analyzable for bug fixing in parallel task environments
-
-### **MANDATORY CONCURRENT INTELLIGENT ERROR RESOLUTION ENFORCEMENT - NO EXCEPTIONS**
-- **Parallel Automatic Error Analysis**: All test failures must trigger immediate log analysis across concurrent workers
-- **Independent Self-Healing Attempts**: Each worker must attempt automated fixes based on log insights without coordination
-- **Concurrent Research Integration**: Failed self-healing must automatically query Perplexity for solutions per worker independently
-- **Individual Resolution Tracking**: All error resolution attempts must be logged with detailed context per concurrent worker
-- **Shared Pattern Learning**: Successful resolution strategies must be recorded and shared across all concurrent worker instances
-- **Parallel Error Categorization**: All errors must be classified into predefined categories for targeted fixing across concurrent tasks
-- **Independent Research Query Optimization**: Perplexity queries must include comprehensive error context per individual worker
-- **Concurrent Solution Validation**: All research-driven fixes must be verified through comprehensive testing per worker
-- **Parallel Resolution Performance Metrics**: Success rates of different resolution strategies must be tracked across concurrent workers
-- **Individual Escalation Triggers**: Clear criteria for escalating individual tasks to LLM fallback after resolution failures
-- **Real-Time Cross-Worker Learning**: Resolution patterns must be shared instantly across all concurrent worker instances
-- **Continuous Parallel Improvement**: Error resolution effectiveness must be continuously monitored and optimized across all concurrent operations
+Each agent must follow all protocols while operating in isolated workspaces with infinite agentic loop capabilities for maximum problem-solving effectiveness.
