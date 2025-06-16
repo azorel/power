@@ -2,26 +2,27 @@
 
 Comprehensive workflow for agent work submission, integration validation, and automated GitHub deployment in the Power Builder system.
 
-## THREE-STAGE INTEGRATION ARCHITECTURE
+## FOUR-STAGE INTEGRATION ARCHITECTURE
 
 ### Overview:
 ```
-Development Agent → Integration Worker → GitHub Automation
+Development Agent → Integration Worker → PR Creation → Main Branch Merge
 ```
 
-This architecture ensures system integrity while maintaining efficiency and preventing broken deployments.
+This architecture ensures system integrity with proper branching, rollback capabilities, and prevents broken deployments through Pull Request workflows.
 
 ## STAGE 1: DEVELOPMENT AGENT SUBMISSION
 
 ### Work Package Creation:
 Development agents create comprehensive submission packages after completing their 7-test validation cycle.
 
-#### Submission Package Structure:
+#### Submission Package Structure (Branch-Based):
 ```json
 {
   "metadata": {
     "agent_id": "1703123456-a1b2c3d4",
     "task_id": "implement-user-authentication",
+    "branch_name": "feature/agent-1703123456",
     "timestamp": "2024-01-01T12:00:00Z",
     "submission_version": "1.0.0"
   },
@@ -41,6 +42,13 @@ Development agents create comprehensive submission packages after completing the
       "deprecated/old_auth.py",
       "legacy/auth_utils.py"
     ]
+  },
+  "git_info": {
+    "branch_name": "feature/agent-1703123456",
+    "commit_hash": "abc123def456",
+    "rollback_hash": "def456abc123",
+    "base_branch": "main",
+    "pr_ready": true
   },
   "validation_results": {
     "tests_passed": true,
@@ -99,16 +107,18 @@ def submit_work_package(agent_workspace):
 ## STAGE 2: INTEGRATION WORKER VALIDATION
 
 ### Integration Worker Responsibilities:
+- Create feature branch for integration testing
 - Validate against current main branch state
 - Run comprehensive system tests
 - Check for integration conflicts
 - Verify no regression issues
 - Ensure system-wide compatibility
+- Prepare Pull Request
 
-### Integration Process:
+### Integration Process (Branch-Based):
 ```python
 def validate_integration(work_package):
-    """Comprehensive integration validation process."""
+    """Comprehensive integration validation process with PR creation."""
     
     # 1. Setup fresh integration environment
     integration_env = setup_integration_environment()
@@ -116,9 +126,12 @@ def validate_integration(work_package):
     # 2. Pull latest main branch
     current_main = pull_fresh_main_branch()
     
-    # 3. Apply agent changes to current state
-    apply_result = apply_changes_to_current_main(
-        work_package['diff_package'], 
+    # 3. Create or checkout feature branch
+    feature_branch = work_package['git_info']['branch_name']
+    checkout_feature_branch(feature_branch)
+    
+    # 4. Ensure branch is up to date with main
+    merge_main_into_feature_branch(feature_branch) 
         current_main
     )
     
@@ -204,32 +217,42 @@ def handle_integration_failure(validation_results):
         return escalate_to_manual_review()
 ```
 
-## STAGE 3: GITHUB AUTOMATION
+## STAGE 3: PULL REQUEST CREATION
 
-### Staging Branch Strategy:
-Upon successful integration validation, automated GitHub deployment begins:
+### PR-Based Deployment Strategy:
+Upon successful integration validation, automated Pull Request creation begins:
 
-#### Staging Branch Creation:
+#### Pull Request Creation:
 ```python
-def create_staging_deployment(integration_results):
-    """Create staging branch with validated changes."""
+def create_pull_request(integration_results):
+    """Create Pull Request with validated changes."""
     
-    # 1. Create staging branch
-    staging_branch = f"staging/{integration_results['integration_id']}"
+    # 1. Get feature branch info
+    feature_branch = integration_results['git_info']['branch_name']
     
-    # 2. Apply validated changes
-    apply_changes_to_staging(staging_branch, integration_results)
+    # 2. Create comprehensive PR description
+    pr_description = generate_pr_description(integration_results)
     
-    # 3. Push staging branch
-    push_staging_branch(staging_branch)
+    # 3. Create Pull Request
+    pr_result = github_api.create_pull_request(
+        title=f"Agent Task: {integration_results['task_id']}",
+        head=feature_branch,
+        base="main",
+        body=pr_description
+    )
     
-    # 4. Trigger CI/CD pipeline
-    cicd_result = trigger_cicd_pipeline(staging_branch)
+    # 4. Add validation results as PR comment
+    add_validation_comment(pr_result.number, integration_results)
+    
+    # 5. Request review if needed
+    if requires_review(integration_results):
+        request_pr_review(pr_result.number)
     
     return {
-        'staging_branch': staging_branch,
-        'cicd_triggered': True,
-        'pipeline_id': cicd_result.pipeline_id
+        'pr_number': pr_result.number,
+        'pr_url': pr_result.html_url,
+        'feature_branch': feature_branch,
+        'review_required': requires_review(integration_results)
     }
 ```
 
@@ -274,33 +297,87 @@ jobs:
           gh pr merge --auto --merge
 ```
 
-### Auto-Merge Process:
+## STAGE 4: MAIN BRANCH MERGE & CLEANUP
+
+### Automated Merge Process:
 ```python
-def execute_auto_merge(staging_branch, cicd_results):
-    """Execute automated merge to main branch."""
+def execute_pr_merge(pr_info, validation_results):
+    """Execute automated PR merge to main branch with cleanup."""
     
-    if cicd_results.all_passed():
-        # 1. Create pull request
-        pr = create_pull_request(
-            base='main',
-            head=staging_branch,
-            title=f"Integration: {staging_branch}",
-            body=generate_pr_description(cicd_results)
+    # 1. Final validation check
+    if all_validations_passed(validation_results):
+        
+        # 2. Merge Pull Request
+        merge_result = github_api.merge_pull_request(
+            pr_number=pr_info['pr_number'],
+            merge_method='squash',
+            commit_title=f"Agent Task: {validation_results['task_id']}",
+            commit_message=generate_merge_commit_message(validation_results)
         )
         
-        # 2. Auto-approve if all validations pass
-        if pr.all_checks_passed():
-            pr.merge(merge_method='squash')
-            
-            # 3. Clean up staging branch
-            delete_staging_branch(staging_branch)
-            
-            # 4. Notify orchestrator
-            notify_deployment_success(pr.merge_commit)
-            
-            return {'status': 'deployed', 'commit': pr.merge_commit}
+        # 3. Tag release if significant change
+        if is_significant_change(validation_results):
+            create_release_tag(merge_result.sha)
+        
+        # 4. Clean up feature branch
+        delete_feature_branch(pr_info['feature_branch'])
+        
+        # 5. Update integration tracking
+        update_integration_status(merge_result.sha, 'deployed')
+        
+        # 6. Notify orchestrator
+        notify_deployment_success(merge_result)
+        
+        return {
+            'status': 'deployed', 
+            'commit_sha': merge_result.sha,
+            'pr_merged': pr_info['pr_number'],
+            'branch_cleaned': True
+        }
     else:
-        return handle_cicd_failure(cicd_results)
+        return handle_validation_failure(validation_results)
+```
+
+### Post-Merge Cleanup Protocol:
+```python
+def post_merge_cleanup(merge_results):
+    """Complete cleanup after successful merge."""
+    
+    # 1. Remove feature branch locally and remotely
+    cleanup_feature_branch(merge_results['feature_branch'])
+    
+    # 2. Update main branch protection status
+    verify_main_branch_protection()
+    
+    # 3. Archive agent workspace
+    archive_agent_workspace(merge_results['agent_id'])
+    
+    # 4. Update deployment metrics
+    record_deployment_metrics(merge_results)
+    
+    # 5. Trigger post-deployment validations
+    schedule_post_deployment_tests()
+```
+
+### Rollback Procedures:
+```python
+def execute_emergency_rollback(problematic_commit):
+    """Execute emergency rollback if deployment issues detected."""
+    
+    # 1. Create rollback branch
+    rollback_branch = f"rollback/{problematic_commit[:8]}"
+    
+    # 2. Revert problematic commit
+    revert_commit = git.revert(problematic_commit)
+    
+    # 3. Create emergency PR
+    emergency_pr = create_emergency_pr(rollback_branch, revert_commit)
+    
+    # 4. Fast-track merge
+    emergency_pr.merge(merge_method='merge')  # Preserve history
+    
+    # 5. Notify team
+    notify_emergency_rollback(problematic_commit, revert_commit)
 ```
 
 ## ORCHESTRATOR COORDINATION

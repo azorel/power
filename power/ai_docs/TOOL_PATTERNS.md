@@ -18,11 +18,15 @@ Intelligent pattern learning system for consistent tool usage across all agents,
 - ✅ `(cd dir && command)` - Subshell for directory-specific operations
 - ✅ `command1 | command2` - Pipe operations for data flow
 
-#### Git Operations
+#### Git Operations (Branch-Based Workflow)
+- ✅ Create feature branch:
+```bash
+git checkout -b feature/agent-{task-id}
+```
 - ✅ Git commit with heredoc:
 ```bash
 git commit -m "$(cat <<'EOF'
-Commit message here.
+Agent {task-id}: [Description]
 
 🤖 Generated with [Claude Code](https://claude.ai/code)
 
@@ -33,6 +37,8 @@ EOF
 - ✅ `git add .` - Stage all changes before commit
 - ✅ `git status` - Always check status before operations
 - ✅ `git diff --staged` - Review staged changes before commit
+- ✅ `git push -u origin feature/agent-{task-id}` - Push feature branch
+- ✅ `gh pr create --title "Agent Task: {description}" --body "PR description"` - Create PR
 
 #### Environment & Dependencies
 - ✅ `source venv/bin/activate` - Activate virtual environment
@@ -61,6 +67,13 @@ EOF
 - ❌ `git add file.py` → ✅ `git add .` for comprehensive staging
 - ❌ Direct commit without status → ✅ Always run `git status` first
 - ❌ Commit without diff review → ✅ Run `git diff --staged` first
+- ❌ Direct commit to main → ✅ Always work on feature branches
+- ❌ `git push origin main` → ✅ `git push origin feature/agent-{task-id}`
+
+#### Rollback & Recovery Errors
+- ❌ `git reset --hard HEAD~1` without backup → ✅ Use `git revert` for safe rollback
+- ❌ Direct force push to main → ✅ Use `git push --force-with-lease` on features only
+- ❌ Manual merge conflict resolution → ✅ Use PR-based conflict resolution
 
 #### Environment Setup Errors
 - ❌ `pip install package` → ✅ Ensure virtual environment activated first

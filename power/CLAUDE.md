@@ -49,36 +49,52 @@ agents/
 │   └── output/                   # Work submission area
 ```
 
-### Agent Lifecycle:
+### Agent Lifecycle (Branch-Based):
 1. **Receive Assignment**: Agent gets plan.md from orchestrator
 2. **Workspace Setup**: Create agents/{agent-id}/ directory
 3. **Fresh Clone**: `git clone azorel/power` for clean starting point
-4. **Environment Creation**: Independent venv and dependency installation
-5. **Plan Execution**: Follow plan.md step-by-step with infinite agentic capabilities
-6. **Quality Validation**: Execute optimized 7-test protocol
-7. **Work Submission**: Submit completed package to orchestrator
-8. **Integration Flow**: Route to integration worker for validation
-9. **Cleanup**: **MANDATORY** - Remove workspace after successful integration
+4. **Branch Creation**: Create feature/agent-{task-id} branch from main
+5. **Environment Creation**: Independent venv and dependency installation
+6. **Plan Execution**: Follow plan.md step-by-step with infinite agentic capabilities
+7. **Quality Validation**: Execute optimized 7-test protocol
+8. **Work Submission**: Submit completed package to orchestrator
+9. **Integration Flow**: Route to integration worker for PR creation
+10. **Branch Cleanup**: **MANDATORY** - Remove workspace and feature branch after merge
 
-### Workspace Cleanup Protocol:
-- **Post-Integration**: Integration worker MUST remove agents/{agent-id}/ folder
+### Workspace & Branch Protocol:
+- **Feature Branch**: Each agent gets unique feature/agent-{task-id} branch
 - **Fresh Environment**: Every new task gets completely clean workspace
 - **No Reuse**: Never reuse existing agent workspaces - always fresh clone
-- **Verification**: Ensure agents/ directory is clean before new assignments
+- **Branch Tracking**: Maintain rollback hash for emergency recovery
+- **Post-Integration**: Integration worker MUST remove agents/{agent-id}/ folder
+- **Branch Cleanup**: Delete feature branch after successful PR merge
+- **Verification**: Ensure agents/ directory and feature branches are clean
 
 ### Agent Command Structure:
 Agents work in isolated environments with fresh GitHub code:
 ```bash
-# Agent initialization
+# Agent initialization with branch creation
 cd agents/{agent-id}/
 git clone https://github.com/azorel/power.git
 cd power/
+git checkout -b feature/agent-{task-id}
 python -m venv ../venv
 source ../venv/bin/activate
 pip install -r requirements.txt
 
 # Execute plan.md with infinite agentic loop capabilities
-# Submit work package upon completion
+# Commit changes to feature branch
+git add .
+git commit -m "Agent {task-id}: [Description]
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>"
+
+# Push feature branch for PR creation
+git push -u origin feature/agent-{task-id}
+
+# Submit work package with branch info to orchestrator
 ```
 
 ## INFINITE AGENTIC LOOP CAPABILITIES
@@ -128,37 +144,57 @@ Workers leverage infinite agentic loop architecture for sophisticated problem-so
 - **Direct submission** after development cycle completion
 - **Integration worker handles** system-wide validation
 
-## INTEGRATION FLOW ARCHITECTURE
+## GITHUB WORKFLOW ARCHITECTURE
 
-### Three-Stage Process:
+### Professional Branch Strategy:
 ```
-Development Agent → Integration Worker → GitHub Automation
+main (protected) ← develop ← feature/agent-{task-id}
+```
+
+#### Branch Protection Rules:
+- **main**: Protected branch, no direct commits allowed
+- **develop**: Integration branch for feature testing
+- **feature/**: Individual agent task branches
+- **hotfix/**: Emergency fixes for production issues
+
+### Four-Stage Process:
+```
+Development Agent → Integration Worker → PR Creation → Main Branch Merge
 ```
 
 #### Development Agent:
 - Execute task in agents/{agent-id}/ workspace
+- Work on dedicated feature/agent-{task-id} branch
 - Apply infinite agentic loop capabilities
 - Complete 7-test validation cycle
 - Submit work package to orchestrator
 
 #### Integration Worker:
 - Receive work package from orchestrator
-- Pull fresh main branch
-- Apply changes to current codebase state
+- Create feature branch from latest main
+- Apply changes to feature branch
 - Run full system test suite
 - Validate integration compatibility
 - Check for regression issues
 
-#### GitHub Automation:
-- Create staging branch with validated changes
-- Auto-merge to main after CI/CD passes
-- Clean commit history maintenance
+#### PR Creation & Review:
+- Create Pull Request from feature branch to main
+- Include comprehensive change description
+- Add automated testing results
+- Enable rollback capability through PR history
+
+#### Main Branch Integration:
+- Merge PR after validation passes
+- Maintain clean commit history
+- Tag releases for version control
+- Automatic branch cleanup post-merge
 
 ### Work Submission Protocol:
 ```json
 {
   "agent_id": "unique-identifier",
   "task_id": "assigned-task",
+  "branch_name": "feature/agent-task-123",
   "status": "success",
   "changes": {
     "files_modified": ["file1.py", "file2.py"],
@@ -170,8 +206,56 @@ Development Agent → Integration Worker → GitHub Automation
     "pylint_score": "10.00/10",
     "manual_verification": true
   },
-  "diff_package": "base64_encoded_git_diff"
+  "pr_url": "https://github.com/azorel/power/pull/123",
+  "rollback_hash": "commit-sha-before-changes"
 }
+```
+
+## ROLLBACK & RECOVERY PROCEDURES
+
+### Emergency Rollback Protocol:
+```bash
+# IMMEDIATE ROLLBACK (if main branch corrupted)
+git checkout main
+git reset --hard <last-known-good-commit>
+git push --force-with-lease origin main
+
+# SAFER ROLLBACK (using revert)
+git checkout main
+git revert <problematic-commit-sha>
+git push origin main
+```
+
+### Branch-Based Recovery:
+```bash
+# If feature branch needs rollback
+git checkout feature/agent-task-123
+git reset --hard <previous-commit>
+git push --force-with-lease origin feature/agent-task-123
+
+# If PR needs to be reverted after merge
+git checkout main
+git revert -m 1 <merge-commit-sha>
+git push origin main
+```
+
+### Agent Workspace Recovery:
+```bash
+# Reset agent workspace to clean state
+cd agents/{agent-id}/
+rm -rf power/
+git clone https://github.com/azorel/power.git
+cd power/
+git checkout main
+# Fresh start guaranteed
+```
+
+### Recovery Validation Protocol:
+1. **Verify Rollback**: Confirm main branch is in expected state
+2. **Test System**: Run full test suite to ensure functionality
+3. **Check Dependencies**: Validate all integrations still work
+4. **Restart Agent**: Create fresh agent workspace from clean main
+5. **Document Incident**: Log what went wrong and prevention steps
 ```
 
 ## PROJECT OVERVIEW

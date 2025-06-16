@@ -37,7 +37,7 @@ AGENT_ID=$(date +%s)-$(uuidgen | cut -d'-' -f1)
 
 ## AGENT LIFECYCLE
 
-### Phase 1: Initialization
+### Phase 1: Initialization (Branch-Based)
 ```bash
 # 1. Create workspace
 mkdir -p agents/${AGENT_ID}
@@ -47,7 +47,11 @@ cd agents/${AGENT_ID}
 git clone https://github.com/azorel/power.git
 cd power/
 
-# 3. Virtual environment setup
+# 3. Create feature branch for agent work
+TASK_ID=$(echo "${AGENT_ID}" | cut -d'-' -f1)
+git checkout -b feature/agent-${TASK_ID}
+
+# 4. Virtual environment setup
 python -m venv ../venv
 source ../venv/bin/activate
 
@@ -78,6 +82,7 @@ Generate submission package:
 {
   "agent_id": "1703123456-a1b2c3d4",
   "task_id": "implement-feature-xyz",
+  "branch_name": "feature/agent-1703123456",
   "timestamp": "2024-01-01T12:00:00Z",
   "status": "success",
   "changes": {
@@ -92,18 +97,23 @@ Generate submission package:
     "manual_verification": true,
     "cross_validation_ready": true
   },
+  "git_info": {
+    "branch_name": "feature/agent-1703123456",
+    "commit_hash": "abc123def456",
+    "rollback_hash": "def456abc123",
+    "pr_ready": true
+  },
   "metrics": {
     "execution_time": 1800,
     "test_execution_time": 45,
     "lines_added": 150,
     "lines_removed": 30
-  },
-  "diff_package": "base64_encoded_git_diff"
+  }
 }
 ```
 
-### Phase 5: Cleanup
-After successful integration:
+### Phase 5: Cleanup (Branch-Based)
+After successful PR merge:
 ```bash
 # 1. Deactivate environment
 deactivate
@@ -112,7 +122,10 @@ deactivate
 cd ../../..
 rm -rf agents/${AGENT_ID}
 
-# 3. Update orchestrator tracking
+# 3. Integration worker cleans up feature branch
+git push origin --delete feature/agent-${TASK_ID}
+
+# 4. Update orchestrator tracking
 ```
 
 ## PLAN.MD STRUCTURE
