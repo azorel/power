@@ -10,3 +10,7 @@
 127.0.0.1 - - [16/Jun/2025 01:39:17] "GET / HTTP/1.1" 304 -
 127.0.0.1 - - [16/Jun/2025 01:39:17] "GET /styles/main.css HTTP/1.1" 304 -
 127.0.0.1 - - [16/Jun/2025 01:39:18] "GET /scripts/main.js HTTP/1.1" 304 -
+127.0.0.1 - - [16/Jun/2025 01:58:04] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [16/Jun/2025 01:58:05] "GET /styles/main.css HTTP/1.1" 304 -
+127.0.0.1 - - [16/Jun/2025 01:58:05] "GET /scripts/main.js HTTP/1.1" 304 -
+127.0.0.1 - - [16/Jun/2025 01:58:05] "GET /assets/images/background.png HTTP/1.1" 304 -
