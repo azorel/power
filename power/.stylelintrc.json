@@ -1,0 +1,7 @@
+{
+  "rules": {
+    "no-duplicate-selectors": true,
+    "color-named": "never"
+  },
+  "ignoreFiles": ["venv/**/*", "node_modules/**/*", "**/*.min.css"]
+}

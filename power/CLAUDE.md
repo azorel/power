@@ -7,6 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 **CRITICAL: The primary Claude Code instance operates as the ORCHESTRATOR, not a worker.**
 
 ### Orchestrator Responsibilities:
+
 - **Task Planning**: Create plan.md files for each worker task
 - **Worker Delegation**: Assign tasks to fresh Claude Code worker instances via Task tool
 - **Non-Blocking Operation**: IMMEDIATELY return control to user after delegation
@@ -16,6 +17,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **LLM Fallback Coordination**: Manage alternative LLM integration when workers fail
 
 ### Enhanced Non-Blocking Workflow:
+
 1. **Receive User Request**: Analyze scope and break into tasks
 2. **Create plan.md**: Generate detailed execution plan for each worker
 3. **Agent Workspace Setup**: Prepare agents/{agent-id}/ directories
@@ -26,6 +28,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 8. **User Notification**: Relay completion notifications immediately
 
 ### Critical Rules for Orchestrator:
+
 - **NEVER perform development work directly** - always delegate to workers
 - **ALWAYS create plan.md** before delegating tasks
 - **NEVER edit code files directly** - workers handle all file operations
@@ -34,11 +37,58 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **MANAGE multiple concurrent workers** with independent tracking
 
 ### Completion Signal Protocol:
+
 All workers must end reports with: **"Task complete and ready for next step"**
+
+## CONTEXT-SPECIFIC STANDARDS ENFORCEMENT
+
+**CRITICAL**: All agents MUST read appropriate standards before any work execution.
+
+### Standards System Overview:
+
+- **Context-triggered loading**: Agents read only relevant standards for their task type
+- **Mandatory compliance**: Standards are requirements, not suggestions
+- **Automatic enforcement**: Non-compliance results in task failure and restart
+
+### Standards Files by Work Type:
+
+```
+ai_docs/standards/
+├── CODING_STANDARDS.md          # Three-layer architecture enforcement
+├── API_INTEGRATION_STANDARDS.md # External API integration rules
+├── RESEARCH_STANDARDS.md        # Search methodology, validation
+├── PROMPTING_STANDARDS.md       # LLM interaction patterns
+├── TESTING_STANDARDS.md         # Test protocols, validation
+└── INTEGRATION_STANDARDS.md     # PR creation, merge procedures
+```
+
+### Orchestrator Standards Delegation (MANDATORY):
+
+1. **Task Analysis**: Identify work type and required standards
+2. **Standards Assignment**: Specify which standards files worker MUST read
+3. **Compliance Mandate**: Include standards reading in plan.md as requirement
+4. **Validation Enforcement**: Reject submissions that violate standards
+5. **Standards Acknowledgment**: Workers must confirm standards understanding
+
+### Worker Standards Protocol (NON-NEGOTIABLE):
+
+1. **Pre-Work Reading**: Read ALL assigned standards files completely
+2. **Understanding Confirmation**: Acknowledge standards in plan.md
+3. **Compliance Planning**: Show how work will follow standards
+4. **Continuous Validation**: Check compliance throughout execution
+5. **Submission Validation**: Confirm zero violations before submission
+
+### Example Standards Assignment:
+
+- **Coding Task**: "MUST read CODING_STANDARDS.md and API_INTEGRATION_STANDARDS.md"
+- **Research Task**: "MUST read RESEARCH_STANDARDS.md before beginning"
+- **API Integration**: "MUST read CODING_STANDARDS.md and API_INTEGRATION_STANDARDS.md"
+- **Testing Work**: "MUST read TESTING_STANDARDS.md and CODING_STANDARDS.md"
 
 ## AGENT WORKSPACE ARCHITECTURE
 
 ### Workspace Structure:
+
 ```
 agents/
 ├── {agent-id}/                    # Isolated workspace per agent
@@ -50,6 +100,7 @@ agents/
 ```
 
 ### Agent Lifecycle (Branch-Based):
+
 1. **Receive Assignment**: Agent gets plan.md from orchestrator
 2. **Workspace Setup**: Create agents/{agent-id}/ directory
 3. **Fresh Clone**: `git clone azorel/power` for clean starting point
@@ -62,6 +113,7 @@ agents/
 10. **Branch Cleanup**: **MANDATORY** - Remove workspace and feature branch after merge
 
 ### Workspace & Branch Protocol:
+
 - **Feature Branch**: Each agent gets unique feature/agent-{task-id} branch
 - **Fresh Environment**: Every new task gets completely clean workspace
 - **No Reuse**: Never reuse existing agent workspaces - always fresh clone
@@ -71,7 +123,9 @@ agents/
 - **Verification**: Ensure agents/ directory and feature branches are clean
 
 ### Agent Command Structure:
+
 Agents work in isolated environments with fresh GitHub code:
+
 ```bash
 # Agent initialization with branch creation
 cd agents/{agent-id}/
@@ -100,9 +154,11 @@ git push -u origin feature/agent-{task-id}
 ## INFINITE AGENTIC LOOP CAPABILITIES
 
 ### Enhanced Worker Intelligence:
+
 Workers leverage infinite agentic loop architecture for sophisticated problem-solving:
 
 #### 5-Phase Execution:
+
 1. **Specification Analysis**: Deep understanding of task requirements
 2. **Reconnaissance**: Analyze current codebase state and patterns
 3. **Iteration Strategy**: Plan approach with progressive sophistication
@@ -110,12 +166,14 @@ Workers leverage infinite agentic loop architecture for sophisticated problem-so
 5. **Infinite Orchestration**: Wave-based generation for iterative improvements
 
 #### Progressive Sophistication:
+
 - **Wave 1**: Basic functional implementation
 - **Wave 2**: Multi-dimensional enhancements
 - **Wave 3**: Complex paradigm optimization
 - **Wave N**: Revolutionary improvements
 
 #### Context Management:
+
 - Fresh agent instances prevent context accumulation
 - Strategic summarization for efficient processing
 - Graceful conclusion when approaching limits
@@ -123,6 +181,7 @@ Workers leverage infinite agentic loop architecture for sophisticated problem-so
 ## OPTIMIZED TESTING PROTOCOL
 
 ### Smart 7-Test Maximum Cycle:
+
 1. **Test 1**: Initial `pytest` + `pylint` after implementation
 2. **Test 2**: Re-run after first round of fixes
 3. **Test 3**: Failure trigger → **Automatic Perplexity Research**
@@ -134,12 +193,14 @@ Workers leverage infinite agentic loop architecture for sophisticated problem-so
 7. **Test 7**: Final confirmation (if needed)
 
 ### Quality Gates (ALL MUST PASS):
+
 - **100% pytest success rate** (achieved during development)
 - **Perfect 10/10 pylint score** (achieved during development)
 - **Manual verification** (required)
 - **Cross-validation compatibility** (required)
 
 ### Pre-Commit Optimization:
+
 - **NO redundant testing before GitHub** (files already validated)
 - **Direct submission** after development cycle completion
 - **Integration worker handles** system-wide validation
@@ -147,22 +208,26 @@ Workers leverage infinite agentic loop architecture for sophisticated problem-so
 ## GITHUB WORKFLOW ARCHITECTURE
 
 ### Professional Branch Strategy:
+
 ```
 main (protected) ← develop ← feature/agent-{task-id}
 ```
 
 #### Branch Protection Rules:
+
 - **main**: Protected branch, no direct commits allowed
 - **develop**: Integration branch for feature testing
 - **feature/**: Individual agent task branches
 - **hotfix/**: Emergency fixes for production issues
 
 ### Four-Stage Process:
+
 ```
 Development Agent → Integration Worker → PR Creation → Main Branch Merge
 ```
 
 #### Development Agent:
+
 - Execute task in agents/{agent-id}/ workspace
 - Work on dedicated feature/agent-{task-id} branch
 - Apply infinite agentic loop capabilities
@@ -170,6 +235,7 @@ Development Agent → Integration Worker → PR Creation → Main Branch Merge
 - Submit work package to orchestrator
 
 #### Integration Worker:
+
 - Receive work package from orchestrator
 - Create feature branch from latest main
 - Apply changes to feature branch
@@ -178,18 +244,21 @@ Development Agent → Integration Worker → PR Creation → Main Branch Merge
 - Check for regression issues
 
 #### PR Creation & Review:
+
 - Create Pull Request from feature branch to main
 - Include comprehensive change description
 - Add automated testing results
 - Enable rollback capability through PR history
 
 #### Main Branch Integration:
+
 - Merge PR after validation passes
 - Maintain clean commit history
 - Tag releases for version control
 - Automatic branch cleanup post-merge
 
 ### Work Submission Protocol:
+
 ```json
 {
   "agent_id": "unique-identifier",
@@ -214,6 +283,7 @@ Development Agent → Integration Worker → PR Creation → Main Branch Merge
 ## ROLLBACK & RECOVERY PROCEDURES
 
 ### Emergency Rollback Protocol:
+
 ```bash
 # IMMEDIATE ROLLBACK (if main branch corrupted)
 git checkout main
@@ -227,6 +297,7 @@ git push origin main
 ```
 
 ### Branch-Based Recovery:
+
 ```bash
 # If feature branch needs rollback
 git checkout feature/agent-task-123
@@ -240,6 +311,7 @@ git push origin main
 ```
 
 ### Agent Workspace Recovery:
+
 ```bash
 # Reset agent workspace to clean state
 cd agents/{agent-id}/
@@ -251,12 +323,14 @@ git checkout main
 ```
 
 ### Recovery Validation Protocol:
+
 1. **Verify Rollback**: Confirm main branch is in expected state
 2. **Test System**: Run full test suite to ensure functionality
 3. **Check Dependencies**: Validate all integrations still work
 4. **Restart Agent**: Create fresh agent workspace from clean main
 5. **Document Incident**: Log what went wrong and prevention steps
-```
+
+````
 
 ## PROJECT OVERVIEW
 
@@ -273,9 +347,10 @@ git checkout main
 
 ### Requirements:
 - **Python**: 3.12.3
-- **Tools**: pylint 3.3.7, pytest 8.4.0
+- **Tools**: pylint 3.3.7, pytest 8.4.0, pre-commit 4.2.0
 - **Database**: SQLite 3.45.1 (built-in)
 - **GitHub CLI**: Available at `./gh_2.74.1_linux_amd64/bin/gh`
+- **Python Command Fix**: Local `python` wrapper created to resolve command not found errors
 
 ### Configuration:
 - **Environment Variables**: .env (GitHub token, LLM API keys, Perplexity API)
@@ -369,6 +444,7 @@ shellcheck examples/*.sh  # Bash syntax validation
 ## DETAILED DOCUMENTATION
 
 For comprehensive implementation details, see:
+
 - **[AGENT_ARCHITECTURE.md](ai_docs/AGENT_ARCHITECTURE.md)**: Workspace management and agent lifecycle
 - **[TESTING_PROTOCOLS.md](ai_docs/TESTING_PROTOCOLS.md)**: 7-test cycle and validation procedures
 - **[INFINITE_LOOPS.md](ai_docs/INFINITE_LOOPS.md)**: Agentic loop capabilities and implementation
