@@ -1,3 +1,7 @@
+"""
+smart_test_cycle module.
+"""
+
 #!/usr/bin/env python3
 """
 Smart 3-Test Cycle with LLM Fallback Integration

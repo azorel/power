@@ -1,3 +1,7 @@
+"""
+comprehensive_compliance_report module.
+"""
+
 #!/usr/bin/env python3
 """
 Comprehensive architecture compliance report.

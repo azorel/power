@@ -1,3 +1,7 @@
+"""
+validate_architecture module.
+"""
+
 #!/usr/bin/env python3
 """
 Comprehensive architecture compliance validation script.

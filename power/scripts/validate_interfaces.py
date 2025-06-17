@@ -1,3 +1,7 @@
+"""
+validate_interfaces module.
+"""
+
 #!/usr/bin/env python3
 """
 Interface implementation validation script.
