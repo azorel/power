@@ -99,16 +99,16 @@ class BaseAdapterConfig:
         value = self._get_env_var(key, str(default))
         try:
             return int(value)
-        except ValueError:
-            raise ValueError(f"Configuration '{key}' must be an integer")
+        except ValueError as exc:
+            raise ValueError(f"Configuration '{key}' must be an integer") from exc
 
     def get_float(self, key: str, default: float) -> float:
         """Get a float configuration value."""
         value = self._get_env_var(key, str(default))
         try:
             return float(value)
-        except ValueError:
-            raise ValueError(f"Configuration '{key}' must be a float")
+        except ValueError as exc:
+            raise ValueError(f"Configuration '{key}' must be a float") from exc
 
     def get_bool(self, key: str, default: bool = False) -> bool:
         """Get a boolean configuration value."""

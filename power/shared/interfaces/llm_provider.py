@@ -4,9 +4,9 @@ All LLM adapters MUST implement this interface to ensure compatibility.
 """
 
 from abc import ABC, abstractmethod
-from typing import Optional, Dict, Any, List, Callable, Generator
+from typing import Dict, Any, List, Callable
 from shared.models.llm_request import LLMRequest
-from shared.models.llm_response import LLMResponse, StreamingResponse
+from shared.models.llm_response import LLMResponse
 
 
 class LLMProvider(ABC):
@@ -29,7 +29,7 @@ class LLMProvider(ABC):
             AuthenticationError: When API credentials are invalid
             QuotaExceededError: When usage quotas are exceeded
         """
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def generate_chat_completion(
@@ -47,7 +47,7 @@ class LLMProvider(ABC):
         Returns:
             LLM response with generated content and metadata
         """
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def get_model_info(self) -> Dict[str, Any]:
@@ -57,7 +57,7 @@ class LLMProvider(ABC):
         Returns:
             Dictionary containing model name, version, capabilities, etc.
         """
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def validate_credentials(self) -> bool:
@@ -67,7 +67,7 @@ class LLMProvider(ABC):
         Returns:
             True if credentials are valid, False otherwise
         """
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def get_usage_stats(self) -> Dict[str, Any]:
@@ -77,13 +77,13 @@ class LLMProvider(ABC):
         Returns:
             Dictionary with usage stats, quotas, rate limits, etc.
         """
-        pass
+        raise NotImplementedError
 
     @property
     @abstractmethod
     def provider_name(self) -> str:
         """Return the name of the LLM provider (e.g., 'gemini', 'openai')."""
-        pass
+        raise NotImplementedError
 
     @property
     @abstractmethod
@@ -94,7 +94,7 @@ class LLMProvider(ABC):
         Common features: 'text_generation', 'chat_completion',
                         'image_input', 'function_calling', 'streaming'
         """
-        pass
+        raise NotImplementedError
 
     def is_feature_supported(self, feature: str) -> bool:
         """Check if a specific feature is supported by this provider."""
@@ -122,12 +122,12 @@ class MultiModalLLMProvider(LLMProvider):
         Returns:
             LLM response with generated content
         """
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def get_supported_image_formats(self) -> List[str]:
         """Return list of supported image formats (e.g., ['jpeg', 'png', 'webp'])."""
-        pass
+        raise NotImplementedError
 
 
 class StreamingLLMProvider(LLMProvider):
@@ -144,7 +144,7 @@ class StreamingLLMProvider(LLMProvider):
         Yields:
             Partial LLM responses as they become available
         """
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def generate_chat_completion_stream(
@@ -162,7 +162,7 @@ class StreamingLLMProvider(LLMProvider):
         Yields:
             Partial LLM responses as they become available
         """
-        pass
+        raise NotImplementedError
 
 class FunctionCallingLLMProvider(LLMProvider):
     """Extended interface for LLM providers that support function calling."""
@@ -185,7 +185,7 @@ class FunctionCallingLLMProvider(LLMProvider):
         Returns:
             LLM response with generated content and function call results
         """
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def execute_function_call(
@@ -205,7 +205,7 @@ class FunctionCallingLLMProvider(LLMProvider):
         Returns:
             Result of the function execution
         """
-        pass
+        raise NotImplementedError
 
 
 class ImageGenerationLLMProvider(LLMProvider):
@@ -227,7 +227,7 @@ class ImageGenerationLLMProvider(LLMProvider):
         Returns:
             Dictionary containing image data and metadata
         """
-        pass
+        raise NotImplementedError
 
 
 class SystemInstructionLLMProvider(LLMProvider):
@@ -251,7 +251,7 @@ class SystemInstructionLLMProvider(LLMProvider):
         Returns:
             LLM response following the system instruction
         """
-        pass
+        raise NotImplementedError
 
 
 class AdvancedLLMProvider(
@@ -274,7 +274,7 @@ class AdvancedLLMProvider(
         Returns:
             Dictionary mapping capability names to availability status
         """
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def select_optimal_model(
@@ -294,4 +294,4 @@ class AdvancedLLMProvider(
         Returns:
             Name of the optimal model for the task
         """
-        pass
+        raise NotImplementedError
