@@ -117,7 +117,11 @@ class GeminiBaseClient:
 
         # Add rate limiter stats if available
         if hasattr(self.rate_limiter, 'get_stats'):
-            stats.update(self.rate_limiter.get_stats())
+            rate_stats = self.rate_limiter.get_stats()
+            if hasattr(rate_stats, 'to_dict'):
+                stats.update(rate_stats.to_dict())
+            else:
+                stats.update(rate_stats)
 
         # Add cache stats if caching is enabled
         if self.cache:
@@ -134,20 +138,27 @@ class GeminiBaseClient:
     @property
     def provider_name(self) -> str:
         """Get the provider name."""
-        return "Google Gemini"
+        return "gemini"
 
     @property
     def supported_features(self) -> list:
         """Get list of supported features."""
-        return [
+        features = [
             "text_generation",
             "chat_completion",
-            "streaming",
+            "image_input",
+            "safety_filtering",
+            "response_caching",
             "function_calling",
-            "image_analysis",
             "multimodal",
             "system_instructions"
         ]
+
+        # Add streaming only if enabled in config
+        if getattr(self.config, 'enable_streaming', True):
+            features.append("streaming")
+
+        return features
 
     def get_advanced_capabilities(self) -> Dict[str, bool]:
         """

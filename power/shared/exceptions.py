@@ -26,17 +26,14 @@ class PowerBuilderError(Exception):
 # Adapter-related exceptions
 class AdapterError(PowerBuilderError):
     """Base exception for adapter-related errors."""
-    pass
 
 
 class LLMProviderError(AdapterError):
     """Base exception for LLM provider errors."""
-    pass
 
 
 class AuthenticationError(LLMProviderError):
     """Raised when API credentials are invalid or missing."""
-    pass
 
 
 class RateLimitError(LLMProviderError):
@@ -66,7 +63,6 @@ class ModelNotFoundError(LLMProviderError):
 
 class InvalidRequestError(LLMProviderError):
     """Raised when the request format or parameters are invalid."""
-    pass
 
 
 class ContentFilterError(LLMProviderError):
@@ -77,7 +73,7 @@ class ContentFilterError(LLMProviderError):
         self.filter_reason = filter_reason
 
 
-class TimeoutError(LLMProviderError):
+class RequestTimeoutError(LLMProviderError):
     """Raised when API requests time out."""
 
     def __init__(self, message: str, timeout_seconds: int = None, **kwargs):
@@ -87,13 +83,11 @@ class TimeoutError(LLMProviderError):
 
 class NetworkError(LLMProviderError):
     """Raised when network connectivity issues occur."""
-    pass
 
 
 # Configuration exceptions
 class ConfigurationError(PowerBuilderError):
     """Base exception for configuration-related errors."""
-    pass
 
 
 class MissingConfigurationError(ConfigurationError):
@@ -126,7 +120,8 @@ class ArchitectureViolationError(PowerBuilderError):
 class LayerViolationError(ArchitectureViolationError):
     """Raised when code is placed in the wrong layer."""
 
-    def __init__(self, message: str, expected_layer: str = None, actual_layer: str = None, **kwargs):
+    def __init__(self, message: str, expected_layer: str = None,
+                 actual_layer: str = None, **kwargs):
         super().__init__(message, **kwargs)
         self.expected_layer = expected_layer
         self.actual_layer = actual_layer
@@ -144,13 +139,13 @@ class CrossLayerImportError(ArchitectureViolationError):
 # Data validation exceptions
 class DataValidationError(PowerBuilderError):
     """Base exception for data validation errors."""
-    pass
 
 
 class InvalidModelError(DataValidationError):
     """Raised when data models fail validation."""
 
-    def __init__(self, message: str, model_type: str = None, validation_errors: list = None, **kwargs):
+    def __init__(self, message: str, model_type: str = None,
+                 validation_errors: list = None, **kwargs):
         super().__init__(message, **kwargs)
         self.model_type = model_type
         self.validation_errors = validation_errors or []
@@ -159,7 +154,8 @@ class InvalidModelError(DataValidationError):
 class DataMappingError(DataValidationError):
     """Raised when data mapping between formats fails."""
 
-    def __init__(self, message: str, source_format: str = None, target_format: str = None, **kwargs):
+    def __init__(self, message: str, source_format: str = None,
+                 target_format: str = None, **kwargs):
         super().__init__(message, **kwargs)
         self.source_format = source_format
         self.target_format = target_format
@@ -168,23 +164,19 @@ class DataMappingError(DataValidationError):
 # Cache exceptions
 class CacheError(PowerBuilderError):
     """Base exception for cache-related errors."""
-    pass
 
 
 class CacheMissError(CacheError):
     """Raised when requested data is not found in cache."""
-    pass
 
 
 class CacheCorruptionError(CacheError):
     """Raised when cached data is corrupted or invalid."""
-    pass
 
 
 # Registry exceptions
 class RegistryError(PowerBuilderError):
     """Base exception for registry-related errors."""
-    pass
 
 
 class AdapterNotFoundError(RegistryError):
@@ -238,7 +230,7 @@ def translate_exception(original_exception: Exception,
         elif 'quota' in exception_name:
             target_exception_class = QuotaExceededError
         elif 'timeout' in exception_name:
-            target_exception_class = TimeoutError
+            target_exception_class = RequestTimeoutError
         elif 'network' in exception_name or 'connection' in exception_name:
             target_exception_class = NetworkError
         elif 'invalid' in exception_name:
@@ -274,7 +266,7 @@ def is_retryable_error(exception: Exception) -> bool:
     """
     retryable_types = (
         RateLimitError,
-        TimeoutError,
+        RequestTimeoutError,
         NetworkError
     )
 
@@ -294,7 +286,7 @@ def get_retry_delay(exception: Exception) -> int:
     if isinstance(exception, RateLimitError) and exception.retry_after:
         return exception.retry_after
 
-    if isinstance(exception, TimeoutError):
+    if isinstance(exception, RequestTimeoutError):
         return 5  # 5 second delay for timeouts
 
     if isinstance(exception, NetworkError):

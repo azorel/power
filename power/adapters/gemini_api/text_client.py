@@ -3,12 +3,12 @@ Text generation capabilities for Gemini API client.
 """
 
 import logging
+import time
 from typing import Dict, Any, Optional
 
 from shared.models.llm_request import LLMRequest
 from shared.models.llm_response import LLMResponse
 from shared.utils.cache import generate_cache_key
-from shared.exceptions import LLMProviderError
 
 from .base_client import GeminiBaseClient
 from .exceptions import wrap_gemini_call
@@ -50,6 +50,17 @@ class GeminiTextClient(GeminiBaseClient):
             # Map request to Gemini format
             gemini_request = self.data_mapper.map_llm_request(request)
 
+            # Validate request size
+            if not self.data_mapper.validate_request_size(gemini_request):
+                from shared.exceptions import InvalidRequestError
+                raise InvalidRequestError(
+                    "Request exceeds maximum token limit for Gemini API",
+                    error_code="REQUEST_TOO_LARGE"
+                )
+
+            # Measure latency
+            start_time = time.time()
+
             # Make API call - NEW SDK 2024 format
             response = client.models.generate_content(
                 model=self.config.model,
@@ -57,12 +68,19 @@ class GeminiTextClient(GeminiBaseClient):
                 config=gemini_request.get('config', {})
             )
 
+            # Calculate latency
+            end_time = time.time()
+            latency_ms = (end_time - start_time) * 1000
+
             # Convert response back to our format
             llm_response = self.data_mapper.map_gemini_response(
                 response,
                 request_id=request.request_id,
                 model=self.config.model
             )
+
+            # Set latency
+            llm_response.latency_ms = latency_ms
 
             # Update statistics
             self._stats['requests_made'] += 1

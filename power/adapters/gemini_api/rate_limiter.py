@@ -379,10 +379,20 @@ class GeminiRateLimiter(AdaptiveRateLimiter):
     def wait_if_needed(self, request_type: str = 'text') -> None:
         """
         Wait if necessary before making a request to respect rate limits.
-        
         Args:
             request_type: Type of request for Gemini-specific rate limiting
+
+        Raises:
+            RateLimitError: If wait time is too long or rate limit is exceeded
         """
+        from shared.exceptions import RateLimitError
+
         wait_time = self.get_wait_time()
         if wait_time > 0:
+            # If rate limiter says we can't make a request, raise error
+            if not self.can_make_request():
+                raise RateLimitError(
+                    f"Rate limit exceeded for {request_type} requests",
+                    retry_after=int(wait_time)
+                )
             time.sleep(wait_time)

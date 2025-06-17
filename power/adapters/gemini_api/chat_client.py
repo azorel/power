@@ -63,7 +63,7 @@ class GeminiChatClient(GeminiBaseClient):
             response = client.models.generate_content(
                 model=selected_model,
                 contents=gemini_request.get('contents', []),
-                config=gemini_request.get('config', {})
+                config=gemini_request.get('generationConfig', {})
             )
 
             # Convert response
@@ -74,8 +74,8 @@ class GeminiChatClient(GeminiBaseClient):
 
             # Update statistics
             self._stats['requests_made'] += 1
-            if hasattr(llm_response, 'usage'):
-                total_tokens = llm_response.usage.get('total_tokens', 0)  # pylint: disable=no-member
+            if hasattr(llm_response, 'usage') and llm_response.usage:
+                total_tokens = llm_response.usage.total_tokens or 0
                 self._stats['total_tokens'] += total_tokens
 
             return llm_response
