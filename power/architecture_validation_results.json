@@ -1,0 +1,1000 @@
+{
+  "layer_compliance": {
+    "summary": {
+      "total_files": 33,
+      "valid_files": 33,
+      "invalid_files": 0,
+      "total_errors": 0,
+      "total_warnings": 72,
+      "compliance_rate": 1.0
+    },
+    "layer_stats": {
+      "core": {
+        "total_files": 0,
+        "valid_files": 0,
+        "errors": 0,
+        "warnings": 0
+      },
+      "adapters": {
+        "total_files": 13,
+        "valid_files": 13,
+        "errors": 0,
+        "warnings": 55
+      },
+      "shared": {
+        "total_files": 13,
+        "valid_files": 13,
+        "errors": 0,
+        "warnings": 10
+      }
+    },
+    "results": [
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "File test_standards_enforcement.py is not in any defined layer"
+        ],
+        "file_path": "/home/ikino/dev/power/test_standards_enforcement.py",
+        "layer": null
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": ["File test_gemini_adapter.py is not in any defined layer"],
+        "file_path": "/home/ikino/dev/power/test_gemini_adapter.py",
+        "layer": null
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "File test_advanced_gemini.py is not in any defined layer"
+        ],
+        "file_path": "/home/ikino/dev/power/test_advanced_gemini.py",
+        "layer": null
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "File test_gemini_thorough.py is not in any defined layer"
+        ],
+        "file_path": "/home/ikino/dev/power/test_gemini_thorough.py",
+        "layer": null
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "File gemini_advanced_examples.py is not in any defined layer"
+        ],
+        "file_path": "/home/ikino/dev/power/gemini_advanced_examples.py",
+        "layer": null
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/shared/__init__.py",
+        "layer": "shared"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/shared/exceptions.py",
+        "layer": "shared"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "File scripts/validate_architecture.py is not in any defined layer"
+        ],
+        "file_path": "/home/ikino/dev/power/scripts/validate_architecture.py",
+        "layer": null
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "File scripts/smart_test_cycle.py is not in any defined layer"
+        ],
+        "file_path": "/home/ikino/dev/power/scripts/smart_test_cycle.py",
+        "layer": null
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/shared/config/base_config.py",
+        "layer": "shared"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/shared/config/__init__.py",
+        "layer": "shared"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/shared/interfaces/__init__.py",
+        "layer": "shared"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/shared/interfaces/llm_provider.py",
+        "layer": "shared"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'cache.CacheStats' in shared layer: Import not in allowed patterns for shared layer",
+          "Suspicious import 'rate_limiter.RateLimitStats' in shared layer: Import not in allowed patterns for shared layer",
+          "Suspicious import 'rate_limiter' in shared layer: Import not in allowed patterns for shared layer",
+          "Suspicious import 'cache.cache_response' in shared layer: Import not in allowed patterns for shared layer",
+          "Suspicious import 'rate_limiter.AdaptiveRateLimiter' in shared layer: Import not in allowed patterns for shared layer",
+          "Suspicious import 'rate_limiter.BaseRateLimiter' in shared layer: Import not in allowed patterns for shared layer",
+          "Suspicious import 'cache.ResponseCache' in shared layer: Import not in allowed patterns for shared layer",
+          "Suspicious import 'cache.get_global_cache' in shared layer: Import not in allowed patterns for shared layer",
+          "Suspicious import 'cache' in shared layer: Import not in allowed patterns for shared layer",
+          "Suspicious import 'cache.generate_cache_key' in shared layer: Import not in allowed patterns for shared layer"
+        ],
+        "file_path": "/home/ikino/dev/power/shared/utils/__init__.py",
+        "layer": "shared"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/shared/utils/rate_limiter.py",
+        "layer": "shared"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/shared/utils/architecture_validator.py",
+        "layer": "shared"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/shared/utils/cache.py",
+        "layer": "shared"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/shared/models/__init__.py",
+        "layer": "shared"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/shared/models/llm_response.py",
+        "layer": "shared"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/shared/models/llm_request.py",
+        "layer": "shared"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'exceptions.wrap_gemini_call' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'exceptions' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'base_client.GeminiBaseClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'base_client' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/adapters/gemini_api/function_client.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'exceptions.wrap_gemini_call' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'exceptions' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'base_client.GeminiBaseClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'base_client' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/adapters/gemini_api/multimodal_client.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'unified_client' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'unified_client.GeminiClient' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/adapters/gemini_api/client.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'config' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'config.GeminiConfig' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/adapters/gemini_api/data_mapper.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'data_mapper.GeminiDataMapper' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'rate_limiter' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'exceptions' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'config' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'data_mapper' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'rate_limiter.GeminiRateLimiter' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'exceptions.GeminiExceptionMapper' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'exceptions.handle_gemini_exception' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'client.GeminiClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'config.GeminiConfig' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'client' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/adapters/gemini_api/__init__.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'exceptions' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'base_client.GeminiBaseClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'exceptions.wrap_gemini_call' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'base_client' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/adapters/gemini_api/chat_client.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'exceptions.wrap_gemini_call' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'exceptions' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'base_client.GeminiBaseClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'base_client' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/adapters/gemini_api/text_client.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'config' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'config.GeminiConfig' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/adapters/gemini_api/rate_limiter.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'exceptions.wrap_gemini_call' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'exceptions' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'base_client.GeminiBaseClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'base_client' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/adapters/gemini_api/streaming_client.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/adapters/gemini_api/exceptions.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'multimodal_client' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'text_client.GeminiTextClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'chat_client' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'text_client' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'streaming_client.GeminiStreamingClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'function_client.GeminiFunctionClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'function_client' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'multimodal_client.GeminiMultimodalClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'streaming_client' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'chat_client.GeminiChatClient' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/adapters/gemini_api/unified_client.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/adapters/gemini_api/config.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'config' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'config.GeminiConfig' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'data_mapper' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'rate_limiter.GeminiRateLimiter' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'exceptions.handle_gemini_exception' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'data_mapper.GeminiDataMapper' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'rate_limiter' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'exceptions' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/adapters/gemini_api/base_client.py",
+        "layer": "adapters"
+      }
+    ]
+  },
+  "interface_implementation": {
+    "adapters_checked": 1,
+    "interfaces_implemented": 1,
+    "missing_implementations": []
+  },
+  "error_handling": {
+    "files_checked": 12,
+    "proper_exception_usage": 3,
+    "missing_error_translation": [
+      "/home/ikino/dev/power/adapters/gemini_api/function_client.py",
+      "/home/ikino/dev/power/adapters/gemini_api/multimodal_client.py",
+      "/home/ikino/dev/power/adapters/gemini_api/client.py",
+      "/home/ikino/dev/power/adapters/gemini_api/data_mapper.py",
+      "/home/ikino/dev/power/adapters/gemini_api/chat_client.py",
+      "/home/ikino/dev/power/adapters/gemini_api/rate_limiter.py",
+      "/home/ikino/dev/power/adapters/gemini_api/streaming_client.py",
+      "/home/ikino/dev/power/adapters/gemini_api/unified_client.py",
+      "/home/ikino/dev/power/adapters/gemini_api/config.py"
+    ]
+  },
+  "configuration_isolation": {
+    "config_files_found": 17,
+    "proper_isolation": 2,
+    "isolation_violations": [
+      {
+        "file": "/home/ikino/dev/power/shared/config/base_config.py",
+        "description": "Configuration file may not follow isolation patterns"
+      },
+      {
+        "file": "/home/ikino/dev/power/adapters/gemini_api/config.py",
+        "description": "Configuration file may not follow isolation patterns"
+      },
+      {
+        "file": "/home/ikino/dev/power/venv/lib/python3.12/site-packages/pydantic/config.py",
+        "description": "Configuration file may not follow isolation patterns"
+      },
+      {
+        "file": "/home/ikino/dev/power/venv/lib/python3.12/site-packages/httpx/_config.py",
+        "description": "Configuration file may not follow isolation patterns"
+      },
+      {
+        "file": "/home/ikino/dev/power/venv/lib/python3.12/site-packages/pydantic/_internal/_config.py",
+        "description": "Configuration file may not follow isolation patterns"
+      },
+      {
+        "file": "/home/ikino/dev/power/venv/lib/python3.12/site-packages/pydantic/deprecated/config.py",
+        "description": "Configuration file may not follow isolation patterns"
+      },
+      {
+        "file": "/home/ikino/dev/power/venv/lib/python3.12/site-packages/pre_commit/commands/migrate_config.py",
+        "description": "Configuration file may not follow isolation patterns"
+      },
+      {
+        "file": "/home/ikino/dev/power/venv/lib/python3.12/site-packages/pre_commit/commands/validate_config.py",
+        "description": "Configuration file may not follow isolation patterns"
+      },
+      {
+        "file": "/home/ikino/dev/power/venv/lib/python3.12/site-packages/pre_commit/commands/sample_config.py",
+        "description": "Configuration file may not follow isolation patterns"
+      },
+      {
+        "file": "/home/ikino/dev/power/venv/lib/python3.12/site-packages/pip/_internal/configuration.py",
+        "description": "Configuration file may not follow isolation patterns"
+      },
+      {
+        "file": "/home/ikino/dev/power/venv/lib/python3.12/site-packages/pip/_internal/commands/configuration.py",
+        "description": "Configuration file may not follow isolation patterns"
+      },
+      {
+        "file": "/home/ikino/dev/power/venv/lib/python3.12/site-packages/pip/_internal/locations/_sysconfig.py",
+        "description": "Configuration file may not follow isolation patterns"
+      },
+      {
+        "file": "/home/ikino/dev/power/adapters/gemini_api/config.py",
+        "description": "Configuration file may not follow isolation patterns"
+      },
+      {
+        "file": "/home/ikino/dev/power/venv/lib/python3.12/site-packages/pydantic/config.py",
+        "description": "Configuration file may not follow isolation patterns"
+      },
+      {
+        "file": "/home/ikino/dev/power/venv/lib/python3.12/site-packages/pydantic/deprecated/config.py",
+        "description": "Configuration file may not follow isolation patterns"
+      }
+    ]
+  },
+  "summary": {
+    "total_violations": 0,
+    "total_warnings": 96,
+    "is_compliant": true
+  },
+  "violations": [],
+  "warnings": [
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/test_standards_enforcement.py",
+      "layer": null,
+      "description": "File test_standards_enforcement.py is not in any defined layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/test_gemini_adapter.py",
+      "layer": null,
+      "description": "File test_gemini_adapter.py is not in any defined layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/test_advanced_gemini.py",
+      "layer": null,
+      "description": "File test_advanced_gemini.py is not in any defined layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/test_gemini_thorough.py",
+      "layer": null,
+      "description": "File test_gemini_thorough.py is not in any defined layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/gemini_advanced_examples.py",
+      "layer": null,
+      "description": "File gemini_advanced_examples.py is not in any defined layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/scripts/validate_architecture.py",
+      "layer": null,
+      "description": "File scripts/validate_architecture.py is not in any defined layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/scripts/smart_test_cycle.py",
+      "layer": null,
+      "description": "File scripts/smart_test_cycle.py is not in any defined layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/shared/utils/__init__.py",
+      "layer": "shared",
+      "description": "Suspicious import 'cache.CacheStats' in shared layer: Import not in allowed patterns for shared layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/shared/utils/__init__.py",
+      "layer": "shared",
+      "description": "Suspicious import 'rate_limiter.RateLimitStats' in shared layer: Import not in allowed patterns for shared layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/shared/utils/__init__.py",
+      "layer": "shared",
+      "description": "Suspicious import 'rate_limiter' in shared layer: Import not in allowed patterns for shared layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/shared/utils/__init__.py",
+      "layer": "shared",
+      "description": "Suspicious import 'cache.cache_response' in shared layer: Import not in allowed patterns for shared layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/shared/utils/__init__.py",
+      "layer": "shared",
+      "description": "Suspicious import 'rate_limiter.AdaptiveRateLimiter' in shared layer: Import not in allowed patterns for shared layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/shared/utils/__init__.py",
+      "layer": "shared",
+      "description": "Suspicious import 'rate_limiter.BaseRateLimiter' in shared layer: Import not in allowed patterns for shared layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/shared/utils/__init__.py",
+      "layer": "shared",
+      "description": "Suspicious import 'cache.ResponseCache' in shared layer: Import not in allowed patterns for shared layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/shared/utils/__init__.py",
+      "layer": "shared",
+      "description": "Suspicious import 'cache.get_global_cache' in shared layer: Import not in allowed patterns for shared layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/shared/utils/__init__.py",
+      "layer": "shared",
+      "description": "Suspicious import 'cache' in shared layer: Import not in allowed patterns for shared layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/shared/utils/__init__.py",
+      "layer": "shared",
+      "description": "Suspicious import 'cache.generate_cache_key' in shared layer: Import not in allowed patterns for shared layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/function_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'exceptions.wrap_gemini_call' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/function_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'exceptions' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/function_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'base_client.GeminiBaseClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/function_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'base_client' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/multimodal_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'exceptions.wrap_gemini_call' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/multimodal_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'exceptions' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/multimodal_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'base_client.GeminiBaseClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/multimodal_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'base_client' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'unified_client' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'unified_client.GeminiClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/data_mapper.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'config' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/data_mapper.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'config.GeminiConfig' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/__init__.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'data_mapper.GeminiDataMapper' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/__init__.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'rate_limiter' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/__init__.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'exceptions' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/__init__.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'config' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/__init__.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'data_mapper' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/__init__.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'rate_limiter.GeminiRateLimiter' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/__init__.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'exceptions.GeminiExceptionMapper' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/__init__.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'exceptions.handle_gemini_exception' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/__init__.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'client.GeminiClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/__init__.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'config.GeminiConfig' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/__init__.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'client' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/chat_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'exceptions' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/chat_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'base_client.GeminiBaseClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/chat_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'exceptions.wrap_gemini_call' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/chat_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'base_client' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/text_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'exceptions.wrap_gemini_call' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/text_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'exceptions' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/text_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'base_client.GeminiBaseClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/text_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'base_client' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/rate_limiter.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'config' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/rate_limiter.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'config.GeminiConfig' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/streaming_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'exceptions.wrap_gemini_call' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/streaming_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'exceptions' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/streaming_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'base_client.GeminiBaseClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/streaming_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'base_client' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/unified_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'multimodal_client' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/unified_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'text_client.GeminiTextClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/unified_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'chat_client' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/unified_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'text_client' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/unified_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'streaming_client.GeminiStreamingClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/unified_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'function_client.GeminiFunctionClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/unified_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'function_client' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/unified_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'multimodal_client.GeminiMultimodalClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/unified_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'streaming_client' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/unified_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'chat_client.GeminiChatClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/base_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'config' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/base_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'config.GeminiConfig' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/base_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'data_mapper' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/base_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'rate_limiter.GeminiRateLimiter' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/base_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'exceptions.handle_gemini_exception' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/base_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'data_mapper.GeminiDataMapper' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/base_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'rate_limiter' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/base_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'exceptions' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "error_handling",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/function_client.py",
+      "description": "Missing proper error translation to shared exceptions"
+    },
+    {
+      "type": "error_handling",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/multimodal_client.py",
+      "description": "Missing proper error translation to shared exceptions"
+    },
+    {
+      "type": "error_handling",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/client.py",
+      "description": "Missing proper error translation to shared exceptions"
+    },
+    {
+      "type": "error_handling",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/data_mapper.py",
+      "description": "Missing proper error translation to shared exceptions"
+    },
+    {
+      "type": "error_handling",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/chat_client.py",
+      "description": "Missing proper error translation to shared exceptions"
+    },
+    {
+      "type": "error_handling",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/rate_limiter.py",
+      "description": "Missing proper error translation to shared exceptions"
+    },
+    {
+      "type": "error_handling",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/streaming_client.py",
+      "description": "Missing proper error translation to shared exceptions"
+    },
+    {
+      "type": "error_handling",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/unified_client.py",
+      "description": "Missing proper error translation to shared exceptions"
+    },
+    {
+      "type": "error_handling",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/config.py",
+      "description": "Missing proper error translation to shared exceptions"
+    },
+    {
+      "type": "configuration_isolation",
+      "file": "/home/ikino/dev/power/shared/config/base_config.py",
+      "description": "Configuration file may not follow isolation patterns"
+    },
+    {
+      "type": "configuration_isolation",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/config.py",
+      "description": "Configuration file may not follow isolation patterns"
+    },
+    {
+      "type": "configuration_isolation",
+      "file": "/home/ikino/dev/power/venv/lib/python3.12/site-packages/pydantic/config.py",
+      "description": "Configuration file may not follow isolation patterns"
+    },
+    {
+      "type": "configuration_isolation",
+      "file": "/home/ikino/dev/power/venv/lib/python3.12/site-packages/httpx/_config.py",
+      "description": "Configuration file may not follow isolation patterns"
+    },
+    {
+      "type": "configuration_isolation",
+      "file": "/home/ikino/dev/power/venv/lib/python3.12/site-packages/pydantic/_internal/_config.py",
+      "description": "Configuration file may not follow isolation patterns"
+    },
+    {
+      "type": "configuration_isolation",
+      "file": "/home/ikino/dev/power/venv/lib/python3.12/site-packages/pydantic/deprecated/config.py",
+      "description": "Configuration file may not follow isolation patterns"
+    },
+    {
+      "type": "configuration_isolation",
+      "file": "/home/ikino/dev/power/venv/lib/python3.12/site-packages/pre_commit/commands/migrate_config.py",
+      "description": "Configuration file may not follow isolation patterns"
+    },
+    {
+      "type": "configuration_isolation",
+      "file": "/home/ikino/dev/power/venv/lib/python3.12/site-packages/pre_commit/commands/validate_config.py",
+      "description": "Configuration file may not follow isolation patterns"
+    },
+    {
+      "type": "configuration_isolation",
+      "file": "/home/ikino/dev/power/venv/lib/python3.12/site-packages/pre_commit/commands/sample_config.py",
+      "description": "Configuration file may not follow isolation patterns"
+    },
+    {
+      "type": "configuration_isolation",
+      "file": "/home/ikino/dev/power/venv/lib/python3.12/site-packages/pip/_internal/configuration.py",
+      "description": "Configuration file may not follow isolation patterns"
+    },
+    {
+      "type": "configuration_isolation",
+      "file": "/home/ikino/dev/power/venv/lib/python3.12/site-packages/pip/_internal/commands/configuration.py",
+      "description": "Configuration file may not follow isolation patterns"
+    },
+    {
+      "type": "configuration_isolation",
+      "file": "/home/ikino/dev/power/venv/lib/python3.12/site-packages/pip/_internal/locations/_sysconfig.py",
+      "description": "Configuration file may not follow isolation patterns"
+    },
+    {
+      "type": "configuration_isolation",
+      "file": "/home/ikino/dev/power/adapters/gemini_api/config.py",
+      "description": "Configuration file may not follow isolation patterns"
+    },
+    {
+      "type": "configuration_isolation",
+      "file": "/home/ikino/dev/power/venv/lib/python3.12/site-packages/pydantic/config.py",
+      "description": "Configuration file may not follow isolation patterns"
+    },
+    {
+      "type": "configuration_isolation",
+      "file": "/home/ikino/dev/power/venv/lib/python3.12/site-packages/pydantic/deprecated/config.py",
+      "description": "Configuration file may not follow isolation patterns"
+    }
+  ]
+}
