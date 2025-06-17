@@ -305,7 +305,7 @@ class GeminiRateLimiter(AdaptiveRateLimiter):
         stats = self.get_gemini_stats()
         base_stats = stats['base_stats']
         gemini_stats = stats['gemini_stats']
-        
+
         # Handle cache stats safely (may not be present in rate limiter)
         cache_hits = base_stats.get('cache_hits', 0)
         hit_rate = base_stats.get('hit_rate', 0.0)

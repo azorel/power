@@ -9,7 +9,7 @@ from datetime import datetime
 
 
 @dataclass
-class LLMRequest:
+class LLMRequest:  # pylint: disable=too-many-instance-attributes
     """Standardized request format for all LLM providers."""
 
     prompt: str
@@ -45,10 +45,10 @@ class LLMRequest:
         if self.max_tokens is not None and self.max_tokens <= 0:
             raise ValueError("max_tokens must be positive")
 
-        if self.temperature is not None and not (0.0 <= self.temperature <= 2.0):
+        if self.temperature is not None and not 0.0 <= self.temperature <= 2.0:
             raise ValueError("temperature must be between 0.0 and 2.0")
 
-        if self.top_p is not None and not (0.0 <= self.top_p <= 1.0):
+        if self.top_p is not None and not 0.0 <= self.top_p <= 1.0:
             raise ValueError("top_p must be between 0.0 and 1.0")
 
     def to_dict(self) -> Dict[str, Any]:
@@ -138,7 +138,7 @@ class ChatMessage:
 
 
 @dataclass
-class ChatRequest:
+class ChatRequest:  # pylint: disable=too-many-instance-attributes
     """Request format for chat-based LLM interactions."""
 
     messages: List[ChatMessage]

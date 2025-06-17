@@ -14,7 +14,7 @@ from collections import OrderedDict
 
 
 @dataclass
-class CacheEntry:
+class CacheEntry:  # pylint: disable=too-many-instance-attributes
     """Individual cache entry with metadata."""
 
     value: Any
@@ -45,7 +45,7 @@ class CacheEntry:
 
 
 @dataclass
-class CacheStats:
+class CacheStats:  # pylint: disable=too-many-instance-attributes
     """Cache performance statistics."""
 
     total_requests: int = 0
@@ -249,7 +249,7 @@ class ResponseCache:
         with self._lock:
             now = time.time()
             expired_keys = []
-            
+
             # Optimize: Use list comprehension for better performance
             expired_keys = [
                 key for key, entry in self._cache.items()
@@ -259,7 +259,7 @@ class ResponseCache:
             # Batch delete expired entries
             for key in expired_keys:
                 del self._cache[key]
-            
+
             # Update stats in batch
             removed_count = len(expired_keys)
             self._stats.expired_entries += removed_count
@@ -308,7 +308,7 @@ def generate_cache_key(*args, **kwargs) -> str:
     return hashlib.sha256(key_string.encode('utf-8')).hexdigest()
 
 
-class CacheDecorator:
+class CacheDecorator:  # pylint: disable=too-few-public-methods
     """
     Decorator for caching function results.
     Useful for adapter methods that make expensive API calls.
@@ -358,7 +358,7 @@ _global_cache: Optional[ResponseCache] = None
 
 def get_global_cache() -> ResponseCache:
     """Get or create global cache instance."""
-    global _global_cache
+    global _global_cache  # pylint: disable=global-statement
     if _global_cache is None:
         _global_cache = ResponseCache(
             max_size=1000,

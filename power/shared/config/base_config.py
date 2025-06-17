@@ -8,7 +8,7 @@ from dataclasses import dataclass
 
 
 @dataclass
-class AdapterConfig:
+class AdapterConfig:  # pylint: disable=too-many-instance-attributes
     """Base configuration for all adapters."""
 
     adapter_name: str

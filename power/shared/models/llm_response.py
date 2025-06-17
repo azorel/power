@@ -51,7 +51,7 @@ class UsageStats:
 
 
 @dataclass
-class LLMResponse:
+class LLMResponse:  # pylint: disable=too-many-instance-attributes
     """Standardized response format for all LLM providers."""
 
     content: str
@@ -191,7 +191,7 @@ class StreamingResponse:
 
 
 @dataclass
-class BatchResponse:
+class BatchResponse:  # pylint: disable=too-many-instance-attributes
     """Response for batch processing of multiple LLM requests."""
 
     responses: List[LLMResponse]

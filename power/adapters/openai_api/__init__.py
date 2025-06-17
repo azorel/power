@@ -3,6 +3,7 @@ OpenAI API adapter for Power Builder.
 Provides comprehensive OpenAI integration with full AdvancedLLMProvider support.
 """
 
+import os
 from .config import OpenAIConfig
 from .unified_client import OpenAIUnifiedClient
 from .text_client import OpenAITextClient
@@ -70,10 +71,10 @@ ADAPTER_INFO = {
 def create_client(config: dict = None) -> OpenAIUnifiedClient:
     """
     Create a new OpenAI client with optional configuration.
-    
+
     Args:
         config: Optional configuration dictionary
-        
+
     Returns:
         Configured OpenAI client
     """
@@ -84,14 +85,14 @@ def create_client(config: dict = None) -> OpenAIUnifiedClient:
             if hasattr(openai_config, key):
                 setattr(openai_config, key, value)
         return OpenAIUnifiedClient(openai_config)
-    else:
-        return OpenAIUnifiedClient()
+
+    return OpenAIUnifiedClient()
 
 
 def get_adapter_info() -> dict:
     """
     Get information about this adapter.
-    
+
     Returns:
         Adapter information dictionary
     """
@@ -101,19 +102,17 @@ def get_adapter_info() -> dict:
 def validate_environment() -> dict:
     """
     Validate that the environment is properly configured for OpenAI.
-    
+
     Returns:
         Validation results dictionary
     """
-    import os
-    
     results = {
         'valid': True,
         'errors': [],
         'warnings': [],
         'info': {}
     }
-    
+
     # Check for API key
     api_key = os.getenv('OPENAI_API_KEY')
     if not api_key:
@@ -121,19 +120,21 @@ def validate_environment() -> dict:
         results['errors'].append('OPENAI_API_KEY environment variable not set')
     elif not api_key.startswith('sk-'):
         results['valid'] = False
-        results['errors'].append('OPENAI_API_KEY does not appear to be valid (should start with sk-)')
+        results['errors'].append(
+            'OPENAI_API_KEY does not appear to be valid (should start with sk-)'
+        )
     else:
         results['info']['api_key_format'] = 'valid'
-    
+
     # Check for optional settings
     org_id = os.getenv('OPENAI_ORGANIZATION_ID')
     if org_id:
         results['info']['organization_id'] = 'configured'
-    
+
     project_id = os.getenv('OPENAI_PROJECT_ID')
     if project_id:
         results['info']['project_id'] = 'configured'
-    
+
     # Check rate limit settings
     rate_limit = os.getenv('OPENAI_RATE_LIMIT_PER_MINUTE')
     if rate_limit:
@@ -142,7 +143,7 @@ def validate_environment() -> dict:
             results['info']['rate_limit'] = 'configured'
         except ValueError:
             results['warnings'].append('OPENAI_RATE_LIMIT_PER_MINUTE is not a valid integer')
-    
+
     return results
 
 
@@ -150,13 +151,13 @@ def validate_environment() -> dict:
 try:
     from shared.config.base_config import register_adapter_config
     from shared.registry.adapter_registry import register_adapter
-    
+
     # Register configuration
     register_adapter_config('openai', OpenAIConfig)
-    
+
     # Register adapter
     register_adapter('llm', 'openai', OpenAIClient)
-    
+
 except ImportError:
     # Registry not available, skip auto-registration
     pass

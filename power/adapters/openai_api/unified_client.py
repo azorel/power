@@ -28,24 +28,24 @@ class OpenAIUnifiedClient(AdvancedLLMProvider):
     def __init__(self, config: Optional[OpenAIConfig] = None):
         """
         Initialize the unified OpenAI client.
-        
+
         Args:
             config: OpenAI configuration (creates default if None)
         """
         self.config = config or OpenAIConfig()
         self.logger = logging.getLogger('openai_adapter.unified_client')
-        
+
         # Initialize specialized clients
         self._text_client = OpenAITextClient(self.config)
         self._chat_client = OpenAIChatClient(self.config)
         self._streaming_client = OpenAIStreamingClient(self.config)
         self._multimodal_client = OpenAIMultimodalClient(self.config)
         self._function_client = OpenAIFunctionClient(self.config)
-        
+
         self.logger.info("OpenAI unified client initialized")
 
     # Core LLMProvider interface methods
-    
+
     def generate_text(self, request: LLMRequest) -> LLMResponse:
         """Generate text based on the provided request."""
         return self._text_client.generate_text(request)
@@ -77,7 +77,7 @@ class OpenAIUnifiedClient(AdvancedLLMProvider):
             'rate_limit_stats': None,
             'client_stats': {}
         }
-        
+
         # Aggregate from all clients
         for client_name, client in [
             ('text', self._text_client),
@@ -88,14 +88,14 @@ class OpenAIUnifiedClient(AdvancedLLMProvider):
         ]:
             client_stats = client.get_client_stats()
             stats['client_stats'][client_name] = client_stats
-            
+
             stats['total_requests'] += client_stats.get('requests_made', 0)
             stats['total_tokens'] += client_stats.get('total_tokens_used', 0)
             stats['total_cost'] += client_stats.get('total_cost_usd', 0.0)
-        
+
         # Use rate limit stats from primary client
         stats['rate_limit_stats'] = self._text_client.rate_limiter.get_openai_stats()
-        
+
         return stats
 
     @property
@@ -119,7 +119,7 @@ class OpenAIUnifiedClient(AdvancedLLMProvider):
         ]
 
     # MultiModalLLMProvider interface methods
-    
+
     def generate_from_image(
         self,
         image_data: bytes,
@@ -134,7 +134,7 @@ class OpenAIUnifiedClient(AdvancedLLMProvider):
         return self._multimodal_client.get_supported_image_formats()
 
     # StreamingLLMProvider interface methods
-    
+
     def generate_text_stream(self, request: LLMRequest):
         """Generate text with streaming response."""
         yield from self._streaming_client.generate_text_stream(request)
@@ -148,7 +148,7 @@ class OpenAIUnifiedClient(AdvancedLLMProvider):
         yield from self._streaming_client.generate_chat_completion_stream(messages, **kwargs)
 
     # FunctionCallingLLMProvider interface methods
-    
+
     def generate_with_functions(
         self,
         request: LLMRequest,
@@ -170,7 +170,7 @@ class OpenAIUnifiedClient(AdvancedLLMProvider):
         )
 
     # ImageGenerationLLMProvider interface methods
-    
+
     def generate_image(
         self,
         prompt: str,
@@ -180,7 +180,7 @@ class OpenAIUnifiedClient(AdvancedLLMProvider):
         return self._multimodal_client.generate_image(prompt, **kwargs)
 
     # SystemInstructionLLMProvider interface methods
-    
+
     def generate_with_system_instruction(
         self,
         request: LLMRequest,
@@ -193,7 +193,7 @@ class OpenAIUnifiedClient(AdvancedLLMProvider):
         )
 
     # AdvancedLLMProvider interface methods
-    
+
     def get_advanced_capabilities(self) -> Dict[str, bool]:
         """Get detailed information about supported advanced capabilities."""
         return {
@@ -225,7 +225,7 @@ class OpenAIUnifiedClient(AdvancedLLMProvider):
         return self._text_client.select_optimal_model(task_type, complexity, **kwargs)
 
     # Extended functionality methods
-    
+
     def generate_with_tools(
         self,
         request: LLMRequest,
@@ -351,7 +351,7 @@ class OpenAIUnifiedClient(AdvancedLLMProvider):
         return self._function_client.create_tool_schema(name, description, parameters, required)
 
     # Client management methods
-    
+
     def get_comprehensive_capabilities(self) -> Dict[str, Any]:
         """Get comprehensive information about all capabilities."""
         return {
@@ -372,7 +372,7 @@ class OpenAIUnifiedClient(AdvancedLLMProvider):
             'memory_optimization': {},
             'suggestions': []
         }
-        
+
         # Memory optimization for all clients
         for client_name, client in [
             ('text', self._text_client),
@@ -384,21 +384,21 @@ class OpenAIUnifiedClient(AdvancedLLMProvider):
             if hasattr(client, 'cache') and client.cache:
                 cache_stats = client.cache.get_stats()
                 optimization_results['memory_optimization'][client_name] = cache_stats
-        
+
         return optimization_results
 
     def close(self) -> None:
         """Clean up resources for all clients."""
         for client in [
             self._text_client,
-            self._chat_client, 
+            self._chat_client,
             self._streaming_client,
             self._multimodal_client,
             self._function_client
         ]:
             if hasattr(client, 'close'):
                 client.close()
-        
+
         self.logger.info("OpenAI unified client closed")
 
     def __enter__(self):

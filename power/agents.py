@@ -1,3 +1,7 @@
+"""
+agents module.
+"""
+
 #!/usr/bin/env python3
 """
 Simple multi-agent system for Claude Code - Direct integration, no complexity.

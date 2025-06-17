@@ -13,7 +13,7 @@ from shared.exceptions import (
     ModelNotFoundError,
     InvalidRequestError,
     ContentFilterError,
-    TimeoutError,
+    RequestTimeoutError,
     NetworkError,
     translate_exception
 )
@@ -26,31 +26,31 @@ class OpenAIExceptionMapper:
     def translate_openai_exception(openai_error: Exception) -> LLMProviderError:
         """
         Translate OpenAI exceptions to shared exceptions.
-        
+
         Args:
             openai_error: The original OpenAI exception
-            
+
         Returns:
             Translated shared exception
         """
         error_message = str(openai_error)
         error_details = {}
-        
+
         # Extract error details if available
         if hasattr(openai_error, 'response') and openai_error.response:
             error_details['status_code'] = getattr(openai_error.response, 'status_code', None)
             error_details['headers'] = dict(getattr(openai_error.response, 'headers', {}))
-        
+
         if hasattr(openai_error, 'body'):
             error_details['response_body'] = openai_error.body
-        
+
         # Authentication errors
         if isinstance(openai_error, openai.AuthenticationError):
             return AuthenticationError(
                 f"OpenAI authentication failed: {error_message}",
                 details=error_details
             )
-        
+
         # Rate limiting errors
         if isinstance(openai_error, openai.RateLimitError):
             retry_after = None
@@ -61,14 +61,14 @@ class OpenAIExceptionMapper:
                         retry_after = int(retry_after)
                     except ValueError:
                         retry_after = None
-            
+
             return RateLimitError(
                 f"OpenAI rate limit exceeded: {error_message}",
                 retry_after=retry_after,
                 details=error_details
             )
-        
-        # Permission/quota errors  
+
+        # Permission/quota errors
         if isinstance(openai_error, openai.PermissionDeniedError):
             # Check if it's a quota issue
             if 'quota' in error_message.lower() or 'billing' in error_message.lower():
@@ -81,7 +81,7 @@ class OpenAIExceptionMapper:
                 f"OpenAI permission denied: {error_message}",
                 details=error_details
             )
-        
+
         # Model not found errors
         if isinstance(openai_error, openai.NotFoundError):
             # Check if it's a model not found error
@@ -96,7 +96,7 @@ class OpenAIExceptionMapper:
                 f"OpenAI resource not found: {error_message}",
                 details=error_details
             )
-        
+
         # Bad request errors
         if isinstance(openai_error, openai.BadRequestError):
             # Check for content filter
@@ -107,52 +107,52 @@ class OpenAIExceptionMapper:
                     filter_reason=filter_reason,
                     details=error_details
                 )
-            
+
             return InvalidRequestError(
                 f"OpenAI bad request: {error_message}",
                 details=error_details
             )
-        
+
         # Timeout errors
-        if isinstance(openai_error, (openai.APITimeoutError, openai.Timeout)):
+        if isinstance(openai_error, (openai.APIRequestTimeoutError, openai.Timeout)):
             timeout_seconds = None
             if hasattr(openai_error, 'timeout'):
                 timeout_seconds = openai_error.timeout
-            
-            return TimeoutError(
+
+            return RequestTimeoutError(
                 f"OpenAI request timeout: {error_message}",
                 timeout_seconds=timeout_seconds,
                 details=error_details
             )
-        
+
         # Connection errors
         if isinstance(openai_error, openai.APIConnectionError):
             return NetworkError(
                 f"OpenAI connection error: {error_message}",
                 details=error_details
             )
-        
+
         # Generic API errors
         if isinstance(openai_error, openai.APIError):
             return LLMProviderError(
                 f"OpenAI API error: {error_message}",
                 details=error_details
             )
-        
+
         # Internal server errors
         if isinstance(openai_error, openai.InternalServerError):
             return LLMProviderError(
                 f"OpenAI internal server error: {error_message}",
                 details=error_details
             )
-        
+
         # Unhandled exceptions
         if isinstance(openai_error, openai.OpenAIError):
             return LLMProviderError(
                 f"OpenAI error: {error_message}",
                 details=error_details
             )
-        
+
         # Fall back to generic translation
         return translate_exception(
             openai_error,
@@ -170,7 +170,7 @@ class OpenAIExceptionMapper:
             "model: ",
             "The model `",
         ]
-        
+
         for pattern in patterns:
             if pattern in error_message:
                 start = error_message.find(pattern) + len(pattern)
@@ -183,7 +183,7 @@ class OpenAIExceptionMapper:
                     end = error_message.find(' ', start)
                 if end > start:
                     return error_message[start:end]
-        
+
         return None
 
     @staticmethod
@@ -199,19 +199,19 @@ class OpenAIExceptionMapper:
             'dangerous',
             'inappropriate'
         ]
-        
+
         error_lower = error_message.lower()
         for reason in filter_reasons:
             if reason in error_lower:
                 return reason
-        
+
         return 'content_policy_violation'
 
     @staticmethod
     def handle_openai_error(func):
         """
         Decorator to automatically translate OpenAI exceptions.
-        
+
         Usage:
             @OpenAIExceptionMapper.handle_openai_error
             def api_method(self):
@@ -225,7 +225,7 @@ class OpenAIExceptionMapper:
                 if isinstance(e, (openai.OpenAIError, openai.APIError)):
                     raise OpenAIExceptionMapper.translate_openai_exception(e)
                 raise
-        
+
         return wrapper
 
 
@@ -237,13 +237,13 @@ def create_error_context(
 ) -> Dict[str, Any]:
     """
     Create error context dictionary for better error tracking.
-    
+
     Args:
         operation: The operation being performed
         model: Model being used
         request_id: Request identifier
         **kwargs: Additional context
-        
+
     Returns:
         Dictionary with error context
     """
@@ -252,59 +252,59 @@ def create_error_context(
         'adapter': 'openai',
         **kwargs
     }
-    
+
     if model:
         context['model'] = model
-    
+
     if request_id:
         context['request_id'] = request_id
-    
+
     return context
 
 
 def is_retriable_openai_error(error: Exception) -> bool:
     """
     Determine if an OpenAI error is retriable.
-    
+
     Args:
         error: The exception to check
-        
+
     Returns:
         True if the error is retriable
     """
     # Rate limit errors are retriable
     if isinstance(error, (openai.RateLimitError, RateLimitError)):
         return True
-    
+
     # Timeout errors are retriable
-    if isinstance(error, (openai.APITimeoutError, openai.Timeout, TimeoutError)):
+    if isinstance(error, (openai.APIRequestTimeoutError, openai.Timeout, RequestTimeoutError)):
         return True
-    
+
     # Connection errors are retriable
     if isinstance(error, (openai.APIConnectionError, NetworkError)):
         return True
-    
+
     # Internal server errors are retriable
     if isinstance(error, openai.InternalServerError):
         return True
-    
+
     # Temporary service unavailable
     if isinstance(error, openai.APIError):
         if hasattr(error, 'response') and error.response:
             status_code = getattr(error.response, 'status_code', None)
             if status_code in [502, 503, 504]:  # Bad Gateway, Service Unavailable, Gateway Timeout
                 return True
-    
+
     return False
 
 
 def get_retry_delay_for_openai_error(error: Exception) -> float:
     """
     Get appropriate retry delay for OpenAI error.
-    
+
     Args:
         error: The exception to get delay for
-        
+
     Returns:
         Delay in seconds
     """
@@ -313,18 +313,18 @@ def get_retry_delay_for_openai_error(error: Exception) -> float:
         if hasattr(error, 'retry_after') and error.retry_after:
             return float(error.retry_after)
         return 60.0  # Default 1 minute for rate limits
-    
+
     # Timeout errors - short delay
-    if isinstance(error, (openai.APITimeoutError, openai.Timeout, TimeoutError)):
+    if isinstance(error, (openai.APIRequestTimeoutError, openai.Timeout, RequestTimeoutError)):
         return 5.0
-    
+
     # Connection errors - medium delay
     if isinstance(error, (openai.APIConnectionError, NetworkError)):
         return 10.0
-    
+
     # Server errors - longer delay
     if isinstance(error, openai.InternalServerError):
         return 30.0
-    
+
     # Default delay
     return 1.0

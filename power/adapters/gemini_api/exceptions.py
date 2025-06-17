@@ -13,7 +13,7 @@ from shared.exceptions import (
     ModelNotFoundError,
     InvalidRequestError,
     ContentFilterError,
-    TimeoutError as LLMTimeoutError,
+    RequestTimeoutError as LLMRequestTimeoutError,
     NetworkError
 )
 
@@ -33,7 +33,7 @@ class GeminiExceptionMapper:  # pylint: disable=too-few-public-methods
         500: LLMProviderError,
         502: NetworkError,
         503: LLMProviderError,
-        504: LLMTimeoutError
+        504: LLMRequestTimeoutError
     }
 
     # Google error message patterns
@@ -49,7 +49,7 @@ class GeminiExceptionMapper:  # pylint: disable=too-few-public-methods
         'content filtered': ContentFilterError,
         'safety filter': ContentFilterError,
         'blocked by safety': ContentFilterError,
-        'timeout': LLMTimeoutError,
+        'timeout': LLMRequestTimeoutError,
         'connection': NetworkError,
         'network': NetworkError,
         'invalid request': InvalidRequestError,
@@ -234,7 +234,7 @@ class GeminiExceptionMapper:  # pylint: disable=too-few-public-methods
             translated = ContentFilterError(message, filter_reason=filter_reason, details=details)
             translated.__cause__ = original_exception
             return translated
-        elif exception_class == LLMTimeoutError:
+        elif exception_class == LLMRequestTimeoutError:
             timeout_seconds = context.get('timeout', None)
             message = f"Gemini API request timed out. {original_message}"
             details = {
@@ -244,7 +244,7 @@ class GeminiExceptionMapper:  # pylint: disable=too-few-public-methods
                 **context,
                 **extra_details
             }
-            translated = LLMTimeoutError(
+            translated = LLMRequestTimeoutError(
                 message,
                 timeout_seconds=timeout_seconds,
                 details=details

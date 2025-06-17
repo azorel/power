@@ -5,14 +5,14 @@ Architecture validation utilities to enforce three-layer architecture compliance
 import os
 import ast
 import re
-from typing import List, Dict, Set, Optional, Tuple
+from typing import List, Dict, Set, Optional
 from pathlib import Path
 from dataclasses import dataclass
-from shared.exceptions import ArchitectureViolationError, LayerViolationError, CrossLayerImportError
+from shared.exceptions import ArchitectureViolationError
 
 
 @dataclass
-class ValidationResult:
+class ValidationResult:  # pylint: disable=too-many-instance-attributes
     """Result of architecture validation."""
 
     is_valid: bool
@@ -43,7 +43,8 @@ class ArchitectureValidator:
                 r'^shared\..*',
                 r'^core\..*',
                 # Standard library imports
-                r'^(os|sys|json|datetime|typing|dataclasses|pathlib|re|collections|itertools|functools|asyncio|logging|unittest|pytest).*',
+                r'^(os|sys|json|datetime|typing|dataclasses|pathlib|re|collections|'
+                r'itertools|functools|asyncio|logging|unittest|pytest).*',
                 # Common business logic libraries
                 r'^(sqlalchemy|jinja2|pandas|numpy|scipy|matplotlib|sqlite3|psycopg2|mysql).*'
             ],
@@ -60,9 +61,12 @@ class ArchitectureValidator:
                 r'^shared\..*',
                 r'^adapters\..*',
                 # Standard library imports
-                r'^(os|sys|json|datetime|typing|dataclasses|pathlib|re|collections|itertools|functools|asyncio|logging|unittest|pytest|threading|time|hashlib|ast|base64).*',
+                r'^(os|sys|json|datetime|typing|dataclasses|pathlib|re|collections|'
+                r'itertools|functools|asyncio|logging|unittest|pytest|threading|time|'
+                r'hashlib|ast|base64).*',
                 # External API libraries
-                r'^(requests|httpx|aiohttp|openai|google|anthropic|tweepy|youtube_data_api|slack_sdk).*'
+                r'^(requests|httpx|aiohttp|openai|google|anthropic|tweepy|'
+                r'youtube_data_api|slack_sdk).*'
             ],
             'forbidden_imports': [
                 r'^core\..*'
@@ -74,7 +78,9 @@ class ArchitectureValidator:
             'allowed_imports': [
                 r'^shared\..*',
                 # Standard library imports only
-                r'^(os|sys|json|datetime|typing|dataclasses|pathlib|re|collections|itertools|functools|asyncio|logging|enum|abc|unittest|pytest|threading|time|hashlib|ast).*',
+                r'^(os|sys|json|datetime|typing|dataclasses|pathlib|re|collections|'
+                r'itertools|functools|asyncio|logging|enum|abc|unittest|pytest|'
+                r'threading|time|hashlib|ast).*',
                 # Common utility libraries
                 r'^(pydantic|validators).*'
             ],
@@ -122,7 +128,7 @@ class ArchitectureValidator:
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 content = f.read()
-        except Exception as e:
+        except (OSError, UnicodeDecodeError) as e:
             return ValidationResult(
                 is_valid=False,
                 errors=[f"Could not read file: {e}"],
@@ -134,7 +140,7 @@ class ArchitectureValidator:
         # Parse imports
         try:
             imports = self._extract_imports(content)
-        except Exception as e:
+        except (SyntaxError, ValueError) as e:
             return ValidationResult(
                 is_valid=False,
                 errors=[f"Could not parse file: {e}"],
@@ -150,9 +156,13 @@ class ArchitectureValidator:
         for import_name in imports:
             result = self._validate_import(import_name, layer)
             if result['is_forbidden']:
-                errors.append(f"Forbidden import '{import_name}' in {layer} layer: {result['reason']}")
+                errors.append(
+                    f"Forbidden import '{import_name}' in {layer} layer: {result['reason']}"
+                )
             elif result['is_warning']:
-                warnings.append(f"Suspicious import '{import_name}' in {layer} layer: {result['reason']}")
+                warnings.append(
+                    f"Suspicious import '{import_name}' in {layer} layer: {result['reason']}"
+                )
 
         return ValidationResult(
             is_valid=len(errors) == 0,
@@ -203,7 +213,7 @@ class ArchitectureValidator:
         total_warnings = sum(len(r.warnings) for r in results)
 
         layer_stats = {}
-        for layer in self.LAYERS.keys():
+        for layer in self.LAYERS:
             layer_results = [r for r in results if r.layer == layer]
             layer_stats[layer] = {
                 'total_files': len(layer_results),
@@ -295,7 +305,7 @@ class ArchitectureValidator:
         # Special handling for relative imports within the same layer
         if layer == 'adapters' and self._is_relative_adapter_import(import_name):
             return {'is_forbidden': False, 'is_warning': False, 'reason': ''}
-            
+
         if layer == 'shared' and self._is_relative_shared_import(import_name):
             return {'is_forbidden': False, 'is_warning': False, 'reason': ''}
 
@@ -309,13 +319,14 @@ class ArchitectureValidator:
     def _is_relative_adapter_import(self, import_name: str) -> bool:
         """Check if import is a relative import within the same adapter."""
         # Relative imports (starting with .) or simple module names without dots
-        return (import_name.startswith('.') or 
-                ('.' not in import_name and not import_name.startswith(('shared', 'core', 'adapters'))))
+        return (import_name.startswith('.') or
+                ('.' not in import_name and
+                 not import_name.startswith(('shared', 'core', 'adapters'))))
 
     def _is_relative_shared_import(self, import_name: str) -> bool:
         """Check if import is a relative import within shared utilities."""
         # Relative imports or simple module names like 'cache', 'rate_limiter'
-        return (import_name.startswith('.') or 
+        return (import_name.startswith('.') or
                 import_name in ['cache', 'rate_limiter', 'threading', 'time', 'hashlib', 'ast'])
 
     def _should_skip_file(self, file_path: Path) -> bool:
@@ -357,9 +368,9 @@ def validate_architecture(project_root: str = None,
     if file_path:
         result = validator.validate_file(file_path)
         return validator.generate_report([result])
-    else:
-        results = validator.validate_directory()
-        return validator.generate_report(results)
+
+    results = validator.validate_directory()
+    return validator.generate_report(results)
 
 
 def check_layer_compliance(file_path: str, project_root: str = None) -> bool:

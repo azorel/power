@@ -12,7 +12,7 @@ from collections import deque
 
 
 @dataclass
-class RateLimitStats:
+class RateLimitStats:  # pylint: disable=too-many-instance-attributes
     """Statistics for rate limiting and quota usage."""
 
     requests_this_minute: int = 0
@@ -35,12 +35,16 @@ class RateLimitStats:
             'total_requests': self.total_requests,
             'quota_remaining_daily': self.quota_remaining_daily,
             'quota_remaining_monthly': self.quota_remaining_monthly,
-            'last_request_time': self.last_request_time.isoformat() if self.last_request_time else None,
-            'next_allowed_time': self.next_allowed_time.isoformat() if self.next_allowed_time else None
+            'last_request_time': (
+                self.last_request_time.isoformat() if self.last_request_time else None
+            ),
+            'next_allowed_time': (
+                self.next_allowed_time.isoformat() if self.next_allowed_time else None
+            )
         }
 
 
-class BaseRateLimiter:
+class BaseRateLimiter:  # pylint: disable=too-many-instance-attributes
     """
     Base rate limiter class that adapters can extend.
     Provides thread-safe request throttling and quota management.
@@ -245,7 +249,6 @@ class BaseRateLimiter:
 
             if monthly_limit is not None:
                 self._monthly_quota_limit = monthly_limit
-    
     def get_memory_usage(self) -> Dict[str, int]:
         """Get current memory usage statistics for optimization."""
         with self._lock:
@@ -254,26 +257,25 @@ class BaseRateLimiter:
                 'hour_requests_count': len(self._hour_requests),
                 'day_requests_count': len(self._day_requests),
                 'total_tracked_requests': (
-                    len(self._minute_requests) + 
-                    len(self._hour_requests) + 
+                    len(self._minute_requests) +
+                    len(self._hour_requests) +
                     len(self._day_requests)
                 )
             }
-    
     def optimize_memory(self) -> Dict[str, int]:
         """Optimize memory usage by cleaning up old data."""
         with self._lock:
             before_stats = self.get_memory_usage()
-            
+
             # Force cleanup of all old timestamps
             now = time.time()
             self._cleanup_old_timestamps(now)
-            
+
             after_stats = self.get_memory_usage()
-            
+
             return {
                 'requests_cleaned': (
-                    before_stats['total_tracked_requests'] - 
+                    before_stats['total_tracked_requests'] -
                     after_stats['total_tracked_requests']
                 ),
                 'memory_before': before_stats['total_tracked_requests'],
@@ -283,7 +285,6 @@ class BaseRateLimiter:
     def _cleanup_old_timestamps(self, now: float) -> None:
         """Remove timestamps outside of tracking windows with optimized performance."""
         # Optimize: Use more efficient batch cleanup approach
-        
         # Remove requests older than 1 minute
         if self._minute_requests:
             cutoff_time = now - 60.0
@@ -303,7 +304,7 @@ class BaseRateLimiter:
                 self._day_requests.popleft()
 
 
-class AdaptiveRateLimiter(BaseRateLimiter):
+class AdaptiveRateLimiter(BaseRateLimiter):  # pylint: disable=too-many-instance-attributes
     """
     Rate limiter that adapts to API response patterns.
     Automatically adjusts rates based on 429 errors and server load.
