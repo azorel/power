@@ -1,0 +1,121 @@
+{
+  "status": "success",
+  "summary": {
+    "total_adapters": 2,
+    "compliant_adapters": 2,
+    "compliance_rate": 1.0,
+    "all_compliant": true
+  },
+  "results": [
+    {
+      "adapter_name": "openai_api",
+      "client_class": "OpenAIUnifiedClient",
+      "is_compliant": true,
+      "interfaces": [
+        "LLMProvider",
+        "MultiModalLLMProvider",
+        "StreamingLLMProvider",
+        "FunctionCallingLLMProvider",
+        "AdvancedLLMProvider"
+      ],
+      "methods": {
+        "generate_text": {
+          "implemented": true,
+          "description": "Generate text from prompt",
+          "is_property": false
+        },
+        "generate_chat_completion": {
+          "implemented": true,
+          "description": "Generate chat completion",
+          "is_property": false
+        },
+        "get_model_info": {
+          "implemented": true,
+          "description": "Get model information",
+          "is_property": false
+        },
+        "validate_credentials": {
+          "implemented": true,
+          "description": "Validate API credentials",
+          "is_property": false
+        },
+        "get_usage_stats": {
+          "implemented": true,
+          "description": "Get usage statistics",
+          "is_property": false
+        },
+        "provider_name": {
+          "implemented": true,
+          "description": "Provider name property",
+          "is_property": true
+        },
+        "supported_features": {
+          "implemented": true,
+          "description": "Supported features property",
+          "is_property": true
+        }
+      },
+      "missing_methods": [],
+      "error_handling": true,
+      "details": {
+        "module": "adapters.openai_api.unified_client",
+        "file": "unknown"
+      }
+    },
+    {
+      "adapter_name": "gemini_api",
+      "client_class": "GeminiClient",
+      "is_compliant": true,
+      "interfaces": [
+        "LLMProvider",
+        "MultiModalLLMProvider",
+        "StreamingLLMProvider",
+        "FunctionCallingLLMProvider",
+        "AdvancedLLMProvider"
+      ],
+      "methods": {
+        "generate_text": {
+          "implemented": true,
+          "description": "Generate text from prompt",
+          "is_property": false
+        },
+        "generate_chat_completion": {
+          "implemented": true,
+          "description": "Generate chat completion",
+          "is_property": false
+        },
+        "get_model_info": {
+          "implemented": true,
+          "description": "Get model information",
+          "is_property": false
+        },
+        "validate_credentials": {
+          "implemented": true,
+          "description": "Validate API credentials",
+          "is_property": false
+        },
+        "get_usage_stats": {
+          "implemented": true,
+          "description": "Get usage statistics",
+          "is_property": false
+        },
+        "provider_name": {
+          "implemented": true,
+          "description": "Provider name property",
+          "is_property": true
+        },
+        "supported_features": {
+          "implemented": true,
+          "description": "Supported features property",
+          "is_property": true
+        }
+      },
+      "missing_methods": [],
+      "error_handling": true,
+      "details": {
+        "module": "adapters.gemini_api.unified_client",
+        "file": "unknown"
+      }
+    }
+  ]
+}

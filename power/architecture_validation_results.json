@@ -1,0 +1,1040 @@
+{
+  "layer_compliance": {
+    "summary": {
+      "total_files": 42,
+      "valid_files": 42,
+      "invalid_files": 0,
+      "total_errors": 0,
+      "total_warnings": 73,
+      "compliance_rate": 1.0
+    },
+    "layer_stats": {
+      "core": {
+        "total_files": 0,
+        "valid_files": 0,
+        "errors": 0,
+        "warnings": 0
+      },
+      "adapters": {
+        "total_files": 26,
+        "valid_files": 26,
+        "errors": 0,
+        "warnings": 62
+      },
+      "shared": {
+        "total_files": 13,
+        "valid_files": 13,
+        "errors": 0,
+        "warnings": 8
+      }
+    },
+    "results": [
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/shared/__init__.py",
+        "layer": "shared"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/shared/exceptions.py",
+        "layer": "shared"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/__init__.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "File scripts/validate_interfaces.py is not in any defined layer"
+        ],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/scripts/validate_interfaces.py",
+        "layer": null
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "File scripts/validate_architecture.py is not in any defined layer"
+        ],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/scripts/validate_architecture.py",
+        "layer": null
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "File scripts/comprehensive_compliance_report.py is not in any defined layer"
+        ],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/scripts/comprehensive_compliance_report.py",
+        "layer": null
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/shared/config/base_config.py",
+        "layer": "shared"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/shared/config/__init__.py",
+        "layer": "shared"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/shared/interfaces/__init__.py",
+        "layer": "shared"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/shared/interfaces/llm_provider.py",
+        "layer": "shared"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'cache.cache_response' in shared layer: Import not in allowed patterns for shared layer",
+          "Suspicious import 'cache.CacheStats' in shared layer: Import not in allowed patterns for shared layer",
+          "Suspicious import 'cache.generate_cache_key' in shared layer: Import not in allowed patterns for shared layer",
+          "Suspicious import 'rate_limiter.AdaptiveRateLimiter' in shared layer: Import not in allowed patterns for shared layer",
+          "Suspicious import 'rate_limiter.BaseRateLimiter' in shared layer: Import not in allowed patterns for shared layer",
+          "Suspicious import 'cache.ResponseCache' in shared layer: Import not in allowed patterns for shared layer",
+          "Suspicious import 'cache.get_global_cache' in shared layer: Import not in allowed patterns for shared layer",
+          "Suspicious import 'rate_limiter.RateLimitStats' in shared layer: Import not in allowed patterns for shared layer"
+        ],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/shared/utils/__init__.py",
+        "layer": "shared"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/shared/utils/rate_limiter.py",
+        "layer": "shared"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/shared/utils/architecture_validator.py",
+        "layer": "shared"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/shared/utils/cache.py",
+        "layer": "shared"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/shared/models/__init__.py",
+        "layer": "shared"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/shared/models/llm_response.py",
+        "layer": "shared"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/shared/models/llm_request.py",
+        "layer": "shared"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'base_client.BaseOpenAIClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'data_mapper.OpenAIDataMapper' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/function_client.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'base_client.BaseOpenAIClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'data_mapper.OpenAIDataMapper' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'PIL.Image' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/multimodal_client.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/data_mapper.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'rate_limiter.OpenAIRateLimiter' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'text_client.OpenAITextClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'chat_client.OpenAIChatClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'multimodal_client.OpenAIMultimodalClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'exceptions.OpenAIExceptionMapper' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'data_mapper.OpenAIDataMapper' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'unified_client.OpenAIUnifiedClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'streaming_client.OpenAIStreamingClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'config.OpenAIConfig' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'function_client.OpenAIFunctionClient' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/__init__.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'base_client.BaseOpenAIClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'data_mapper.OpenAIDataMapper' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/chat_client.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'base_client.BaseOpenAIClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'data_mapper.OpenAIDataMapper' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'chat_client.OpenAIChatClient' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/text_client.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'config.OpenAIConfig' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/rate_limiter.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'data_mapper.OpenAIDataMapper' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'base_client.BaseOpenAIClient' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/streaming_client.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/exceptions.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'text_client.OpenAITextClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'chat_client.OpenAIChatClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'multimodal_client.OpenAIMultimodalClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'streaming_client.OpenAIStreamingClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'config.OpenAIConfig' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'function_client.OpenAIFunctionClient' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/unified_client.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/config.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'rate_limiter.OpenAIRateLimiter' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'exceptions.is_retriable_openai_error' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'exceptions.get_retry_delay_for_openai_error' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'exceptions.OpenAIExceptionMapper' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'config.OpenAIConfig' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/base_client.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'base_client.GeminiBaseClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'exceptions.wrap_gemini_call' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/function_client.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'base_client.GeminiBaseClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'exceptions.wrap_gemini_call' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/multimodal_client.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'unified_client.GeminiClient' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/client.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'config.GeminiConfig' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/data_mapper.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'client.GeminiClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'config.GeminiConfig' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'exceptions.GeminiExceptionMapper' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'data_mapper.GeminiDataMapper' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'rate_limiter.GeminiRateLimiter' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'exceptions.handle_gemini_exception' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/__init__.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'base_client.GeminiBaseClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'exceptions.wrap_gemini_call' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/chat_client.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'base_client.GeminiBaseClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'exceptions.wrap_gemini_call' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/text_client.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'config.GeminiConfig' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/rate_limiter.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'base_client.GeminiBaseClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'exceptions.wrap_gemini_call' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/streaming_client.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/exceptions.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'text_client.GeminiTextClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'function_client.GeminiFunctionClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'chat_client.GeminiChatClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'multimodal_client.GeminiMultimodalClient' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'streaming_client.GeminiStreamingClient' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/unified_client.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/config.py",
+        "layer": "adapters"
+      },
+      {
+        "is_valid": true,
+        "errors": [],
+        "warnings": [
+          "Suspicious import 'config.GeminiConfig' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'rate_limiter.GeminiRateLimiter' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'exceptions.handle_gemini_exception' in adapters layer: Import not in allowed patterns for adapters layer",
+          "Suspicious import 'data_mapper.GeminiDataMapper' in adapters layer: Import not in allowed patterns for adapters layer"
+        ],
+        "file_path": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/base_client.py",
+        "layer": "adapters"
+      }
+    ]
+  },
+  "interface_implementation": {
+    "adapters_checked": 3,
+    "interfaces_implemented": 2,
+    "missing_implementations": [
+      {
+        "adapter": "__pycache__",
+        "description": "No LLMProvider interface implementation found in __pycache__"
+      }
+    ]
+  },
+  "error_handling": {
+    "files_checked": 23,
+    "proper_exception_usage": 7,
+    "missing_error_translation": [
+      "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/function_client.py",
+      "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/multimodal_client.py",
+      "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/data_mapper.py",
+      "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/chat_client.py",
+      "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/text_client.py",
+      "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/rate_limiter.py",
+      "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/config.py",
+      "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/function_client.py",
+      "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/multimodal_client.py",
+      "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/client.py",
+      "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/data_mapper.py",
+      "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/chat_client.py",
+      "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/rate_limiter.py",
+      "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/streaming_client.py",
+      "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/unified_client.py",
+      "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/config.py"
+    ]
+  },
+  "configuration_isolation": {
+    "config_files_found": 5,
+    "proper_isolation": 0,
+    "isolation_violations": [
+      {
+        "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/shared/config/base_config.py",
+        "description": "Configuration file may not follow isolation patterns"
+      },
+      {
+        "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/config.py",
+        "description": "Configuration file may not follow isolation patterns"
+      },
+      {
+        "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/config.py",
+        "description": "Configuration file may not follow isolation patterns"
+      },
+      {
+        "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/config.py",
+        "description": "Configuration file may not follow isolation patterns"
+      },
+      {
+        "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/config.py",
+        "description": "Configuration file may not follow isolation patterns"
+      }
+    ]
+  },
+  "summary": {
+    "total_violations": 1,
+    "total_warnings": 94,
+    "is_compliant": false
+  },
+  "violations": [
+    {
+      "type": "interface_implementation",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/__pycache__",
+      "description": "No LLMProvider interface implementation found in __pycache__"
+    }
+  ],
+  "warnings": [
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/scripts/validate_interfaces.py",
+      "layer": null,
+      "description": "File scripts/validate_interfaces.py is not in any defined layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/scripts/validate_architecture.py",
+      "layer": null,
+      "description": "File scripts/validate_architecture.py is not in any defined layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/scripts/comprehensive_compliance_report.py",
+      "layer": null,
+      "description": "File scripts/comprehensive_compliance_report.py is not in any defined layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/shared/utils/__init__.py",
+      "layer": "shared",
+      "description": "Suspicious import 'cache.cache_response' in shared layer: Import not in allowed patterns for shared layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/shared/utils/__init__.py",
+      "layer": "shared",
+      "description": "Suspicious import 'cache.CacheStats' in shared layer: Import not in allowed patterns for shared layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/shared/utils/__init__.py",
+      "layer": "shared",
+      "description": "Suspicious import 'cache.generate_cache_key' in shared layer: Import not in allowed patterns for shared layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/shared/utils/__init__.py",
+      "layer": "shared",
+      "description": "Suspicious import 'rate_limiter.AdaptiveRateLimiter' in shared layer: Import not in allowed patterns for shared layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/shared/utils/__init__.py",
+      "layer": "shared",
+      "description": "Suspicious import 'rate_limiter.BaseRateLimiter' in shared layer: Import not in allowed patterns for shared layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/shared/utils/__init__.py",
+      "layer": "shared",
+      "description": "Suspicious import 'cache.ResponseCache' in shared layer: Import not in allowed patterns for shared layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/shared/utils/__init__.py",
+      "layer": "shared",
+      "description": "Suspicious import 'cache.get_global_cache' in shared layer: Import not in allowed patterns for shared layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/shared/utils/__init__.py",
+      "layer": "shared",
+      "description": "Suspicious import 'rate_limiter.RateLimitStats' in shared layer: Import not in allowed patterns for shared layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/function_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'base_client.BaseOpenAIClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/function_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'data_mapper.OpenAIDataMapper' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/multimodal_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'base_client.BaseOpenAIClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/multimodal_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'data_mapper.OpenAIDataMapper' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/multimodal_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'PIL.Image' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/__init__.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'rate_limiter.OpenAIRateLimiter' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/__init__.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'text_client.OpenAITextClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/__init__.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'chat_client.OpenAIChatClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/__init__.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'multimodal_client.OpenAIMultimodalClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/__init__.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'exceptions.OpenAIExceptionMapper' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/__init__.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'data_mapper.OpenAIDataMapper' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/__init__.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'unified_client.OpenAIUnifiedClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/__init__.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'streaming_client.OpenAIStreamingClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/__init__.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'config.OpenAIConfig' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/__init__.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'function_client.OpenAIFunctionClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/chat_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'base_client.BaseOpenAIClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/chat_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'data_mapper.OpenAIDataMapper' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/text_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'base_client.BaseOpenAIClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/text_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'data_mapper.OpenAIDataMapper' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/text_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'chat_client.OpenAIChatClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/rate_limiter.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'config.OpenAIConfig' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/streaming_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'data_mapper.OpenAIDataMapper' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/streaming_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'base_client.BaseOpenAIClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/unified_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'text_client.OpenAITextClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/unified_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'chat_client.OpenAIChatClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/unified_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'multimodal_client.OpenAIMultimodalClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/unified_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'streaming_client.OpenAIStreamingClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/unified_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'config.OpenAIConfig' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/unified_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'function_client.OpenAIFunctionClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/base_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'rate_limiter.OpenAIRateLimiter' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/base_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'exceptions.is_retriable_openai_error' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/base_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'exceptions.get_retry_delay_for_openai_error' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/base_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'exceptions.OpenAIExceptionMapper' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/base_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'config.OpenAIConfig' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/function_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'base_client.GeminiBaseClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/function_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'exceptions.wrap_gemini_call' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/multimodal_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'base_client.GeminiBaseClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/multimodal_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'exceptions.wrap_gemini_call' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'unified_client.GeminiClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/data_mapper.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'config.GeminiConfig' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/__init__.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'client.GeminiClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/__init__.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'config.GeminiConfig' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/__init__.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'exceptions.GeminiExceptionMapper' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/__init__.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'data_mapper.GeminiDataMapper' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/__init__.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'rate_limiter.GeminiRateLimiter' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/__init__.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'exceptions.handle_gemini_exception' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/chat_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'base_client.GeminiBaseClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/chat_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'exceptions.wrap_gemini_call' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/text_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'base_client.GeminiBaseClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/text_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'exceptions.wrap_gemini_call' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/rate_limiter.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'config.GeminiConfig' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/streaming_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'base_client.GeminiBaseClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/streaming_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'exceptions.wrap_gemini_call' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/unified_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'text_client.GeminiTextClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/unified_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'function_client.GeminiFunctionClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/unified_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'chat_client.GeminiChatClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/unified_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'multimodal_client.GeminiMultimodalClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/unified_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'streaming_client.GeminiStreamingClient' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/base_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'config.GeminiConfig' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/base_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'rate_limiter.GeminiRateLimiter' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/base_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'exceptions.handle_gemini_exception' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "layer_compliance",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/base_client.py",
+      "layer": "adapters",
+      "description": "Suspicious import 'data_mapper.GeminiDataMapper' in adapters layer: Import not in allowed patterns for adapters layer"
+    },
+    {
+      "type": "error_handling",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/function_client.py",
+      "description": "Missing proper error translation to shared exceptions"
+    },
+    {
+      "type": "error_handling",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/multimodal_client.py",
+      "description": "Missing proper error translation to shared exceptions"
+    },
+    {
+      "type": "error_handling",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/data_mapper.py",
+      "description": "Missing proper error translation to shared exceptions"
+    },
+    {
+      "type": "error_handling",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/chat_client.py",
+      "description": "Missing proper error translation to shared exceptions"
+    },
+    {
+      "type": "error_handling",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/text_client.py",
+      "description": "Missing proper error translation to shared exceptions"
+    },
+    {
+      "type": "error_handling",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/rate_limiter.py",
+      "description": "Missing proper error translation to shared exceptions"
+    },
+    {
+      "type": "error_handling",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/config.py",
+      "description": "Missing proper error translation to shared exceptions"
+    },
+    {
+      "type": "error_handling",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/function_client.py",
+      "description": "Missing proper error translation to shared exceptions"
+    },
+    {
+      "type": "error_handling",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/multimodal_client.py",
+      "description": "Missing proper error translation to shared exceptions"
+    },
+    {
+      "type": "error_handling",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/client.py",
+      "description": "Missing proper error translation to shared exceptions"
+    },
+    {
+      "type": "error_handling",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/data_mapper.py",
+      "description": "Missing proper error translation to shared exceptions"
+    },
+    {
+      "type": "error_handling",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/chat_client.py",
+      "description": "Missing proper error translation to shared exceptions"
+    },
+    {
+      "type": "error_handling",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/rate_limiter.py",
+      "description": "Missing proper error translation to shared exceptions"
+    },
+    {
+      "type": "error_handling",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/streaming_client.py",
+      "description": "Missing proper error translation to shared exceptions"
+    },
+    {
+      "type": "error_handling",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/unified_client.py",
+      "description": "Missing proper error translation to shared exceptions"
+    },
+    {
+      "type": "error_handling",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/config.py",
+      "description": "Missing proper error translation to shared exceptions"
+    },
+    {
+      "type": "configuration_isolation",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/shared/config/base_config.py",
+      "description": "Configuration file may not follow isolation patterns"
+    },
+    {
+      "type": "configuration_isolation",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/config.py",
+      "description": "Configuration file may not follow isolation patterns"
+    },
+    {
+      "type": "configuration_isolation",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/config.py",
+      "description": "Configuration file may not follow isolation patterns"
+    },
+    {
+      "type": "configuration_isolation",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/openai_api/config.py",
+      "description": "Configuration file may not follow isolation patterns"
+    },
+    {
+      "type": "configuration_isolation",
+      "file": "/home/ikino/dev/power/agents/openai-worker-001/power/power/adapters/gemini_api/config.py",
+      "description": "Configuration file may not follow isolation patterns"
+    }
+  ]
+}
