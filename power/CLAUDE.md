@@ -334,13 +334,13 @@ git checkout main
 
 ## PROJECT OVERVIEW
 
-**Power Builder**: Python development environment with AI capabilities, multi-agent orchestration, and GitHub workflow automation featuring LLM fallback mechanisms.
+**Power Builder**: Python development environment with AI capabilities, multi-agent orchestration, and GitHub workflow automation featuring Claude Sonnet 4/Opus 4 hybrid reasoning and LLM fallback mechanisms.
 
 ### Core Components:
 - **Concurrent Orchestrator**: Task queue manager with priority handling
 - **Agent Workspace System**: Isolated environments with infinite agentic capabilities
 - **Integration Validation**: System-wide compatibility checking
-- **LLM Fallback System**: GPT-4, Gemini Pro, Claude Opus rotation
+- **LLM Fallback System**: Claude Sonnet 4/Opus 4, GPT-4, Gemini Pro rotation
 - **Cross-Validation Engine**: Quality assurance across LLM solutions
 
 ## DEVELOPMENT ENVIRONMENT
@@ -354,6 +354,7 @@ git checkout main
 
 ### Configuration:
 - **Environment Variables**: .env (GitHub token, LLM API keys, Perplexity API)
+- **Claude Sonnet 4/Opus 4**: 64K token context, hybrid reasoning, March 2025 knowledge cutoff
 - **Repository**: azorel/power
 - **Workspace**: agents/ directory for isolated agent operations
 
