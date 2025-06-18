@@ -137,6 +137,10 @@ class CrossLayerImportError(ArchitectureViolationError):
 
 
 # Data validation exceptions
+class ValidationError(PowerBuilderError):
+    """Raised when validation fails."""
+
+
 class DataValidationError(PowerBuilderError):
     """Base exception for data validation errors."""
 
@@ -172,6 +176,16 @@ class CacheMissError(CacheError):
 
 class CacheCorruptionError(CacheError):
     """Raised when cached data is corrupted or invalid."""
+
+
+# Workspace exceptions
+class WorkspaceError(PowerBuilderError):
+    """Base exception for workspace-related errors."""
+
+
+# Integration exceptions
+class IntegrationError(PowerBuilderError):
+    """Base exception for integration-related errors."""
 
 
 # Registry exceptions

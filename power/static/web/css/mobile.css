@@ -1,0 +1,726 @@
+/* PALOS Web Dashboard - Mobile Responsive Styles */
+/* Mobile-first design with progressive enhancement */
+
+/* Mobile Base Styles (up to 768px) */
+@media (max-width: 768px) {
+    
+    /* App Layout for Mobile */
+    .app-container {
+        grid-template-areas:
+            "header"
+            "main"
+            "bottom-nav";
+        grid-template-rows: var(--header-height) 1fr var(--bottom-nav-height);
+        grid-template-columns: 1fr;
+    }
+    
+    /* Hide sidebar on mobile */
+    .sidebar {
+        position: fixed;
+        top: var(--header-height);
+        left: -100%;
+        width: 280px;
+        height: calc(100vh - var(--header-height));
+        z-index: var(--z-modal);
+        transition: left var(--transition-normal);
+        box-shadow: var(--shadow-xl);
+    }
+    
+    .sidebar.active {
+        left: 0;
+    }
+    
+    /* Show mobile menu toggle */
+    .menu-toggle {
+        display: flex;
+    }
+    
+    /* Mobile navigation */
+    .top-nav {
+        padding: 0 var(--spacing-md);
+    }
+    
+    .nav-actions {
+        gap: var(--spacing-xs);
+    }
+    
+    .nav-btn {
+        width: 36px;
+        height: 36px;
+    }
+    
+    /* Hide user name on small screens */
+    .user-name {
+        display: none;
+    }
+    
+    /* Show bottom navigation */
+    .bottom-nav {
+        display: flex;
+        position: sticky;
+        bottom: 0;
+        z-index: var(--z-sticky);
+    }
+    
+    /* Adjust main content padding */
+    .main-content {
+        padding: var(--spacing-md);
+    }
+    
+    /* Page header adjustments */
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-md);
+    }
+    
+    .page-actions {
+        width: 100%;
+        justify-content: flex-start;
+    }
+    
+    /* Stats grid - stack on mobile */
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+    
+    .stat-card {
+        padding: var(--spacing-md);
+    }
+    
+    .stat-value {
+        font-size: var(--font-size-2xl);
+    }
+    
+    /* Quick actions - 2 columns on mobile */
+    .quick-actions {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-sm);
+    }
+    
+    .quick-action {
+        padding: var(--spacing-md);
+    }
+    
+    .quick-action .icon {
+        font-size: var(--font-size-xl);
+    }
+    
+    .quick-action h3 {
+        font-size: var(--font-size-base);
+    }
+    
+    .quick-action p {
+        font-size: var(--font-size-xs);
+    }
+    
+    /* Activity feed adjustments */
+    .activity-item {
+        padding: var(--spacing-md);
+        gap: var(--spacing-sm);
+    }
+    
+    .activity-icon {
+        width: 32px;
+        height: 32px;
+        font-size: var(--font-size-base);
+    }
+    
+    .activity-title {
+        font-size: var(--font-size-sm);
+    }
+    
+    .activity-description {
+        font-size: var(--font-size-xs);
+    }
+    
+    /* Modal adjustments */
+    .modal {
+        padding: var(--spacing-md);
+    }
+    
+    .modal-content {
+        max-width: none;
+        margin: 0;
+    }
+    
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+        padding: var(--spacing-md);
+    }
+    
+    /* Form adjustments */
+    .form-group {
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        padding: var(--spacing-md);
+        font-size: 16px; /* Prevent zoom on iOS */
+    }
+    
+    /* Button adjustments */
+    .btn {
+        min-height: 44px; /* iOS touch target */
+        padding: var(--spacing-md) var(--spacing-lg);
+    }
+    
+    .btn-sm {
+        min-height: 36px;
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+    
+    .btn-lg {
+        min-height: 52px;
+        padding: var(--spacing-lg) var(--spacing-xl);
+    }
+    
+    /* Notifications panel - full width on mobile */
+    .notifications-panel {
+        right: -100%;
+        width: 100%;
+        max-width: 400px;
+    }
+    
+    /* Toast notifications - full width */
+    .toast-container {
+        top: calc(var(--header-height) + var(--spacing-sm));
+        right: var(--spacing-sm);
+        left: var(--spacing-sm);
+    }
+    
+    .toast {
+        max-width: none;
+    }
+    
+    /* Calendar specific mobile styles */
+    .calendar-container {
+        overflow-x: auto;
+    }
+    
+    .calendar-grid {
+        min-width: 280px;
+    }
+    
+    .calendar-header {
+        flex-wrap: nowrap;
+        justify-content: space-between;
+    }
+    
+    .calendar-header h2 {
+        font-size: var(--font-size-lg);
+        margin: 0;
+    }
+    
+    /* Task list mobile styles */
+    .task-filters {
+        display: flex;
+        overflow-x: auto;
+        gap: var(--spacing-sm);
+        margin-bottom: var(--spacing-md);
+        padding-bottom: var(--spacing-sm);
+    }
+    
+    .filter-btn {
+        flex-shrink: 0;
+        padding: var(--spacing-sm) var(--spacing-md);
+        border: 1px solid var(--border-primary);
+        border-radius: var(--border-radius-full);
+        background-color: var(--bg-primary);
+        color: var(--text-secondary);
+        font-size: var(--font-size-sm);
+        cursor: pointer;
+        transition: all var(--transition-fast);
+        white-space: nowrap;
+    }
+    
+    .filter-btn.active {
+        background-color: var(--primary-color);
+        color: var(--text-inverse);
+        border-color: var(--primary-color);
+    }
+    
+    /* Health metrics mobile layout */
+    .metric-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: var(--spacing-sm);
+    }
+    
+    .metric-card {
+        padding: var(--spacing-md);
+        text-align: center;
+        background-color: var(--bg-primary);
+        border: 1px solid var(--border-primary);
+        border-radius: var(--border-radius-lg);
+    }
+    
+    .metric-card h3 {
+        font-size: var(--font-size-sm);
+        margin-bottom: var(--spacing-sm);
+        color: var(--text-secondary);
+    }
+    
+    .metric-value {
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-bold);
+        color: var(--text-primary);
+        margin-bottom: var(--spacing-xs);
+    }
+    
+    .metric-goal {
+        font-size: var(--font-size-xs);
+        color: var(--text-tertiary);
+    }
+    
+    /* Finance summary mobile layout */
+    .summary-cards {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+    }
+    
+    .summary-card {
+        padding: var(--spacing-md);
+        background-color: var(--bg-primary);
+        border: 1px solid var(--border-primary);
+        border-radius: var(--border-radius-lg);
+        text-align: center;
+    }
+    
+    .summary-card h3 {
+        font-size: var(--font-size-sm);
+        margin-bottom: var(--spacing-sm);
+        color: var(--text-secondary);
+    }
+    
+    .summary-value {
+        font-size: var(--font-size-xl);
+        font-weight: var(--font-weight-bold);
+        color: var(--text-primary);
+    }
+    
+    /* Social accounts mobile grid */
+    .accounts-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-sm);
+    }
+    
+    /* Agents grid mobile layout */
+    .agents-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+    
+    /* Lists mobile adjustments */
+    .task-list,
+    .events-list,
+    .metrics-list,
+    .transactions-list,
+    .posts-list {
+        background-color: var(--bg-primary);
+        border: 1px solid var(--border-primary);
+        border-radius: var(--border-radius-lg);
+        overflow: hidden;
+    }
+    
+    .list-item {
+        padding: var(--spacing-md);
+        border-bottom: 1px solid var(--border-primary);
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+    }
+    
+    .list-item:last-child {
+        border-bottom: none;
+    }
+    
+    .list-item-content {
+        flex: 1;
+        min-width: 0; /* Allow text truncation */
+    }
+    
+    .list-item-title {
+        font-weight: var(--font-weight-medium);
+        margin-bottom: var(--spacing-xs);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    
+    .list-item-subtitle {
+        font-size: var(--font-size-sm);
+        color: var(--text-secondary);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    
+    .list-item-action {
+        flex-shrink: 0;
+    }
+}
+
+/* Small mobile devices (up to 480px) */
+@media (max-width: 480px) {
+    
+    :root {
+        --spacing-xs: 0.25rem;
+        --spacing-sm: 0.5rem;
+        --spacing-md: 0.75rem;
+        --spacing-lg: 1rem;
+        --spacing-xl: 1.5rem;
+        --spacing-2xl: 2rem;
+        --spacing-3xl: 2.5rem;
+    }
+    
+    /* Further reduce padding on very small screens */
+    .main-content {
+        padding: var(--spacing-sm);
+    }
+    
+    .top-nav {
+        padding: 0 var(--spacing-sm);
+    }
+    
+    /* Smaller stat cards */
+    .stat-card {
+        padding: var(--spacing-sm);
+    }
+    
+    .stat-value {
+        font-size: var(--font-size-xl);
+    }
+    
+    /* Single column quick actions */
+    .quick-actions {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Smaller modal */
+    .modal {
+        padding: var(--spacing-sm);
+    }
+    
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+        padding: var(--spacing-sm);
+    }
+    
+    /* Smaller buttons */
+    .btn {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: var(--font-size-sm);
+    }
+    
+    /* Smaller page headers */
+    .page-header h1 {
+        font-size: var(--font-size-2xl);
+    }
+    
+    /* Compact list items */
+    .list-item {
+        padding: var(--spacing-sm);
+    }
+    
+    .activity-item {
+        padding: var(--spacing-sm);
+    }
+    
+    .activity-icon {
+        width: 28px;
+        height: 28px;
+        font-size: var(--font-size-sm);
+    }
+    
+    /* Single column metric cards on very small screens */
+    .metric-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Stack bottom nav labels on very small screens */
+    .bottom-nav-item {
+        gap: 2px;
+    }
+    
+    .nav-label {
+        font-size: 10px;
+    }
+}
+
+/* Touch-specific improvements */
+@media (pointer: coarse) {
+    
+    /* Larger touch targets */
+    .nav-btn {
+        min-width: 44px;
+        min-height: 44px;
+    }
+    
+    .btn {
+        min-height: 44px;
+    }
+    
+    .btn-sm {
+        min-height: 36px;
+    }
+    
+    .nav-link {
+        min-height: 44px;
+    }
+    
+    .bottom-nav-item {
+        min-height: 44px;
+    }
+    
+    .dropdown-item {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+    }
+    
+    /* Prevent text selection on touch */
+    .nav-btn,
+    .btn,
+    .nav-link,
+    .bottom-nav-item,
+    .quick-action {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    
+    /* Improve scroll behavior */
+    .main-content,
+    .sidebar,
+    .notifications-panel {
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Landscape mobile optimizations */
+@media (max-width: 768px) and (orientation: landscape) {
+    
+    /* Reduce header height in landscape */
+    :root {
+        --header-height: 50px;
+        --bottom-nav-height: 60px;
+    }
+    
+    /* More compact spacing */
+    .main-content {
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+    
+    .page-header {
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    /* Horizontal layout for stats in landscape */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* More columns for quick actions */
+    .quick-actions {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    /* Reduce modal size */
+    .modal-content {
+        max-height: 80vh;
+    }
+}
+
+/* Tablet portrait (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    
+    /* Tablet layout - sidebar hidden by default */
+    .app-container {
+        grid-template-areas:
+            "header header"
+            "main main";
+        grid-template-rows: var(--header-height) 1fr;
+        grid-template-columns: 1fr;
+    }
+    
+    .sidebar {
+        position: fixed;
+        top: var(--header-height);
+        left: -100%;
+        width: 300px;
+        height: calc(100vh - var(--header-height));
+        z-index: var(--z-modal);
+        transition: left var(--transition-normal);
+        box-shadow: var(--shadow-xl);
+    }
+    
+    .sidebar.active {
+        left: 0;
+    }
+    
+    /* Show menu toggle on tablet */
+    .menu-toggle {
+        display: flex;
+    }
+    
+    /* Hide bottom navigation on tablet */
+    .bottom-nav {
+        display: none;
+    }
+    
+    /* Tablet grid layouts */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .quick-actions {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .metric-cards {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .accounts-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .agents-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Larger modal on tablet */
+    .modal-content {
+        max-width: 500px;
+    }
+    
+    /* Notifications panel width */
+    .notifications-panel {
+        width: 350px;
+        right: -350px;
+    }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    
+    /* Crisp borders on high DPI */
+    .stat-card,
+    .quick-action,
+    .activity-feed,
+    .modal-content,
+    .btn,
+    input,
+    textarea,
+    select {
+        border-width: 0.5px;
+    }
+}
+
+/* Dark mode adjustments for mobile */
+@media (max-width: 768px) {
+    [data-theme="dark"] {
+        
+        /* Darker backgrounds for better OLED efficiency */
+        --bg-primary: #000000;
+        --bg-secondary: #111111;
+        --bg-tertiary: #1a1a1a;
+        
+        /* Adjust mobile specific elements */
+        .bottom-nav {
+            background-color: var(--bg-primary);
+            border-top-color: var(--gray-800);
+        }
+        
+        .sidebar {
+            background-color: var(--bg-primary);
+            border-right-color: var(--gray-800);
+        }
+        
+        /* Improve contrast for small text */
+        .nav-label {
+            color: var(--gray-300);
+        }
+        
+        .list-item-subtitle,
+        .activity-description,
+        .notification-message {
+            color: var(--gray-400);
+        }
+    }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .loading-spinner {
+        animation: none;
+        border: 4px solid var(--gray-200);
+        border-top: 4px solid var(--primary-color);
+    }
+}
+
+/* Print styles */
+@media print {
+    
+    .top-nav,
+    .sidebar,
+    .bottom-nav,
+    .notifications-panel,
+    .toast-container,
+    .offline-indicator,
+    .modal {
+        display: none !important;
+    }
+    
+    .app-container {
+        grid-template-areas: "main";
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr;
+    }
+    
+    .main-content {
+        padding: 0;
+        background-color: white;
+    }
+    
+    .page {
+        display: block !important;
+    }
+    
+    .page:not(.active) {
+        display: none !important;
+    }
+    
+    /* Print-friendly colors */
+    * {
+        color: black !important;
+        background-color: white !important;
+        box-shadow: none !important;
+    }
+    
+    .stat-card,
+    .quick-action,
+    .activity-feed {
+        border: 1px solid #ccc !important;
+    }
+}

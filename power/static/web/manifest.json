@@ -1,0 +1,193 @@
+{
+  "name": "PALOS - Personal Autonomous Life Operating System",
+  "short_name": "PALOS",
+  "description": "Comprehensive web dashboard for managing all aspects of personal life through AI-powered autonomous agents and intelligent automation",
+  "start_url": "/static/web/index.html",
+  "display": "standalone",
+  "background_color": "#4F46E5",
+  "theme_color": "#4F46E5",
+  "orientation": "portrait-primary",
+  "categories": ["productivity", "lifestyle", "health", "finance", "social"],
+  "lang": "en",
+  "scope": "/static/web/",
+  
+  "icons": [
+    {
+      "src": "icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  
+  "screenshots": [
+    {
+      "src": "images/screenshot-mobile-1.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "platform": "narrow"
+    },
+    {
+      "src": "images/screenshot-mobile-2.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "platform": "narrow"
+    },
+    {
+      "src": "images/screenshot-desktop-1.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "platform": "wide"
+    },
+    {
+      "src": "images/screenshot-desktop-2.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "platform": "wide"
+    }
+  ],
+  
+  "features": [
+    "Cross Platform",
+    "Fast",
+    "Simple"
+  ],
+  
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "description": "View your personal dashboard",
+      "url": "/static/web/index.html#dashboard",
+      "icons": [
+        {
+          "src": "icons/shortcut-dashboard.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Add Task",
+      "short_name": "Add Task",
+      "description": "Create a new task",
+      "url": "/static/web/index.html#tasks",
+      "icons": [
+        {
+          "src": "icons/shortcut-task.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Calendar",
+      "short_name": "Calendar",
+      "description": "View your calendar and events",
+      "url": "/static/web/index.html#calendar",
+      "icons": [
+        {
+          "src": "icons/shortcut-calendar.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Health",
+      "short_name": "Health",
+      "description": "Track your health metrics",
+      "url": "/static/web/index.html#health",
+      "icons": [
+        {
+          "src": "icons/shortcut-health.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "/static/web/manifest.json"
+    }
+  ],
+  
+  "prefer_related_applications": false,
+  
+  "file_handlers": [
+    {
+      "action": "/static/web/index.html#import",
+      "accept": {
+        "text/csv": [".csv"],
+        "application/json": [".json"],
+        "text/calendar": [".ics"]
+      }
+    }
+  ],
+  
+  "protocol_handlers": [
+    {
+      "protocol": "palos",
+      "url": "/static/web/index.html?action=%s"
+    }
+  ],
+  
+  "share_target": {
+    "action": "/static/web/index.html#share",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}
