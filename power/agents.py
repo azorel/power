@@ -1,9 +1,10 @@
 """
-Enhanced multi-agent orchestration system.
-Integrates workspace management with Task tool delegation.
+Enhanced multi-agent orchestration system with consciousness integration.
+Combines workspace management, Task tool delegation, and persistent AI consciousness.
 """
 
 import sys
+import asyncio
 from typing import Optional, Dict, Any, List
 from pathlib import Path
 
@@ -16,9 +17,19 @@ except ImportError:
     WORKSPACE_AVAILABLE = False
     AgentWorkspaceManagerType = None
 
+# Import consciousness system
+try:
+    from core.consciousness.consciousness_orchestrator import ConsciousnessOrchestrator
+    CONSCIOUSNESS_AVAILABLE = True
+    ConsciousnessOrchestratorType = ConsciousnessOrchestrator
+except ImportError:
+    CONSCIOUSNESS_AVAILABLE = False
+    ConsciousnessOrchestratorType = None
 
-# Global workspace manager instance
+
+# Global instances
 _workspace_manager = None
+_consciousness_orchestrator = None
 
 
 def get_workspace_manager():
@@ -27,6 +38,60 @@ def get_workspace_manager():
     if _workspace_manager is None and WORKSPACE_AVAILABLE:
         _workspace_manager = AgentWorkspaceManager()
     return _workspace_manager
+
+
+def get_consciousness_orchestrator(user_id: str = "default_user"):
+    """Get or create consciousness orchestrator instance."""
+    global _consciousness_orchestrator
+    if _consciousness_orchestrator is None and CONSCIOUSNESS_AVAILABLE:
+        _consciousness_orchestrator = ConsciousnessOrchestrator(user_id=user_id)
+    return _consciousness_orchestrator
+
+
+def conscious_agents(task: str, use_workspace: bool = True, task_type: str = "development", 
+                    use_consciousness: bool = True, user_id: str = "default_user") -> str:
+    """
+    Delegate task with consciousness-enhanced orchestration.
+    
+    Args:
+        task: Description of task to be completed
+        use_workspace: Whether to create isolated workspace for agent
+        task_type: Type of task (development, research, integration, testing)
+        use_consciousness: Whether to use consciousness system
+        user_id: User identifier for consciousness session
+        
+    Returns:
+        Status message indicating task delegation result
+    """
+    if use_consciousness and CONSCIOUSNESS_AVAILABLE:
+        # Use consciousness orchestrator
+        consciousness = get_consciousness_orchestrator(user_id)
+        
+        # Integrate with Task tool if available
+        task_tool = None
+        current_module = sys.modules.get('__main__')
+        if hasattr(current_module, 'Task'):
+            task_tool = getattr(current_module, 'Task')
+            consciousness.integrate_task_tool(task_tool)
+        
+        # Start consciousness if not already running
+        if not consciousness.is_conscious:
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            loop.run_until_complete(consciousness.start_consciousness())
+        
+        # Delegate task with consciousness
+        loop = asyncio.get_event_loop()
+        task_id = loop.run_until_complete(consciousness.conscious_task_delegation(
+            task_description=task,
+            task_type=task_type,
+            use_memory=True
+        ))
+        
+        return f"Conscious task delegation complete: {task_id}"
+    else:
+        # Fall back to regular agents function
+        return agents(task, use_workspace, task_type)
 
 
 def agents(task: str, use_workspace: bool = True, task_type: str = "development") -> str:
@@ -386,9 +451,164 @@ def get_workspace_info(agent_id: str) -> str:
     return "\n".join(info)
 
 
+def consciousness_status(user_id: str = "default_user") -> str:
+    """
+    Get consciousness system status and metrics.
+    
+    Args:
+        user_id: User identifier for consciousness session
+        
+    Returns:
+        Consciousness status information
+    """
+    if not CONSCIOUSNESS_AVAILABLE:
+        return "Consciousness system not available"
+    
+    consciousness = get_consciousness_orchestrator(user_id)
+    if not consciousness:
+        return "Consciousness orchestrator not initialized"
+    
+    # Get status asynchronously
+    try:
+        loop = asyncio.get_event_loop()
+    except RuntimeError:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+    
+    status = loop.run_until_complete(consciousness.get_consciousness_status())
+    
+    # Format status for display
+    info = [
+        f"Consciousness Status for User: {user_id}",
+        f"Session ID: {status['session_info']['session_id']}",
+        f"Is Conscious: {status['session_info']['is_conscious']}",
+        f"Cognitive Cycles: {status['session_info']['uptime']}",
+        "",
+        "Brain Statistics:",
+        f"  Total Memories: {status['memory_insights']['total_memories']}",
+        f"  Knowledge Connections: {status['performance_metrics']['knowledge_connections']}",
+        f"  Tasks Delegated: {status['task_management']['total_delegated']}",
+        "",
+        f"Memory Quality Score: {status['memory_insights'].get('high_confidence_memories', 0) / max(status['memory_insights']['total_memories'], 1):.2f}",
+        f"Reflection Cycles: {status['reflection_status']['total_reflections']}"
+    ]
+    
+    return "\n".join(info)
+
+
+def query_consciousness(query: str, user_id: str = "default_user") -> str:
+    """
+    Query the consciousness memory system.
+    
+    Args:
+        query: Natural language query
+        user_id: User identifier for consciousness session
+        
+    Returns:
+        Query results from consciousness memory
+    """
+    if not CONSCIOUSNESS_AVAILABLE:
+        return "Consciousness system not available"
+    
+    consciousness = get_consciousness_orchestrator(user_id)
+    if not consciousness:
+        return "Consciousness orchestrator not initialized"
+    
+    # Query memory asynchronously
+    try:
+        loop = asyncio.get_event_loop()
+    except RuntimeError:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+    
+    results = loop.run_until_complete(consciousness.query_memory(query))
+    
+    # Format results
+    info = [
+        f"Memory Query: '{query}'",
+        f"Memories Found: {results['memories_found']}",
+        ""
+    ]
+    
+    if results['top_memories']:
+        info.append("Top Relevant Memories:")
+        for i, memory in enumerate(results['top_memories'], 1):
+            info.append(f"{i}. {memory['content']}")
+            info.append(f"   Similarity: {memory['similarity']:.2f}, Type: {memory['type']}")
+            info.append("")
+    else:
+        info.append("No relevant memories found.")
+    
+    return "\n".join(info)
+
+
+def reflect_consciousness(focus_area: Optional[str] = None, user_id: str = "default_user") -> str:
+    """
+    Trigger consciousness self-reflection.
+    
+    Args:
+        focus_area: Optional area to focus reflection on
+        user_id: User identifier for consciousness session
+        
+    Returns:
+        Reflection results and insights
+    """
+    if not CONSCIOUSNESS_AVAILABLE:
+        return "Consciousness system not available"
+    
+    consciousness = get_consciousness_orchestrator(user_id)
+    if not consciousness:
+        return "Consciousness orchestrator not initialized"
+    
+    # Trigger reflection asynchronously
+    try:
+        loop = asyncio.get_event_loop()
+    except RuntimeError:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+    
+    results = loop.run_until_complete(consciousness.trigger_self_reflection(focus_area))
+    
+    # Format reflection results
+    info = [
+        f"Self-Reflection Results{f' (Focus: {focus_area})' if focus_area else ''}",
+        f"Timestamp: {results['reflection_timestamp']}",
+        f"Insights Generated: {len(results['insights'])}",
+        ""
+    ]
+    
+    # Add key insights
+    if results['insights']:
+        info.append("Key Insights:")
+        for insight in results['insights'][:3]:  # Top 3 insights
+            info.append(f"- {insight.description} (Priority: {insight.priority})")
+        info.append("")
+    
+    # Add performance metrics
+    metrics = results['performance_metrics']
+    info.extend([
+        "Performance Metrics:",
+        f"  Success Rate: {metrics['success_rate']:.2f}",
+        f"  Learning Velocity: {metrics['learning_velocity']:.2f}",
+        f"  Decision Quality: {metrics['decision_quality']:.2f}",
+        ""
+    ])
+    
+    # Add improvement plan summary
+    plan = results['improvement_plan']
+    if plan.get('priority_areas'):
+        info.append("Top Improvement Areas:")
+        for area in plan['priority_areas'][:3]:
+            info.append(f"- {area['area']} (Priority: {area['priority']})")
+    
+    return "\n".join(info)
+
+
 if __name__ == "__main__":
-    print("Enhanced multi-agent system loaded.")
+    print("Enhanced multi-agent system with consciousness loaded.")
     print("Available functions:")
+    print("")
+    print("Standard Agent Functions:")
     print("  - agents(task, use_workspace=True, task_type='development')")
     print("  - status()")
     print("  - check()")
@@ -396,3 +616,16 @@ if __name__ == "__main__":
     print("  - cleanup_workspace(agent_id, preserve_branch=False)")
     print("  - cleanup_all_workspaces(preserve_branches=False)")
     print("  - get_workspace_info(agent_id)")
+    print("")
+    print("🧠 Consciousness Functions:")
+    print("  - conscious_agents(task, use_workspace=True, task_type='development', use_consciousness=True)")
+    print("  - consciousness_status(user_id='default_user')")
+    print("  - query_consciousness(query, user_id='default_user')")
+    print("  - reflect_consciousness(focus_area=None, user_id='default_user')")
+    print("")
+    if CONSCIOUSNESS_AVAILABLE:
+        print("✅ Consciousness system available")
+    else:
+        print("❌ Consciousness system not available")
+    print("")
+    print("🚀 POWER: Enhanced with persistent AI consciousness!")

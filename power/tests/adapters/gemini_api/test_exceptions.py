@@ -14,7 +14,7 @@ from shared.exceptions import (
     ModelNotFoundError,
     InvalidRequestError,
     ContentFilterError,
-    RequestRequestTimeoutError,
+    RequestTimeoutError,
     NetworkError
 )
 
@@ -75,7 +75,7 @@ class TestGeminiExceptionMapper:
 
         translated = GeminiExceptionMapper.translate_exception(timeout_error)
 
-        assert isinstance(translated, RequestRequestTimeoutError)
+        assert isinstance(translated, RequestTimeoutError)
         assert "timed out" in translated.message.lower()
 
     def test_translate_by_message_pattern(self):
@@ -88,7 +88,7 @@ class TestGeminiExceptionMapper:
             ("Too many requests", RateLimitError),
             ("Model gemini-invalid not found", ModelNotFoundError),
             ("Content filtered by safety policies", ContentFilterError),
-            ("Request timeout", RequestRequestTimeoutError),
+            ("Request timeout", RequestTimeoutError),
             ("Connection failed", NetworkError),
             ("Invalid request format", InvalidRequestError)
         ]
@@ -343,11 +343,11 @@ class TestSpecificErrorTypes:
         assert translated.filter_reason == "harassment"
 
     def test_timeout_error_with_timeout_seconds(self):
-        """Test RequestRequestTimeoutError creation with timeout value."""
+        """Test RequestTimeoutError creation with timeout value."""
         error = Exception("Request timeout")
         context = {'timeout': 30}
 
         translated = GeminiExceptionMapper.translate_exception(error, context)
 
-        assert isinstance(translated, RequestRequestTimeoutError)
+        assert isinstance(translated, RequestTimeoutError)
         assert translated.timeout_seconds == 30
