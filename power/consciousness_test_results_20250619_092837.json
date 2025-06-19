@@ -1,0 +1,55 @@
+{
+  "timestamp": "2025-06-19T09:28:37.395668",
+  "tests_passed": 7,
+  "tests_failed": 1,
+  "detailed_results": {
+    "memory_operations": {
+      "success": true,
+      "details": "Stored 2 memories, retrieved 2, total: 411",
+      "error": "",
+      "timestamp": "2025-06-19T09:28:37.407149"
+    },
+    "decision_engine": {
+      "success": true,
+      "details": "All 3 scenarios passed",
+      "error": "",
+      "timestamp": "2025-06-19T09:28:37.407992"
+    },
+    "cognitive_engine": {
+      "success": true,
+      "details": "Cognitive engine initialized and tested successfully",
+      "error": "",
+      "timestamp": "2025-06-19T09:28:37.408175"
+    },
+    "self_reflection": {
+      "success": true,
+      "details": "All reflection methods working: 1 insights, learning quality: 0.0364963503649635",
+      "error": "",
+      "timestamp": "2025-06-19T09:28:37.409088"
+    },
+    "knowledge_graph": {
+      "success": true,
+      "details": "Knowledge graph working: 1 related concepts, insights generated",
+      "error": "",
+      "timestamp": "2025-06-19T09:28:37.410744"
+    },
+    "memory_search": {
+      "success": false,
+      "details": "",
+      "error": "Memory search returned no results",
+      "timestamp": "2025-06-19T09:28:37.415961"
+    },
+    "enhanced_task_tool": {
+      "success": true,
+      "details": "Task tool working: plan generated, complexity: N/A",
+      "error": "",
+      "timestamp": "2025-06-19T09:28:37.420844"
+    },
+    "persistence": {
+      "success": true,
+      "details": "Persistence working: found memory 'persistence_test_1750350517' in new session",
+      "error": "",
+      "timestamp": "2025-06-19T09:28:37.527109"
+    }
+  }
+}

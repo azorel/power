@@ -100,12 +100,14 @@ class EnhancedMemoryItem:
             metadata=data.get('metadata', {}),
             created_at=datetime.fromisoformat(data['created_at']),
             updated_at=datetime.fromisoformat(data['updated_at']),
-            accessed_at=datetime.fromisoformat(data['accessed_at']) if data.get('accessed_at') else None,
+            accessed_at=datetime.fromisoformat(data['accessed_at']) if data.get(
+                'accessed_at') else None,
             access_count=data.get('access_count', 0),
             relevance_score=data.get('relevance_score', 0.0),
             embedding_vector=data.get('embedding_vector'),
             related_memories=data.get('related_memories', []),
-            expires_at=datetime.fromisoformat(data['expires_at']) if data.get('expires_at') else None
+            expires_at=datetime.fromisoformat(data['expires_at']) if data.get(
+                'expires_at') else None
         )
 
 

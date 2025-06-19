@@ -390,7 +390,7 @@ class PowerBrain:
 
         self.connection.execute(
             """
-            INSERT INTO knowledge_graph
+            INSERT OR REPLACE INTO knowledge_graph
             (edge_id, source_node, target_node, relationship_type, confidence, evidence)
             VALUES (?, ?, ?, ?, ?, ?)
             """,

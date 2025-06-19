@@ -1,0 +1,55 @@
+{
+  "timestamp": "2025-06-19T09:22:48.751845",
+  "tests_passed": 2,
+  "tests_failed": 6,
+  "detailed_results": {
+    "memory_operations": {
+      "success": false,
+      "details": "",
+      "error": "Storage/retrieval failed: mem_20250619_162248_cb52dfd593550334, mem_20250619_162248_331c313c479f09d7, 0",
+      "timestamp": "2025-06-19T09:22:48.759577"
+    },
+    "decision_engine": {
+      "success": true,
+      "details": "All 3 scenarios passed",
+      "error": "",
+      "timestamp": "2025-06-19T09:22:48.760355"
+    },
+    "cognitive_engine": {
+      "success": false,
+      "details": "",
+      "error": "CognitiveContext.__init__() got an unexpected keyword argument 'agent_id'",
+      "timestamp": "2025-06-19T09:22:48.760556"
+    },
+    "self_reflection": {
+      "success": true,
+      "details": "All reflection methods working: 1 insights, learning quality: 0.6896551724137931",
+      "error": "",
+      "timestamp": "2025-06-19T09:22:48.761337"
+    },
+    "knowledge_graph": {
+      "success": false,
+      "details": "",
+      "error": "'KnowledgeGraphTool' object has no attribute 'add_relationship'",
+      "timestamp": "2025-06-19T09:22:48.761512"
+    },
+    "memory_search": {
+      "success": false,
+      "details": "",
+      "error": "'MemorySearchTool' object has no attribute 'semantic_search'",
+      "timestamp": "2025-06-19T09:22:48.764302"
+    },
+    "enhanced_task_tool": {
+      "success": false,
+      "details": "",
+      "error": "'EnhancedTaskTool' object has no attribute 'plan_task_execution'",
+      "timestamp": "2025-06-19T09:22:48.764485"
+    },
+    "persistence": {
+      "success": false,
+      "details": "",
+      "error": "Persistence failed: could not find memory 'persistence_test_1750350168' in new session",
+      "timestamp": "2025-06-19T09:22:48.765899"
+    }
+  }
+}

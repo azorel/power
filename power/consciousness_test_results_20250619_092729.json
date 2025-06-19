@@ -1,0 +1,55 @@
+{
+  "timestamp": "2025-06-19T09:27:29.852508",
+  "tests_passed": 6,
+  "tests_failed": 2,
+  "detailed_results": {
+    "memory_operations": {
+      "success": true,
+      "details": "Stored 2 memories, retrieved 2, total: 405",
+      "error": "",
+      "timestamp": "2025-06-19T09:27:29.867047"
+    },
+    "decision_engine": {
+      "success": true,
+      "details": "All 3 scenarios passed",
+      "error": "",
+      "timestamp": "2025-06-19T09:27:29.868317"
+    },
+    "cognitive_engine": {
+      "success": true,
+      "details": "Cognitive engine initialized and tested successfully",
+      "error": "",
+      "timestamp": "2025-06-19T09:27:29.868496"
+    },
+    "self_reflection": {
+      "success": true,
+      "details": "All reflection methods working: 1 insights, learning quality: 0.03209876543209877",
+      "error": "",
+      "timestamp": "2025-06-19T09:27:29.869409"
+    },
+    "knowledge_graph": {
+      "success": true,
+      "details": "Knowledge graph working: 1 related concepts, insights generated",
+      "error": "",
+      "timestamp": "2025-06-19T09:27:29.870717"
+    },
+    "memory_search": {
+      "success": false,
+      "details": "",
+      "error": "MemorySearchTool.search_by_pattern() got an unexpected keyword argument 'limit'",
+      "timestamp": "2025-06-19T09:27:29.873202"
+    },
+    "enhanced_task_tool": {
+      "success": true,
+      "details": "Task tool working: plan generated, complexity: N/A",
+      "error": "",
+      "timestamp": "2025-06-19T09:27:29.876265"
+    },
+    "persistence": {
+      "success": false,
+      "details": "",
+      "error": "Persistence failed: could not find memory 'persistence_test_1750350449' in new session",
+      "timestamp": "2025-06-19T09:27:29.979649"
+    }
+  }
+}
